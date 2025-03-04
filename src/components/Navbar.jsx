@@ -1,14 +1,20 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import useStoreLogin from "../Routes/useStore"; // Importar el estado global de autenticación
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const { isAuthenticated, logout, setIsAuthenticated } = useStoreLogin(); // Obtén isAuthenticated y logout del estado global
 
   // Función para alternar el menú en dispositivos móviles
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
-
+  const handleLogout = () => {
+    setIsAuthenticated(false); // Actualizamos el estado de autenticación a false
+    localStorage.removeItem("isAuthenticated"); // Limpiamos el estado en localStorage
+    logout(); // Llamamos a la función logout
+  };
   return (
     <nav className="bg-gray-800 p-4">
       {/* Ícono de hamburguesa (solo en dispositivos móviles) */}
@@ -67,16 +73,39 @@ const Navbar = () => {
             Testimonios
           </Link>
         </li>
-        <li>
-          <Link to="/registrate" className="hover:text-gray-300">
-            Regístrate
-          </Link>
-        </li>
-        <li>
-          <Link to="/login" className="hover:text-gray-300">
-            Login
-          </Link>
-        </li>
+
+        {/* Mostrar Regístrate y Login si no está autenticado */}
+        {!isAuthenticated ? (
+          <>
+            <li>
+              <Link to="/registrate" className="hover:text-gray-300">
+                Regístrate
+              </Link>
+            </li>
+            <li>
+              <Link to="/login" className="hover:text-gray-300">
+                Login
+              </Link>
+            </li>
+          </>
+        ) : (
+          // Mostrar Dashboard y Logout si está autenticado
+          <>
+            <li>
+              <Link to="/dashboard" className="hover:text-gray-300">
+                Dashboard
+              </Link>
+            </li>
+            <li>
+              <button
+                onClick={handleLogout} // Al hacer logout, actualizar el estado
+                className="hover:text-gray-300"
+              >
+                Logout
+              </button>
+            </li>
+          </>
+        )}
       </ul>
     </nav>
   );

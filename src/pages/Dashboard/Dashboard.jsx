@@ -1,11 +1,26 @@
-import DashboardLayout from "./DashBoardLayout";
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import useStoreLogin from "../../Routes/useStore";
 
 const Dashboard = () => {
+  const { setIsAuthenticated } = useStoreLogin();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    setIsAuthenticated(false); // Actualizamos el estado global
+    localStorage.removeItem("isAuthenticated"); // Limpiamos el estado en localStorage
+    navigate("/login"); // Redirigimos al login
+  };
+
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <h1 className="text-5xl font-semibold text-gray-800">
-        Bienvenido al Dashboardsssss
-      </h1>
+    <div>
+      <h1>Bienvenido al Dashboard</h1>
+      <button
+        onClick={handleLogout}
+        className="bg-red-500 text-white py-2 px-4 rounded-md"
+      >
+        Cerrar Sesión
+      </button>
     </div>
   );
 };
