@@ -1,4 +1,5 @@
 import SocialLinks from "./CajaRedesSociales";
+import HeaderFooter from "./HeaderFooter";
 
 const Header = () => {
   return (
@@ -33,28 +34,15 @@ const Header = () => {
           </button>
         </div>
 
-        {/* Caja 2 */}
-        <div className="bg-green-500 text-white flex items-center justify-center h-full">
+        {/* Caja 2 - Ocultar en móvil */}
+        <div className="bg-green-500 text-white flex items-center justify-center h-full hidden md:block">
           <h1>Caja 2</h1>
         </div>
 
         <SocialLinks />
       </header>
 
-      {/* Nuevas cajas fuera del Header, centradas en la parte inferior */}
-      <div className="w-full flex justify-center items-center -mt-20 z-50">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-4/5">
-          {/* Caja 3 */}
-          <div className="bg-yellow-500 text-white flex items-center justify-center h-32">
-            <h2>Caja 3</h2>
-          </div>
-
-          {/* Caja 4 */}
-          <div className="bg-purple-500 text-white flex items-center justify-center h-32">
-            <h2>Caja 4</h2>
-          </div>
-        </div>
-      </div>
+      <HeaderFooter />
     </>
   );
 };
