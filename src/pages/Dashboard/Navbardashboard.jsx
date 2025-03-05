@@ -15,6 +15,11 @@ const DashboardNavbar = () => {
     logout();
   };
 
+  // Cerrar el menú cuando se hace clic en un enlace
+  const handleLinkClick = () => {
+    setIsOpen(false); // Cierra el menú
+  };
+
   return (
     <nav className="bg-gray-800 p-4">
       <div className="flex items-center justify-between">
@@ -55,13 +60,18 @@ const DashboardNavbar = () => {
           }`}
         >
           <li>
-            <Link to="/dashboard" className="block hover:text-gray-300">
+            <Link
+              to="/dashboard"
+              onClick={handleLinkClick} // Cierra el menú al hacer clic
+              className="block hover:text-gray-300"
+            >
               Dashboard
             </Link>
           </li>
           <li>
             <Link
               to="/dashboard/calendario"
+              onClick={handleLinkClick} // Cierra el menú al hacer clic
               className="block hover:text-gray-300"
             >
               Calendario
@@ -70,23 +80,36 @@ const DashboardNavbar = () => {
           <li>
             <Link
               to="/dashboard/programas"
+              onClick={handleLinkClick} // Cierra el menú al hacer clic
               className="block hover:text-gray-300"
             >
               Programas
             </Link>
           </li>
           <li>
-            <Link to="/dashboard/retos" className="block hover:text-gray-300">
+            <Link
+              to="/dashboard/retos"
+              onClick={handleLinkClick} // Cierra el menú al hacer clic
+              className="block hover:text-gray-300"
+            >
               Retos
             </Link>
           </li>
           <li>
-            <Link to="/dashboard/blog" className="block hover:text-gray-300">
+            <Link
+              to="/dashboard/blog"
+              onClick={handleLinkClick} // Cierra el menú al hacer clic
+              className="block hover:text-gray-300"
+            >
               Blog
             </Link>
           </li>
           <li>
-            <Link to="/dashboard/soporte" className="block hover:text-gray-300">
+            <Link
+              to="/dashboard/soporte"
+              onClick={handleLinkClick} // Cierra el menú al hacer clic
+              className="block hover:text-gray-300"
+            >
               Soporte
             </Link>
           </li>
@@ -99,6 +122,15 @@ const DashboardNavbar = () => {
             >
               Logout
             </button>
+          </li>
+          <li className="md:hidden">
+            <Link
+              to="/dashboard/miplan"
+              onClick={handleLinkClick} // Cierra el menú al hacer clic
+              className="block w-full px-4 py-2 bg-red-500 rounded-lg hover:bg-red-600"
+            >
+              Mi plan
+            </Link>
           </li>
         </ul>
 
@@ -158,6 +190,16 @@ const DashboardNavbar = () => {
                     >
                       Logout
                     </button>
+                  </li>
+                </ul>
+                <ul>
+                  <li>
+                    <Link
+                      to="/dashboard/miplan"
+                      className="block w-full px-4 py-2 text-left text-red-500 hover:bg-gray-100"
+                    >
+                      Mi plan
+                    </Link>
                   </li>
                 </ul>
               </div>

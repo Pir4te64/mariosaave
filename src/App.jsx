@@ -18,6 +18,8 @@ import Programas from "./pages/Dashboard/Programas";
 import Retos from "./pages/Dashboard/Retos";
 import Blog from "./pages/Dashboard/Blog";
 import Soporte from "./pages/Dashboard/Soporte";
+import BlogPost from "./pages/Dashboard/BlogPost";
+import MiPlan from "./pages/Dashboard/MiPlan";
 
 function App() {
   return (
@@ -97,6 +99,26 @@ function App() {
           <PrivateRoute>
             <DashboardLayout>
               <Soporte />
+            </DashboardLayout>
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/blog/:id"
+        element={
+          <PrivateRoute>
+            <DashboardLayout>
+              <BlogPost />
+            </DashboardLayout>
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/dashboard/miplan"
+        element={
+          <PrivateRoute>
+            <DashboardLayout>
+              <MiPlan />
             </DashboardLayout>
           </PrivateRoute>
         }
