@@ -1,3 +1,12 @@
+@import './styles/fonts.css';
+@import url(https://db.onlinewebfonts.com/c/34f7bdd42e2416027b075117aea12327?family=Jumper+PERSONAL+USE+ONLY+Thin+Italic);
+@import url(https://db.onlinewebfonts.com/c/bb6967a207924f3f94995e91a51ec804?family=AvertaStd-Thin);
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+body {
+    font-family: 'Averta Std', sans-serif;
+  }
+  
