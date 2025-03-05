@@ -8,7 +8,7 @@ import Resultados from "../components/Resultados";
 
 const Inicio = () => {
   return (
-    <main className="min-h-screen bg-gray-100 flex flex-col">
+    <main className="min-h-screen bg-gray-100 flex flex-col overflow-x-hidden">
       <Header />
       <Sobremi />
       <Compromiso />

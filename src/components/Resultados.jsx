@@ -7,7 +7,7 @@ const Resultados = () => {
   return (
     <section className="w-full my-20 flex justify-center items-center">
       <div className="w-11/12 md:w-4/5 text-center">
-        <h2 className="text-5xl font-bold text-gray-800 mb-4">
+        <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold text-gray-800 mb-6">
           Transformaciones reales, resultados visibles...
         </h2>
 

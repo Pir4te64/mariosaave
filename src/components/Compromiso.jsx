@@ -57,20 +57,20 @@ const Compromiso = () => {
               <span className="text-6xl font-bold text-softYellow mr-2">2</span>
               <span className="text-lg font-semibold">Veces campeón</span>
             </div>
-            <p className="text-sm text-center mt-2">
+            <p className="text-sm text-center uppercase mt-2">
               Fisicoculturismo en la Categoría de Peso Ligero 2024
             </p>
           </div>
 
           {/* Países */}
-          <div className="text-white flex flex-col items-center justify-center h-20">
-            <div className="flex items-center mb-2">
+          <div className="text-white flex flex-col items-center justify-center h-20 mt-4 md:mt-0">
+            <div className="flex items-center ">
               <span className="text-6xl font-bold text-softYellow mr-2">
                 <strong className="text-softYellow mr-2 text-6xl">+</strong>6
               </span>
               <span className="text-lg font-semibold">Países</span>
             </div>
-            <p className="text-sm text-center mt-2">
+            <p className="text-sm text-center uppercase mt-2">
               Países con clientes que eligen el método Mario Saave
             </p>
           </div>
