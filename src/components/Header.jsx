@@ -7,7 +7,7 @@ const Header = () => {
       <header className="grid grid-cols-1 md:grid-cols-2 gap-4 p-8 bg-black h-screen relative">
         {/* Caja 1 */}
         <div className=" text-white flex flex-col items-start justify-center h-full p-8 space-y-4">
-          <h2 className="text-3xl font-bold text-softYellow text-left">
+          <h2 className="text-2xl font-bold text-softYellow text-left">
             Personal Coach
           </h2>
           <div className="border-l-8 border-softYellow pl-4">

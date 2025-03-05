@@ -9,6 +9,7 @@ export default {
       colors: {
         softYellow: "#F8F0A7",
         greenmusgo: "#91957D",
+        gris: "#D0D0D0",
       },
     },
   },
