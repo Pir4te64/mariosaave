@@ -31,17 +31,47 @@ const Compromiso = () => {
 
         {/* Última sección: 4 mini divs con texto */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8">
-          <div className="bg-blue-500 text-white flex items-center justify-center h-20">
-            <p>Mini 1</p>
+          <div className=" text-white flex flex-col items-center justify-center h-20">
+            <span className="text-6xl font-bold mb-2">
+              <strong className="text-softYellow mr-1 text-6xl">+</strong>
+              10
+            </span>{" "}
+            <span className="text-4xl font-bold"></span> {/* Número grande */}
+            <p className="text-sm font-thin uppercase mt-2">
+              Años de experiencia
+            </p>{" "}
+            {/* Texto debajo */}
           </div>
-          <div className="bg-green-500 text-white flex items-center justify-center h-20">
-            <p>Mini 2</p>
+
+          <div className="text-white flex flex-col items-center justify-center h-20">
+            <span className="text-6xl font-bold mb-2">
+              <strong className="text-softYellow mr-1 text-6xl">+</strong>
+              100
+            </span>{" "}
+            <p className="text-sm uppercase mt-2">Casos de éxito</p>{" "}
+            {/* Texto debajo */}
           </div>
-          <div className="bg-yellow-500 text-white flex items-center justify-center h-20">
-            <p>Mini 3</p>
+
+          <div className="text-white flex flex-col items-center justify-center h-20">
+            <div className="flex items-center mb-2">
+              <span className="text-6xl font-bold text-softYellow mr-2">2</span>
+              <span className="text-lg font-semibold">Veces campeón</span>
+            </div>
+            <p className="text-sm text-center mt-2">
+              Fisicoculturismo en la Categoría de Peso Ligero 2024
+            </p>
           </div>
-          <div className="bg-purple-500 text-white flex items-center justify-center h-20">
-            <p>Mini 4</p>
+
+          <div className="text-white flex flex-col items-center justify-center h-20">
+            <div className="flex items-center mb-2">
+              <span className="text-6xl font-bold text-softYellow mr-2">
+                +6
+              </span>
+              <span className="text-lg font-semibold">Países</span>
+            </div>
+            <p className="text-sm text-center mt-2">
+              Países con clientes que eligen el método Mario Saave
+            </p>
           </div>
         </div>
       </div>
