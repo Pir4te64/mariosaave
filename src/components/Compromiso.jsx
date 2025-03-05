@@ -24,34 +24,34 @@ const Compromiso = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <SubCaja />
           {/* Segunda sección: Un solo texto */}
-          <div className="flex items-center justify-center h-24 bg-gray-300 text-white">
+          <div className="hidden md:flex items-center justify-center h-24 bg-gray-300 text-white">
             <p>Texto de la segunda sección, que puede ser más información.</p>
           </div>
         </div>
 
         {/* Última sección: 4 mini divs con texto */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8">
-          <div className=" text-white flex flex-col items-center justify-center h-20">
-            <span className="text-6xl font-bold mb-2">
-              <strong className="text-softYellow mr-1 text-6xl">+</strong>
-              10
-            </span>{" "}
-            <span className="text-4xl font-bold"></span> {/* Número grande */}
-            <p className="text-sm font-thin uppercase mt-2">
-              Años de experiencia
-            </p>{" "}
-            {/* Texto debajo */}
-          </div>
-
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 mt-8">
+          {/* Años de experiencia */}
           <div className="text-white flex flex-col items-center justify-center h-20">
             <span className="text-6xl font-bold mb-2">
-              <strong className="text-softYellow mr-1 text-6xl">+</strong>
-              100
-            </span>{" "}
-            <p className="text-sm uppercase mt-2">Casos de éxito</p>{" "}
-            {/* Texto debajo */}
+              <strong className="text-softYellow mr-2 text-6xl">+</strong>
+              10
+            </span>
+            <p className="text-sm font-thin uppercase mt-2">
+              Años de experiencia
+            </p>
           </div>
 
+          {/* Casos de éxito */}
+          <div className="text-white flex flex-col items-center justify-center h-20">
+            <span className="text-6xl font-bold mb-2">
+              <strong className="text-softYellow mr-2 text-6xl">+</strong>
+              100
+            </span>
+            <p className="text-sm uppercase mt-2">Casos de éxito</p>
+          </div>
+
+          {/* Veces campeón */}
           <div className="text-white flex flex-col items-center justify-center h-20">
             <div className="flex items-center mb-2">
               <span className="text-6xl font-bold text-softYellow mr-2">2</span>
@@ -62,10 +62,11 @@ const Compromiso = () => {
             </p>
           </div>
 
+          {/* Países */}
           <div className="text-white flex flex-col items-center justify-center h-20">
             <div className="flex items-center mb-2">
               <span className="text-6xl font-bold text-softYellow mr-2">
-                +6
+                <strong className="text-softYellow mr-2 text-6xl">+</strong>6
               </span>
               <span className="text-lg font-semibold">Países</span>
             </div>
