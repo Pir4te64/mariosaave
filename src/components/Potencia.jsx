@@ -1,14 +1,20 @@
 import React from "react";
 import apuntando from "../assets/Apuntando.png";
+import fondo from "../assets/back.png";
 
 const Potencia = () => {
   return (
-    <section className="w-full my-32 flex justify-center items-center bg-black">
+    <section
+      className="w-full my-32 flex justify-center items-center bg-cover bg-center bg-no-repeat"
+      style={{
+        backgroundImage: `url(${fondo})`,
+      }}
+    >
       <div className="w-11/12 md:w-3/4 text-center">
         {/* Sección dividida en dos partes */}
         <div className="flex flex-col md:flex-row justify-center items-center gap-8">
           {/* Caja 1 */}
-          <div className="flex-1 text-white p-8 rounded-lg shadow-md space-y-6">
+          <div className="flex-1 text-white p-8 rounded-lg space-y-6">
             <h3 className="text-5xl font-bold text-left my-5 leading-tight">
               Potencia tu cuerpo, transforma tu vida
             </h3>
