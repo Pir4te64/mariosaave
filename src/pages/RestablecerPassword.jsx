@@ -2,44 +2,71 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 
 const RestablecerPassword = () => {
-  const navigate = useNavigate(); // Usado para la navegación a la página anterior
+  const navigate = useNavigate();
 
-  const handleGoBack = () => {
-    navigate(-1); // Vuelve a la página anterior
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Lógica para enviar nueva contraseña
+    alert("Tu contraseña ha sido restablecida.");
   };
 
   return (
-    <div className="w-full max-w-md mx-auto bg-white p-8 rounded-lg shadow-md">
-      <h2 className="text-2xl font-semibold text-gray-800 mb-6 text-center">
-        Recuperar Contraseña
-      </h2>
+    <div className="min-h-screen flex items-center justify-center bg-black p-4">
+      <div className="w-full max-w-md bg-neutral-900 p-8 rounded-lg shadow-md">
+        {/* Título */}
+        <h2 className="text-3xl font-semibold text-white mb-2">
+          Restablecer contraseña
+        </h2>
 
-      <button
-        onClick={handleGoBack}
-        className="w-full bg-gray-500 text-white py-2 rounded-md hover:bg-gray-600 mb-4"
-      >
-        Volver
-      </button>
+        {/* Descripción */}
+        <p className="text-gray-400 mb-6 leading-relaxed">
+          Cambia tu contraseña. <br /> Gracias por confirmar tu cuenta. Ingresa
+          una nueva contraseña.
+        </p>
 
-      <form className="space-y-4">
-        {/* Correo */}
-        <div>
-          <label className="block text-gray-700">Correo Electrónico</label>
-          <input
-            type="email"
-            className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-            placeholder="Ingresa tu correo"
-          />
-        </div>
+        {/* Formulario */}
+        <form onSubmit={handleSubmit} className="space-y-4">
+          {/* Contraseña */}
+          <div>
+            <label className="block text-gray-300 mb-1">Contraseña</label>
+            <input
+              type="password"
+              className="w-full p-2 bg-neutral-800 text-white border border-neutral-700 
+                         rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              placeholder="Ingresa tu nueva contraseña"
+            />
+          </div>
 
-        {/* Botón de enviar */}
-        <button
-          type="submit"
-          className="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 transition duration-300"
-        >
-          Enviar
-        </button>
-      </form>
+          {/* Confirmar Contraseña */}
+          <div>
+            <label className="block text-gray-300 mb-1">
+              Confirmar Contraseña
+            </label>
+            <input
+              type="password"
+              className="w-full p-2 bg-neutral-800 text-white border border-neutral-700 
+                         rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              placeholder="Confirma tu nueva contraseña"
+            />
+          </div>
+
+          {/* Requisitos de contraseña (opcional) */}
+          <ul className="text-gray-500 text-sm list-disc list-inside space-y-1 mt-2">
+            <li>Contiene mínimo 8 caracteres</li>
+            <li>Incluye al menos una mayúscula</li>
+            <li>Incluye caracteres alfanuméricos</li>
+          </ul>
+
+          {/* Botón de cambiar contraseña */}
+          <button
+            type="submit"
+            className="w-full bg-greenmusgo text-white py-2 rounded-md
+                       hover:bg-softYellow hover:text-black transition duration-300 mt-4"
+          >
+            Cambiar contraseña
+          </button>
+        </form>
+      </div>
     </div>
   );
 };

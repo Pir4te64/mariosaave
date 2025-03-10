@@ -8,6 +8,7 @@ const Navbar = () => {
   const { isAuthenticated, logout, setIsAuthenticated } = useStoreLogin();
 
   const toggleMenu = () => setIsOpen(!isOpen);
+
   const handleLogout = () => {
     setIsAuthenticated(false);
     localStorage.removeItem("isAuthenticated");
@@ -24,7 +25,7 @@ const Navbar = () => {
           </Link>
         </div>
 
-        {/* Menú de navegación (centrado) */}
+        {/* Menú de navegación (versión escritorio) */}
         <ul className="hidden md:flex space-x-10 text-white items-center">
           <li>
             <Link to="/" className="hover:text-gray-300">
@@ -85,10 +86,7 @@ const Navbar = () => {
           </li>
         </ul>
 
-        {/* Botón a la derecha */}
-        <div className="hidden md:block"></div>
-
-        {/* Menú hamburguesa en móviles */}
+        {/* Botón hamburguesa en móviles */}
         <div className="md:hidden">
           <button onClick={toggleMenu} className="text-white">
             <svg
@@ -109,77 +107,88 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* Menú desplegable en móviles */}
-      {isOpen && (
-        <ul className="md:hidden block space-y-2 text-white mt-4">
-          <li>
-            <Link to="/" className="block p-2 hover:text-gray-300">
-              Inicio
-            </Link>
-          </li>
-          <li>
-            <Link to="/nosotros" className="block p-2 hover:text-gray-300">
-              Nosotros
-            </Link>
-          </li>
-          <li>
-            <Link to="/servicios" className="block p-2 hover:text-gray-300">
-              Servicios
-            </Link>
-          </li>
-          <li>
-            <Link to="/testimonios" className="block p-2 hover:text-gray-300">
-              Testimonios
-            </Link>
-          </li>
-          <li>
-            <Link to="/contacto" className="block p-2 hover:text-gray-300">
-              Contacto
-            </Link>
-          </li>
-          <li>
-            <Link to="/planes" className="block p-2 hover:text-gray-300">
-              Planes
-            </Link>
-          </li>
-          {!isAuthenticated ? (
-            <>
-              <li>
-                <Link
-                  to="/registrate"
-                  className="block p-2 text-softYellow font-semibold hover:text-black hover:bg-softYellow hover:rounded-md"
-                >
-                  Regístrate
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/login"
-                  className="block p-2 bg-softYellow text-black px-4 py-2 rounded-md font-semibold hover:bg-black hover:text-softYellow"
-                >
-                  Ingresar
-                </Link>
-              </li>
-            </>
-          ) : (
-            <>
-              <li>
-                <Link to="/dashboard" className="block p-2 hover:text-gray-300">
-                  Dashboard
-                </Link>
-              </li>
-              <li>
-                <button
-                  onClick={handleLogout}
-                  className="block p-2 hover:text-gray-300"
-                >
-                  Logout
-                </button>
-              </li>
-            </>
-          )}
-        </ul>
-      )}
+      {/* Menú desplegable en móviles (animado) */}
+      <ul
+        className={`
+          md:hidden 
+          transition-all duration-500 ease-in-out 
+          transform origin-top
+          space-y-2 text-white mt-4 
+          overflow-hidden
+          ${
+            isOpen
+              ? "max-h-96 opacity-100 pointer-events-auto"
+              : "max-h-0 opacity-0 pointer-events-none"
+          }
+        `}
+      >
+        <li>
+          <Link to="/" className="block p-2 hover:text-gray-300">
+            Inicio
+          </Link>
+        </li>
+        <li>
+          <Link to="/nosotros" className="block p-2 hover:text-gray-300">
+            Nosotros
+          </Link>
+        </li>
+        <li>
+          <Link to="/servicios" className="block p-2 hover:text-gray-300">
+            Servicios
+          </Link>
+        </li>
+        <li>
+          <Link to="/testimonios" className="block p-2 hover:text-gray-300">
+            Testimonios
+          </Link>
+        </li>
+        <li>
+          <Link to="/contacto" className="block p-2 hover:text-gray-300">
+            Contacto
+          </Link>
+        </li>
+        <li>
+          <Link to="/planes" className="block p-2 hover:text-gray-300">
+            Planes
+          </Link>
+        </li>
+        {!isAuthenticated ? (
+          <>
+            <li>
+              <Link
+                to="/registrate"
+                className="block p-2 text-softYellow font-semibold hover:text-black hover:bg-softYellow hover:rounded-md"
+              >
+                Regístrate
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/login"
+                className="block p-2 bg-softYellow text-black px-4 py-2 rounded-md font-semibold hover:bg-black hover:text-softYellow"
+              >
+                Ingresar
+              </Link>
+            </li>
+          </>
+        ) : (
+          <>
+            <li>
+              <Link to="/dashboard" className="block p-2 hover:text-gray-300">
+                Dashboard
+              </Link>
+            </li>
+            <li>
+              <button
+                onClick={handleLogout}
+                className="block p-2 hover:text-gray-300"
+              >
+                Logout
+              </button>
+            </li>
+          </>
+        )}
+      </ul>
     </nav>
   );
 };
