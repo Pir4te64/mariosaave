@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import useStoreLogin from "../../Routes/useStore";
 // Si tienes un logo real, impórtalo:
 import logo from "../../assets/logo.png";
+import avatar from "../../assets/avatar.png";
 
 const DashboardNavbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -22,7 +23,6 @@ const DashboardNavbar = () => {
       <div className="max-w-7xl mx-auto px-4 py-2 flex items-center justify-between">
         {/* Sección Izquierda: Logo / Marca */}
         <div className="flex items-center space-x-2">
-          {/* Si tienes un logo real, reemplaza la imagen de placeholder */}
           <img src={logo} alt="Logo" className="h-8 w-auto" />
         </div>
 
@@ -104,7 +104,7 @@ const DashboardNavbar = () => {
           {/* Avatar con dropdown */}
           <div className="relative">
             <img
-              src="https://via.placeholder.com/40"
+              src={avatar}
               alt="Foto del usuario"
               className="h-8 w-8 rounded-full cursor-pointer"
               onClick={toggleDropdown}
