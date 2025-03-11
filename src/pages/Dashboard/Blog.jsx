@@ -1,6 +1,6 @@
 import React from "react";
-import { Link } from "react-router-dom"; // Importa Link
-import { v4 as uuidv4 } from "uuid"; // Para generar ID únicos (puedes usar otro sistema de IDs)
+import { blogPosts } from "../../utils/ProgramasLecciones";
+import BlogCard from "../../components/BlogCard";
 
 const Blog = () => {
   const noticias = [
@@ -12,25 +12,28 @@ const Blog = () => {
 
   return (
     <div className="p-4">
-      <h1 className="text-5xl font-semibold text-gray-800 text-center mb-8">
-        Blog
-      </h1>
-
-      {/* Div dividido en dos secciones (Texto e Imagen) */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
-        {/* Texto */}
-        <div className="flex items-center justify-center p-4 bg-gray-100 rounded-lg shadow-md">
-          <p className="text-lg text-gray-700">
-            Aquí va el texto del blog. Puedes agregar cualquier contenido que
-            desees, como una introducción al artículo o un resumen del tema que
-            estás tratando.
+      {/* Header principal al estilo de tu captura */}
+      <div className="bg-white shadow-sm rounded-lg p-6 mb-8 flex flex-col md:flex-row items-center gap-6">
+        {/* Sección de texto */}
+        <div className="md:w-1/2">
+          <span className="text-sm text-gray-500">12 enero 2025</span>
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-800 mt-2">
+            Lorem ipsum loremp ipsum lorem ipsum
+          </h1>
+          <p className="text-greenmusgo mt-4 mb-4">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+            eiusmod tempor. Lorem ipsum dolor sit amet, consectetur adipiscing
+            elit, sed do eiusmod tempor
           </p>
+          <button className="px-4 py-2 bg-greenmusgo text-white rounded-md hover:bg-softYellow hover:text-black transition-colors">
+            Leer más
+          </button>
         </div>
 
-        {/* Imagen */}
-        <div className="flex items-center justify-center p-4 bg-gray-100 rounded-lg shadow-md">
+        {/* Sección de imagen */}
+        <div className="md:w-1/2 flex justify-center">
           <img
-            src="https://via.placeholder.com/400x300"
+            src="https://placehold.org/400x300/cccccc/000000?text=Hola+MundO"
             alt="Imagen del blog"
             className="rounded-lg shadow-lg"
           />
@@ -38,22 +41,20 @@ const Blog = () => {
       </div>
 
       {/* Sección de Noticias */}
-      <h2 className="text-3xl font-semibold text-gray-800 text-center mb-6">
-        Noticias
+      <h2 className="text-3xl  text-gray-800 text-left mb-6">
+        Noticias que te interesen
       </h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        {noticias.map((noticia, index) => {
-          const id = uuidv4(); // Genera un ID único para cada noticia
-          return (
-            <Link
-              key={id}
-              to={`/blog/${id}`} // Redirige a la ruta con el ID único
-              className="p-4 bg-gray-100 rounded-lg shadow-md text-center"
-            >
-              {noticia}
-            </Link>
-          );
-        })}
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-4 gap-y-5">
+        {blogPosts.map((post) => (
+          <BlogCard
+            key={post.id}
+            image={post.image}
+            title={post.title}
+            author={post.author}
+            excerpt={post.excerpt}
+            views={post.views}
+          />
+        ))}
       </div>
     </div>
   );

@@ -1,4 +1,7 @@
+import { ChevronDown } from "lucide-react";
 import React, { useState } from "react";
+import CursoCard from "../../components/CursoCard";
+import { cursosDisponibles } from "../../utils/ProgramasLecciones";
 
 const Retos = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -21,32 +24,57 @@ const Retos = () => {
   );
 
   return (
-    <div className="p-4">
-      <h1 className="text-3xl sm:text-4xl md:text-5xl font-semibold text-gray-800 text-center mb-8">
-        Retos
-      </h1>
+    <div className="bg-[#F8F8F5] min-h-screen p-6">
+      <div className="max-w-6xl mx-auto">
+        {/* Título */}
+        <h1 className="text-3xl sm:text-4xl md:text-5xl font-semibold text-gray-800 text-center mb-8">
+          Retos
+        </h1>
 
-      {/* Buscador */}
-      <div className="flex justify-center mb-8">
-        <input
-          type="text"
-          placeholder="Buscar reto..."
-          className="border-2 border-gray-300 p-2 rounded-lg w-2/3 sm:w-1/2 md:w-1/3 lg:w-1/4"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-        />
-      </div>
-
-      {/* Grid de retos */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        {filteredRetos.map((reto, index) => (
-          <div
-            key={index}
-            className="p-4 bg-gray-100 rounded-lg shadow-md text-center"
-          >
-            {reto}
+        {/* Contenedor principal del buscador y filtros */}
+        <div className="max-w-4xl mx-auto">
+          {/* Buscador (input + botón) */}
+          <div className="flex items-center bg-white rounded-md shadow-sm overflow-hidden">
+            <input
+              type="text"
+              placeholder="Buscar el reto"
+              className="w-full px-4 py-3 focus:outline-none"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+            <button className="bg-[#A6A27B] px-6 py-3 text-white font-semibold hover:opacity-90 transition-opacity">
+              Buscar
+            </button>
           </div>
-        ))}
+
+          {/* Filtros (ejemplo con 5 “Lorem”) */}
+          <div className="flex flex-wrap justify-between items-center gap-2 mt-4">
+            {Array(5)
+              .fill(null)
+              .map((_, i) => (
+                <div
+                  key={i}
+                  className="bg-white rounded-md shadow-sm px-4 py-2 flex items-center justify-between cursor-pointer"
+                >
+                  <span className="text-gray-700">Lorem</span>
+                  <ChevronDown className="w-4 h-4 ml-2 text-gray-500" />
+                </div>
+              ))}
+          </div>
+        </div>
+
+        {/* Línea divisoria (opcional) */}
+        <hr className="my-6 border-gray-300" />
+
+        {/* Sección de cursos utilizando CursoCard */}
+        <h2 className="text-xl sm:text-2xl font-semibold text-gray-800 mt-10 mb-4">
+          Elige tu curso
+        </h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          {cursosDisponibles.map((curso) => (
+            <CursoCard key={curso.id} {...curso} />
+          ))}
+        </div>
       </div>
     </div>
   );
