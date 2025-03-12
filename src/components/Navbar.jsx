@@ -183,7 +183,7 @@ const Navbar = () => {
                 onClick={handleLogout}
                 className="block p-2 hover:text-gray-300"
               >
-                Logout
+                Salir
               </button>
             </li>
           </>

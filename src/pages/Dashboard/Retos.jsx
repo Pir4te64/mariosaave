@@ -33,8 +33,8 @@ const Retos = () => {
 
         {/* Contenedor principal del buscador y filtros */}
         <div className="max-w-4xl mx-auto">
-          {/* Buscador (input + botón) */}
-          <div className="flex items-center bg-white rounded-md shadow-sm overflow-hidden">
+          {/* Buscador: columna en mobile, fila en sm+ */}
+          <div className="flex flex-col sm:flex-row items-stretch bg-white rounded-md shadow-sm overflow-hidden">
             <input
               type="text"
               placeholder="Buscar el reto"
@@ -47,14 +47,14 @@ const Retos = () => {
             </button>
           </div>
 
-          {/* Filtros (ejemplo con 5 “Lorem”) */}
-          <div className="flex flex-wrap justify-between items-center gap-2 mt-4">
+          {/* Filtros: alineados a la izquierda en mobile */}
+          <div className="flex flex-wrap items-center gap-2 mt-4 justify-start md:justify-between">
             {Array(5)
               .fill(null)
               .map((_, i) => (
                 <div
                   key={i}
-                  className="bg-white rounded-md shadow-sm px-4 py-2 flex items-center justify-between cursor-pointer"
+                  className="bg-white rounded-md shadow-sm px-4 py-2 flex items-center justify-between cursor-pointer w-full sm:w-auto"
                 >
                   <span className="text-gray-700">Lorem</span>
                   <ChevronDown className="w-4 h-4 ml-2 text-gray-500" />

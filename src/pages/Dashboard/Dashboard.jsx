@@ -38,7 +38,7 @@ const Dashboard = () => {
         </div>
 
         {/* Caja 6 */}
-        <div className="col-span-1 h-full bg-white shadow rounded-lg">
+        <div className="col-span-1 h-full bg-white shadow-sm  rounded-lg">
           <ProcessPhotos />
         </div>
       </div>

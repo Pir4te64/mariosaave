@@ -59,7 +59,7 @@ const ProcessPhotos = () => {
   };
 
   return (
-    <div className="bg-white shadow rounded-lg p-4">
+    <div className="bg-white  rounded-lg p-4">
       {/* Encabezado */}
       <div className="flex items-center mb-4">
         <div className="w-10 h-10 rounded-full bg-[#99A98F] flex items-center justify-center mr-3">

@@ -1,4 +1,3 @@
-// ModalEntrenamiento.jsx
 import React, { useState } from "react";
 import useCalendarStore from "../store/calendarStore";
 
@@ -29,46 +28,36 @@ const ModalEntrenamiento = ({ setIsModalOpen }) => {
       return;
     }
 
-    // Combinar la fecha y la hora para obtener el inicio del evento.
-    // El input de fecha tiene formato "YYYY-MM-DD" y el de hora "HH:mm"
     const [year, month, day] = fecha.split("-");
     const [hour, minute] = hora.split(":");
-    // Recordar que el mes en JavaScript es 0-indexado
     const startDate = new Date(year, month - 1, day, hour, minute);
-    // Por simplicidad, asumimos que la clase dura 1 hora
     const endDate = new Date(startDate.getTime() + 60 * 60 * 1000);
-
-    // Definir el tipo en base a la modalidad
-    // Si modalidad es "privada", el tipo será "private", en otro caso "group"
     const eventType =
       modalidad.toLowerCase() === "privada" ? "private" : "group";
 
-    // Construir el título, combinando la modalidad y el entrenador
     const newEvent = {
       title: `Clase ${modalidad} / ${entrenador}`,
       start: startDate,
       end: endDate,
       type: eventType,
-      // Se pueden incluir más datos para usar en el detalle si se requiere:
       objetivo,
       experiencia,
       condiciones,
     };
 
-    // Actualizamos el array de eventos en el store, agregando el nuevo evento
     setEvents([...events, newEvent]);
-
-    // Cerramos el modal
     setIsModalOpen(false);
   };
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex z-50 justify-center items-center p-4">
-      <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-lg sm:max-w-4xl">
+      {/* Contenedor del modal con ancho responsivo y scroll vertical en caso de overflow */}
+      <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-md sm:max-w-lg md:max-w-xl max-h-[90vh] overflow-y-auto">
         <h2 className="text-lg sm:text-xl font-semibold mb-4">
           Agendar entrenamiento
         </h2>
 
+        {/* Grid responsive: 1 columna en mobile y 2 en pantallas mayores */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
             <label className="block text-sm font-medium">Fecha *</label>
@@ -142,7 +131,7 @@ const ModalEntrenamiento = ({ setIsModalOpen }) => {
               <option value="Mario">Mario</option>
             </select>
           </div>
-          <div className="col-span-2">
+          <div className="col-span-1 sm:col-span-2">
             <label className="block text-sm font-medium">
               Condiciones médicas o lesiones relevantes
             </label>
@@ -155,7 +144,8 @@ const ModalEntrenamiento = ({ setIsModalOpen }) => {
           </div>
         </div>
 
-        <div className="flex justify-end gap-2 mt-4">
+        {/* Botones: se acomodan en columna en mobile y en fila en pantallas mayores */}
+        <div className="flex flex-col sm:flex-row justify-end gap-2 mt-4">
           <button
             onClick={() => setIsModalOpen(false)}
             className="px-4 py-2 border rounded-lg text-gray-700 hover:bg-gray-200"
@@ -164,7 +154,7 @@ const ModalEntrenamiento = ({ setIsModalOpen }) => {
           </button>
           <button
             onClick={handleGuardar}
-            className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700"
+            className="px-4 py-2 bg-greenmusgo text-white rounded-lg hover:bg-softYellow hover:text-black"
           >
             Guardar
           </button>

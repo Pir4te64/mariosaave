@@ -19,30 +19,23 @@ const BlogDetail = () => {
     <div className="max-w-7xl mx-auto px-4 py-8 flex flex-col md:flex-row gap-8">
       {/* Columna principal (contenido del blog) */}
       <div className="w-full md:w-2/3 bg-white shadow-sm rounded-lg p-6">
-        {/* Etiqueta de categoría (ejemplo) */}
         <span className="inline-block bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm mb-2">
           {post.category || "Travel"}
         </span>
-
-        {/* Título y datos del autor */}
         <h1 className="text-3xl font-bold mb-4">{post.title}</h1>
         <p className="text-gray-600 mb-4">
           {post.author} – {post.date || "12 enero 2025"}
         </p>
-
-        {/* Imagen principal */}
         <img
           src={post.image}
           alt={post.title}
           className="w-full h-auto rounded-lg mb-6"
         />
-
-        {/* Contenido o excerpt */}
         <p className="text-gray-700 leading-relaxed">{post.excerpt}</p>
       </div>
 
       {/* Barra lateral (entradas relacionadas, publicidad, etc.) */}
-      <aside className="w-full md:w-1/3 max-h-[100vh] overflow-y-auto bg-white shadow-sm rounded-lg p-4 space-y-3">
+      <aside className="w-full md:w-1/3 md:max-h-[100vh] overflow-y-auto bg-white shadow-sm rounded-lg p-4 space-y-3">
         {blogPosts.map((post) => (
           <BlogCard
             key={post.id}

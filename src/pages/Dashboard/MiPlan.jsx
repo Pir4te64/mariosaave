@@ -40,7 +40,8 @@ const MiPlan = () => {
           Historial de facturación
         </h2>
 
-        <div className="bg-white shadow-sm rounded-lg overflow-hidden">
+        {/* Contenedor de la tabla con scroll horizontal en mobile */}
+        <div className="bg-white shadow-sm rounded-lg overflow-x-auto">
           <table className="w-full text-left">
             <thead className="bg-gray-50 border-b border-gray-200">
               <tr>
@@ -62,7 +63,7 @@ const MiPlan = () => {
               </tr>
             </thead>
             <tbody>
-              {Array(5) // Simulamos 5 registros
+              {Array(5)
                 .fill(null)
                 .map((_, index) => (
                   <tr

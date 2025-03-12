@@ -2,13 +2,6 @@ import React from "react";
 import { FaChalkboardTeacher } from "react-icons/fa";
 
 const ScheduledClasses = () => {
-  // Ejemplo de datos de las clases
-  // Cada objeto puede tener:
-  //  - name: nombre de la clase
-  //  - progress: porcentaje de progreso
-  //  - status: estado textual ("Asistió", "Falta", etc.)
-  //  - color: color para el texto y la barra (opcional, si quieres personalizar por clase)
-  //  - date: fecha (si aplica)
   const classesData = [
     {
       id: 1,
@@ -16,7 +9,7 @@ const ScheduledClasses = () => {
       progress: 80,
       status: "Asistió",
       color: "#99A98F",
-      date: null, // o "12/07/2025"
+      date: null,
     },
     {
       id: 2,
@@ -54,12 +47,12 @@ const ScheduledClasses = () => {
         <h2 className="text-lg font-bold">Clases programadas</h2>
       </div>
 
-      {/* Contenedor de las clases (4 columnas) */}
-      <div className="flex justify-around items-start">
+      {/* Contenedor con grid y breakpoints */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {classesData.map((classItem) => (
           <div
             key={classItem.id}
-            className="flex flex-col items-center w-1/4 px-2"
+            className="flex flex-col items-center p-4 bg-white rounded shadow"
           >
             {/* Nombre de la clase */}
             <span className="font-semibold">{classItem.name}</span>
@@ -69,7 +62,7 @@ const ScheduledClasses = () => {
               {classItem.status}
             </span>
 
-            {/* Si existe fecha, la mostramos. (Opcional) */}
+            {/* Fecha opcional */}
             {classItem.date && (
               <span className="text-gray-500 text-sm">{classItem.date}</span>
             )}

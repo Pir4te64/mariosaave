@@ -12,10 +12,10 @@ const Blog = () => {
 
   return (
     <div className="p-4">
-      {/* Header principal al estilo de tu captura */}
+      {/* Header principal */}
       <div className="bg-white shadow-sm rounded-lg p-6 mb-8 flex flex-col md:flex-row items-center gap-6">
-        {/* Sección de texto */}
-        <div className="md:w-1/2">
+        {/* Sección de texto: centrado en mobile y alineado a la izquierda en desktop */}
+        <div className="md:w-1/2 text-center md:text-left">
           <span className="text-sm text-gray-500">12 enero 2025</span>
           <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-800 mt-2">
             Lorem ipsum loremp ipsum lorem ipsum
@@ -41,10 +41,10 @@ const Blog = () => {
       </div>
 
       {/* Sección de Noticias */}
-      <h2 className="text-3xl  text-gray-800 text-left mb-6">
+      <h2 className="text-3xl text-gray-800 text-left mb-6">
         Noticias que te interesen
       </h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4  gap-y-5 w-11/12 justify-center mx-auto">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-y-5 w-11/12 justify-center mx-auto">
         {blogPosts.map((post) => (
           <BlogCard
             key={post.id}
