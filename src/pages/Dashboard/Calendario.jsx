@@ -46,7 +46,7 @@ const Calendario = () => {
       {/* Botón para abrir el modal de agendar */}
       <button
         onClick={() => setIsModalOpen(true)}
-        className="mb-4 px-6 py-3 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-600"
+        className="mb-4 px-6 py-3 bg-greenmusgo text-white rounded-md shadow-md hover:bg-softYellow hover:text-black"
       >
         Agendar Entrenamiento
       </button>
