@@ -1,25 +1,62 @@
 import React from "react";
-import { useParams } from "react-router-dom"; // Para obtener el parámetro de la URL
+import { useLocation } from "react-router-dom";
+import { blogPosts } from "../../utils/ProgramasLecciones";
+import BlogCard from "../../components/BlogCard";
 
-const BlogPost = () => {
-  const { id } = useParams(); // Obtiene el id de la URL
+const BlogDetail = () => {
+  const location = useLocation();
+  const { post } = location.state || {};
+
+  if (!post) {
+    return (
+      <p className="text-center mt-10">
+        No se encontró la información del blog
+      </p>
+    );
+  }
 
   return (
-    <div className="p-4">
-      <h1 className="text-3xl sm:text-4xl md:text-5xl font-semibold text-gray-800 mb-6 sm:mb-8">
-        Detalles del Blog - ID: {id}
-      </h1>
-      <div className="bg-gray-100 p-6 rounded-lg shadow-md">
-        <h2 className="text-2xl sm:text-3xl font-semibold text-gray-800">
-          Contenido del Blog
-        </h2>
-        <p className="text-base sm:text-lg text-gray-700 mt-4">
-          Aquí puedes mostrar el contenido específico del artículo basado en el
-          ID: {id}.
+    <div className="max-w-7xl mx-auto px-4 py-8 flex flex-col md:flex-row gap-8">
+      {/* Columna principal (contenido del blog) */}
+      <div className="w-full md:w-2/3 bg-white shadow-sm rounded-lg p-6">
+        {/* Etiqueta de categoría (ejemplo) */}
+        <span className="inline-block bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm mb-2">
+          {post.category || "Travel"}
+        </span>
+
+        {/* Título y datos del autor */}
+        <h1 className="text-3xl font-bold mb-4">{post.title}</h1>
+        <p className="text-gray-600 mb-4">
+          {post.author} – {post.date || "12 enero 2025"}
         </p>
+
+        {/* Imagen principal */}
+        <img
+          src={post.image}
+          alt={post.title}
+          className="w-full h-auto rounded-lg mb-6"
+        />
+
+        {/* Contenido o excerpt */}
+        <p className="text-gray-700 leading-relaxed">{post.excerpt}</p>
       </div>
+
+      {/* Barra lateral (entradas relacionadas, publicidad, etc.) */}
+      <aside className="w-full md:w-1/3 max-h-[100vh] overflow-y-auto bg-white shadow-sm rounded-lg p-4 space-y-3">
+        {blogPosts.map((post) => (
+          <BlogCard
+            key={post.id}
+            image={post.image}
+            title={post.title}
+            author={post.author}
+            excerpt={post.excerpt}
+            views={post.views}
+            post={post} // Se pasa el objeto completo del post
+          />
+        ))}
+      </aside>
     </div>
   );
 };
 
-export default BlogPost;
+export default BlogDetail;

@@ -44,7 +44,7 @@ const Blog = () => {
       <h2 className="text-3xl  text-gray-800 text-left mb-6">
         Noticias que te interesen
       </h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-4 gap-y-5">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4  gap-y-5 w-11/12 justify-center mx-auto">
         {blogPosts.map((post) => (
           <BlogCard
             key={post.id}
@@ -53,6 +53,7 @@ const Blog = () => {
             author={post.author}
             excerpt={post.excerpt}
             views={post.views}
+            post={post} // Se pasa el objeto completo del post
           />
         ))}
       </div>
