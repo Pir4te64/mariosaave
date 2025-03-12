@@ -3,7 +3,10 @@ import testmonio from "../assets/testimonios.png"; // Asegúrate de tener la ima
 import TestimoniosCarousel from "./TestimoniosCarousel";
 const Testimonios = () => {
   return (
-    <section className="w-full mt-32 flex justify-center items-center px-4">
+    <section
+      className="w-full mt-32 flex justify-center items-center px-4"
+      id="testimonios"
+    >
       <div className="w-full md:w-4/5 text-center">
         <h2 className="text-2xl font-thin text-gray-800 mb-4">
           <strong className="font-extrabold text-5xl mb-4">Testimonios</strong>{" "}

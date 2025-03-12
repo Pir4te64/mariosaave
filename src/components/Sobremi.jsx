@@ -3,7 +3,10 @@ import exerciseIcon from "../assets/exercise.png"; // Asegúrate de que la ruta 
 
 const Sobremi = () => {
   return (
-    <section className="w-full mt-20 flex justify-center items-center">
+    <section
+      className="w-full mt-20 flex justify-center items-center"
+      id="nosotros"
+    >
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-11/12 md:w-10/12">
         {/* Caja 1 */}
         <div className="bg-blue-500 text-white flex items-center justify-center relative">

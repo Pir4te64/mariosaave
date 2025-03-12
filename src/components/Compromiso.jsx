@@ -4,7 +4,10 @@ import Man from "../assets/img5.png";
 const Compromiso = () => {
   return (
     // 1) Ajusta el padding vertical
-    <section className="w-full mt-32 flex justify-center bg-black py-8">
+    <section
+      className="w-full mt-32 flex justify-center bg-black py-8"
+      id="servicios"
+    >
       <div className="w-11/12 md:w-4/5 text-left">
         {/* Título con borde inferior */}
         <h2 className="text-3xl md:text-4xl font-semibold text-white mb-4 inline-block border-b-4 border-softYellow pb-2">

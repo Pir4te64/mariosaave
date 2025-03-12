@@ -5,6 +5,7 @@ import fondo from "../assets/back.png";
 const Potencia = () => {
   return (
     <section
+      id="contacto"
       className="w-full my-32 flex justify-center items-center bg-cover bg-center bg-no-repeat"
       style={{
         backgroundImage: `url(${fondo})`,

@@ -33,24 +33,24 @@ const Navbar = () => {
             </Link>
           </li>
           <li>
-            <Link to="/nosotros" className="hover:text-gray-300">
+            <a href="#nosotros" className="hover:text-gray-300">
               Nosotros
-            </Link>
+            </a>
           </li>
           <li>
-            <Link to="/servicios" className="hover:text-gray-300">
+            <a href="#servicios" className="hover:text-gray-300">
               Servicios
-            </Link>
+            </a>
           </li>
           <li>
-            <Link to="/testimonios" className="hover:text-gray-300">
+            <a href="#testimonios" className="hover:text-gray-300">
               Testimonios
-            </Link>
+            </a>
           </li>
           <li>
-            <Link to="/contacto" className="hover:text-gray-300">
+            <a href="#contacto" className="hover:text-gray-300">
               Contacto
-            </Link>
+            </a>
           </li>
           <li>
             <Link to="/planes" className="hover:text-gray-300">
