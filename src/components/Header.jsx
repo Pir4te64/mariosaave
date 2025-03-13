@@ -12,7 +12,7 @@ const Header = () => {
           {/* Caja 1 */}
           <div className="text-white flex flex-col items-start justify-center h-full p-3 space-y-6">
             <h2 className="text-2xl md:text-3xl font-bold text-softYellow text-left">
-              Personal Coach
+              Personal Coach 2.0
             </h2>
             <div className="border-l-8 border-softYellow pl-4">
               <h1
