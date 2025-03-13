@@ -1,0 +1,36 @@
+name: Deploy a Hostinger
+
+on:
+  push:
+    branches:
+      - production  # Se activa cuando hay cambios en 'production'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1️⃣ Clonar el repositorio
+      - name: Checkout código
+        uses: actions/checkout@v3
+
+      # 2️⃣ Instalar Node.js y dependencias
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'  # Asegúrate de usar la versión correcta
+          
+      - name: Instalar dependencias y construir la aplicación
+        run: |
+          npm ci
+          npm run build
+
+      # 3️⃣ Subir archivos a Hostinger vía FTP
+      - name: Subir archivos a Hostinger via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4
+        with:
+          server: ${{ secrets.FTP_HOST }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./build/  # Carpeta con la build
+          server-dir: /public_html/  # Carpeta en Hostinger
