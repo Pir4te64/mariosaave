@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import useStoreLogin from "../../Routes/useStore";
 // Si tienes un logo real, impórtalo:
-import logo from "../../assets/logo.png";
+import logo from "../../assets/Logo.png";
 import avatar from "../../assets/avatar.png";
 import DashboardUserActions from "../../components/DashboardUserActions";
 
