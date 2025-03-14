@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const HeaderFooter = () => {
   return (
@@ -25,9 +26,12 @@ const HeaderFooter = () => {
             </li>
           </ul>
 
-          <button className="mt-6 text-white bg-black hover:text-black hover:bg-softYellow font-semibold px-6 py-3 rounded-sm transition">
+          <Link
+            to="/planes"
+            className="mt-6 text-white bg-black hover:text-black hover:bg-softYellow font-semibold px-6 py-3 rounded-sm transition"
+          >
             Descubre más
-          </button>
+          </Link>
         </div>
 
         {/* Caja 4 */}

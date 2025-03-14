@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import foto from "../assets/Sobremi.png";
 import exerciseIcon from "../assets/exercise.png"; // Asegúrate de que la ruta sea correcta.
 
@@ -47,9 +48,12 @@ const Sobremi = () => {
             desarrollar disciplina, constancia y confianza en cada etapa del
             camino.
           </p>
-          <button className="text-white bg-greenmusgo hover:bg-softYellow hover:text-black font-semibold px-8 py-3 rounded-sm transition">
+          <Link
+            to="/registrate"
+            className="text-white bg-greenmusgo hover:bg-softYellow hover:text-black font-semibold px-8 py-3 rounded-sm transition"
+          >
             Contactar
-          </button>
+          </Link>
         </div>
       </div>
     </section>

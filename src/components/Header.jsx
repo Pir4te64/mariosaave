@@ -2,6 +2,7 @@ import React from "react";
 import SocialLinks from "./CajaRedesSociales";
 import HeaderFooter from "./HeaderFooter";
 import img1 from "../assets/img1.png"; // Asegúrate de que la ruta sea correcta
+import { Link } from "react-router-dom";
 
 const Header = () => {
   return (
@@ -34,9 +35,12 @@ const Header = () => {
               adaptarse a tu ritmo de vida. Entrena con el método de Mario
               Saave.
             </p>
-            <button className="bg-greenmusgo text-white font-semibold px-6 py-2 rounded-sm hover:bg-black hover:border-softYellow hover:text-softYellow border border-transparent">
+            <Link
+              to="/registrate"
+              className="bg-greenmusgo text-white font-semibold px-6 py-2 rounded-sm hover:bg-black hover:border-softYellow hover:text-softYellow border border-transparent"
+            >
               Registrarme
-            </button>
+            </Link>
           </div>
 
           {/* Caja 2 - Solo en pantallas md en adelante */}

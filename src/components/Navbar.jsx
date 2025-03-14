@@ -1,11 +1,13 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
+import { HashLink } from "react-router-hash-link";
 import useStoreLogin from "../Routes/useStore";
-import logo from "../assets/Logo.png"; // Asegúrate de importar tu logo
+import logo from "../assets/Logo.png"; // Asegúrate de que la ruta sea correcta
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { isAuthenticated, logout, setIsAuthenticated } = useStoreLogin();
+  const location = useLocation();
 
   const toggleMenu = () => setIsOpen(!isOpen);
 
@@ -14,6 +16,16 @@ const Navbar = () => {
     localStorage.removeItem("isAuthenticated");
     logout();
   };
+
+  // Efecto para hacer scroll suave a la sección correspondiente si hay un hash en la URL
+  useEffect(() => {
+    if (location.hash) {
+      const element = document.getElementById(location.hash.slice(1));
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+  }, [location]);
 
   return (
     <nav className="bg-black p-4">
@@ -33,24 +45,24 @@ const Navbar = () => {
             </Link>
           </li>
           <li>
-            <a href="#nosotros" className="hover:text-gray-300">
+            <HashLink smooth to="/#nosotros" className="hover:text-gray-300">
               Nosotros
-            </a>
+            </HashLink>
           </li>
           <li>
-            <a href="#servicios" className="hover:text-gray-300">
+            <HashLink smooth to="/#servicios" className="hover:text-gray-300">
               Servicios
-            </a>
+            </HashLink>
           </li>
           <li>
-            <a href="#testimonios" className="hover:text-gray-300">
+            <HashLink smooth to="/#testimonios" className="hover:text-gray-300">
               Testimonios
-            </a>
+            </HashLink>
           </li>
           <li>
-            <a href="#contacto" className="hover:text-gray-300">
+            <HashLink smooth to="/#contacto" className="hover:text-gray-300">
               Contacto
-            </a>
+            </HashLink>
           </li>
           <li>
             <Link to="/planes" className="hover:text-gray-300">
@@ -123,32 +135,60 @@ const Navbar = () => {
         `}
       >
         <li>
-          <Link to="/" className="block p-2 hover:text-gray-300">
+          <Link
+            to="/"
+            className="block p-2 hover:text-gray-300"
+            onClick={() => setIsOpen(false)}
+          >
             Inicio
           </Link>
         </li>
         <li>
-          <Link to="/nosotros" className="block p-2 hover:text-gray-300">
+          <HashLink
+            smooth
+            to="/#nosotros"
+            className="block p-2 hover:text-gray-300"
+            onClick={() => setIsOpen(false)}
+          >
             Nosotros
-          </Link>
+          </HashLink>
         </li>
         <li>
-          <Link to="/servicios" className="block p-2 hover:text-gray-300">
+          <HashLink
+            smooth
+            to="/#servicios"
+            className="block p-2 hover:text-gray-300"
+            onClick={() => setIsOpen(false)}
+          >
             Servicios
-          </Link>
+          </HashLink>
         </li>
         <li>
-          <Link to="/testimonios" className="block p-2 hover:text-gray-300">
+          <HashLink
+            smooth
+            to="/#testimonios"
+            className="block p-2 hover:text-gray-300"
+            onClick={() => setIsOpen(false)}
+          >
             Testimonios
-          </Link>
+          </HashLink>
         </li>
         <li>
-          <Link to="/contacto" className="block p-2 hover:text-gray-300">
+          <HashLink
+            smooth
+            to="/#contacto"
+            className="block p-2 hover:text-gray-300"
+            onClick={() => setIsOpen(false)}
+          >
             Contacto
-          </Link>
+          </HashLink>
         </li>
         <li>
-          <Link to="/planes" className="block p-2 hover:text-gray-300">
+          <Link
+            to="/planes"
+            className="block p-2 hover:text-gray-300"
+            onClick={() => setIsOpen(false)}
+          >
             Planes
           </Link>
         </li>
@@ -158,6 +198,7 @@ const Navbar = () => {
               <Link
                 to="/registrate"
                 className="block p-2 text-softYellow font-semibold hover:text-black hover:bg-softYellow hover:rounded-md"
+                onClick={() => setIsOpen(false)}
               >
                 Regístrate
               </Link>
@@ -166,6 +207,7 @@ const Navbar = () => {
               <Link
                 to="/login"
                 className="block p-2 bg-softYellow text-black px-4 py-2 rounded-md font-semibold hover:bg-black hover:text-softYellow"
+                onClick={() => setIsOpen(false)}
               >
                 Ingresar
               </Link>
@@ -174,13 +216,20 @@ const Navbar = () => {
         ) : (
           <>
             <li>
-              <Link to="/dashboard" className="block p-2 hover:text-gray-300">
+              <Link
+                to="/dashboard"
+                className="block p-2 hover:text-gray-300"
+                onClick={() => setIsOpen(false)}
+              >
                 Dashboard
               </Link>
             </li>
             <li>
               <button
-                onClick={handleLogout}
+                onClick={() => {
+                  handleLogout();
+                  setIsOpen(false);
+                }}
                 className="block p-2 hover:text-gray-300"
               >
                 Salir

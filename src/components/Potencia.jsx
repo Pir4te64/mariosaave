@@ -1,6 +1,7 @@
 import React from "react";
 import apuntando from "../assets/Apuntando.png";
 import fondo from "../assets/back.png";
+import { Link } from "react-router-dom";
 
 const Potencia = () => {
   return (
@@ -24,7 +25,12 @@ const Potencia = () => {
               alcanzar tus objetivos nunca ha sido tan eficiente.
             </p>
             <button className="mt-4 my-5 bg-greenmusgo text-white px-6 py-2 w-full hover:bg-softYellow hover:text-black rounded-sm font-semibold shadow-md transition">
-              ¡Conoce qué plan se adapta a ti!
+              <Link
+                to="/planes"
+                className="mt-4 my-5 bg-greenmusgo text-white px-6 py-2 w-full hover:bg-softYellow hover:text-black rounded-sm font-semibold shadow-md transition"
+              >
+                ¡Conoce qué plan se adapta a ti!
+              </Link>
             </button>
           </div>
 
