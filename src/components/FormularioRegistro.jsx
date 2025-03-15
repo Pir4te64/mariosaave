@@ -53,7 +53,7 @@ const FormularioRegistro = () => {
 
         {/* Contraseña */}
         <div>
-          <label className="bloc text-leftk text-gray-300 mb-1">
+          <label className="block text-left text-gray-300 mb-1">
             Contraseña
           </label>
           <input

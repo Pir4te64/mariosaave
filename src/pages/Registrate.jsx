@@ -11,6 +11,7 @@ const Registrate = () => {
           src={socios}
           alt="Socios"
           className="rounded-lg shadow-md object-cover"
+          loading="lazy"
         />
       </div>
 

@@ -49,6 +49,7 @@ const Header = () => {
               src={img1}
               alt="Header"
               className="w-full h-full object-cover"
+              loading="lazy"
             />
           </div>
         </div>

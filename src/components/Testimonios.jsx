@@ -20,6 +20,7 @@ const Testimonios = () => {
               src={testmonio}
               alt="Imagen de testimonio"
               className="w-full h-auto rounded-lg shadow-md"
+              loading="lazy"
             />
           </div>
           <TestimoniosCarousel />

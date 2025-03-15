@@ -10,7 +10,12 @@ const Footer = () => {
       <div className="w-11/12 md:w-4/5 mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
         {/* Logo */}
         <div className="flex flex-col items-start md:items-center">
-          <img src={logo} alt="Logo" className="h-12 md:h-16 mb-4" />
+          <img
+            src={logo}
+            alt="Logo"
+            className="h-12 md:h-16 mb-4"
+            loading="lazy"
+          />
           <a
             href="mailto:mgmt@mariosaave.com"
             className="text-sm hover:text-green-500"

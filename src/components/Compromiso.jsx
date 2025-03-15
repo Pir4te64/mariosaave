@@ -37,6 +37,7 @@ const Compromiso = () => {
               src={Man}
               alt="Imagen de Man"
               className="object-contain w-full h-auto max-h-[600px]"
+              loading="lazy"
             />
           </div>
         </div>

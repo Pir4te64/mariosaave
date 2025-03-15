@@ -15,12 +15,18 @@ const Sobremi = () => {
             src={foto} // Ruta de la imagen
             alt="Sobremi"
             className="w-full h-full object-cover"
+            loading="lazy"
           />
           {/* Contenedor con texto y círculo */}
           <div className="absolute -bottom-2 md:bottom-6 left-6 bg-white p-4 text-black rounded-md shadow-lg max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg w-full">
             {/* Círculo con fondo softyellow y el icono */}
             <div className="absolute top-[-12px] left-[-12px] w-8 h-8 bg-softYellow rounded-full border-2 border-black flex items-center justify-center">
-              <img src={exerciseIcon} alt="Exercise Icon" className="w-4 h-4" />
+              <img
+                src={exerciseIcon}
+                alt="Exercise Icon"
+                className="w-4 h-4"
+                loading="lazy"
+              />
             </div>
             <p className="text-xs sm:text-sm md:text-base font-semibold">
               El bienestar está en el equilibrio: entrenar con constancia, sin

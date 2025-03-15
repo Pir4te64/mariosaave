@@ -15,6 +15,7 @@ const CajaResultados = ({ img }) => {
           src={img} // Aquí se coloca la imagen deseada
           alt="Imagen de ejemplo"
           className="w-full h-[300px] object-contain rounded-lg" // Tamaño fijo con 'object-cover'
+          loading="lazy"
         />
       </div>
     </div>

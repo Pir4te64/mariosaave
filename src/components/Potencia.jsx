@@ -40,6 +40,7 @@ const Potencia = () => {
               src={apuntando}
               alt="Persona apuntando"
               className="w-full max-w-md md:max-w-lg object-contain"
+              loading="lazy"
             />
           </div>
         </div>
