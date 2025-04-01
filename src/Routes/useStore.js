@@ -11,9 +11,9 @@ const useStoreLogin = create((set) => ({
   },
   logout: () => {
     set({ isAuthenticated: false });
-    localStorage.removeItem("access_token");
+    localStorage.removeItem("token");
     localStorage.setItem("isAuthenticated", false);
-    sessionStorage.removeItem("access_token");
+    sessionStorage.removeItem("token");
     sessionStorage.setItem("isAuthenticated", false);
   },
   login: () => {

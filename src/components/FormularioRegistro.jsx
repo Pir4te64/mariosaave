@@ -1,16 +1,23 @@
 import React, { useState } from "react";
-import { APIURL, apikey } from "../utils/api";
+import { APIURL } from "../utils/api";
+import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const FormularioLogin = () => {
   const [correo, setCorreo] = useState("");
   const [contraseña, setContraseña] = useState("");
   const [confirmacionContraseña, setConfirmacionContraseña] = useState("");
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     // Validación: se verifica que la contraseña coincida con su confirmación
     if (contraseña !== confirmacionContraseña) {
-      alert("Las contraseñas no coinciden");
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Las contraseñas no coinciden",
+      });
       return;
     }
     try {
@@ -18,7 +25,6 @@ const FormularioLogin = () => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          apikey: apikey,
         },
         body: JSON.stringify({
           email: correo,
@@ -28,20 +34,39 @@ const FormularioLogin = () => {
       const data = await response.json();
 
       if (response.ok) {
-        // Según la respuesta, si email_verified es false, se indica que revise su email.
-        if (data.user_metadata.email_verified === false) {
-          alert(
-            "Registro exitoso. Por favor, revise su email para confirmar su cuenta."
-          );
+        // Según la respuesta, si isActive es true se indica que revise su email.
+        if (data.isActive === true) {
+          Swal.fire({
+            icon: "success",
+            title: "Registro exitoso",
+            text: "Proceda a logearse.",
+            timer: 1500,
+            showConfirmButton: false,
+          }).then(() => {
+            navigate("/login");
+          });
         } else {
-          alert("Registro exitoso.");
+          Swal.fire({
+            icon: "success",
+            title: "Registro exitoso",
+            timer: 1500,
+            showConfirmButton: false,
+          });
         }
       } else {
-        alert("Error en el registro. Por favor, intente nuevamente.");
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: "Error en el registro. Por favor, intente nuevamente.",
+        });
       }
     } catch (error) {
       console.error("Error al enviar datos:", error);
-      alert("Error al enviar datos.");
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Error al enviar datos.",
+      });
     }
   };
 
@@ -49,7 +74,7 @@ const FormularioLogin = () => {
     <div className='w-full max-w-2xl mx-auto bg-neutral-900 p-12 rounded-lg shadow-lg'>
       {/* Título */}
       <h2 className='text-4xl font-semibold text-white mb-8 text-left'>
-        Iniciar Sesión
+        Registro
       </h2>
 
       <form className='space-y-8' onSubmit={handleSubmit}>
@@ -102,7 +127,7 @@ const FormularioLogin = () => {
         <button
           type='submit'
           className='w-full bg-greenmusgo text-white py-3 rounded-md hover:bg-softYellow hover:text-black transition duration-300 text-lg'>
-          Iniciar Sesión
+          Registrarse
         </button>
       </form>
     </div>
