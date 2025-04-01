@@ -1,4 +1,4 @@
-export const BASE_URL = "http://mariosaave.cruznegradev.com/api/";
+export const BASE_URL = "https://mariosaave.cruznegradev.com/api/";
 
 export const APIURL = {
   login: `${BASE_URL}usuario/login`,
