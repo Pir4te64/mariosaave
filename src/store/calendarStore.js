@@ -1,65 +1,13 @@
 // store/calendarStore.js
-
 import { create } from "zustand";
+import axios from "axios";
+import { APIURL } from "../utils/api";
 
 const today = new Date();
-const currentYear = today.getFullYear();
-const currentMonth = today.getMonth();
-
-const initialEvents = [
-  {
-    title: "Clase privada / Lucas Perez",
-    start: new Date(currentYear, currentMonth, 19, 13, 0),
-    end: new Date(currentYear, currentMonth, 19, 14, 0),
-    type: "private",
-  },
-  {
-    title: "Clase privada / Mario",
-    start: new Date(currentYear, currentMonth, 19, 14, 0),
-    end: new Date(currentYear, currentMonth, 19, 15, 0),
-    type: "private",
-  },
-  {
-    title: "Clase grupal / 2 spots disponibles",
-    start: new Date(currentYear, currentMonth, 19, 15, 0),
-    end: new Date(currentYear, currentMonth, 19, 16, 0),
-    type: "group",
-  },
-  {
-    title: "Clase privada / Lucas Perez",
-    start: new Date(currentYear, currentMonth, 20, 13, 0),
-    end: new Date(currentYear, currentMonth, 20, 14, 0),
-    type: "private",
-  },
-  {
-    title: "Clase grupal / 2 spots disponibles",
-    start: new Date(currentYear, currentMonth, 20, 15, 0),
-    end: new Date(currentYear, currentMonth, 20, 16, 0),
-    type: "group",
-  },
-  {
-    title: "Clase privada / Lucas Perez",
-    start: new Date(currentYear, currentMonth, 21, 13, 0),
-    end: new Date(currentYear, currentMonth, 21, 14, 0),
-    type: "private",
-  },
-  {
-    title: "Clase privada / Mario",
-    start: new Date(currentYear, currentMonth, 21, 14, 0),
-    end: new Date(currentYear, currentMonth, 21, 15, 0),
-    type: "private",
-  },
-  {
-    title: "Clase grupal / 2 spots disponibles",
-    start: new Date(currentYear, currentMonth, 21, 15, 0),
-    end: new Date(currentYear, currentMonth, 21, 16, 0),
-    type: "group",
-  },
-];
 
 const useCalendarStore = create((set) => ({
   currentView: "week",
-  events: initialEvents,
+  events: [],
   date: today,
   isModalOpen: false,
   selectedEvent: null,
@@ -68,6 +16,33 @@ const useCalendarStore = create((set) => ({
   setDate: (date) => set({ date }),
   setIsModalOpen: (isOpen) => set({ isModalOpen: isOpen }),
   setSelectedEvent: (event) => set({ selectedEvent: event }),
+  // Acción para obtener y transformar los eventos
+  fetchEvents: async () => {
+    const token = localStorage.getItem("token");
+    try {
+      const response = await axios.get(APIURL.obtenerEventos, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      if (response.data && response.data.events) {
+        const transformedEvents = response.data.events.map((event) => ({
+          title: event.summary,
+          start: new Date(event.start.dateTime || event.start.date),
+          end: new Date(event.end.dateTime || event.end.date),
+          id: event.id,
+          type: event.eventType || "default",
+          description: event.description || "",
+          htmlLink: event.htmlLink || "",
+          hangoutLink: event.hangoutLink || "",
+          conferenceData: event.conferenceData || {},
+          // Puedes agregar otros campos que necesites
+        }));
+
+        set({ events: transformedEvents });
+      }
+    } catch (error) {
+      console.error("Error al obtener eventos:", error);
+    }
+  },
 }));
 
 export default useCalendarStore;

@@ -71,7 +71,6 @@ const ModalEntrenamiento = ({ setIsModalOpen }) => {
           timer: 1500,
           showConfirmButton: false,
         }).then(() => {
-          setEvents([...events, response.data.event]);
           setIsModalOpen(false);
         });
       } else {

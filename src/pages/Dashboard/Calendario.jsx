@@ -1,5 +1,4 @@
-// Calendario.jsx
-import React from "react";
+import React, { useEffect } from "react";
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
 import "moment/locale/es";
@@ -14,16 +13,20 @@ const localizer = momentLocalizer(moment);
 const Calendario = () => {
   const today = new Date();
 
-  // Extraemos los estados y funciones desde el store
   const currentView = useCalendarStore((state) => state.currentView);
   const setCurrentView = useCalendarStore((state) => state.setCurrentView);
   const events = useCalendarStore((state) => state.events);
-  const date = useCalendarStore((state) => state.date);
   const setDate = useCalendarStore((state) => state.setDate);
+  const date = useCalendarStore((state) => state.date);
   const isModalOpen = useCalendarStore((state) => state.isModalOpen);
   const setIsModalOpen = useCalendarStore((state) => state.setIsModalOpen);
   const selectedEvent = useCalendarStore((state) => state.selectedEvent);
   const setSelectedEvent = useCalendarStore((state) => state.setSelectedEvent);
+  const fetchEvents = useCalendarStore((state) => state.fetchEvents);
+
+  useEffect(() => {
+    fetchEvents();
+  }, [fetchEvents]);
 
   const eventPropGetter = (event) => {
     const backgroundColor = event.type === "private" ? "#F8D7DA" : "#D4EDDA";
@@ -42,17 +45,14 @@ const Calendario = () => {
   };
 
   return (
-    <div className="min-h-screen p-6 bg-gray-100 flex flex-col items-center w-full">
-      {/* Botón para abrir el modal de agendar */}
+    <div className='min-h-screen p-6 bg-gray-100 flex flex-col items-center w-full'>
       <button
         onClick={() => setIsModalOpen(true)}
-        className="mb-4 px-6 py-3 bg-greenmusgo text-white rounded-md shadow-md hover:bg-softYellow hover:text-black"
-      >
+        className='mb-4 px-6 py-3 bg-greenmusgo text-white rounded-md shadow-md hover:bg-softYellow hover:text-black'>
         Agendar Entrenamiento
       </button>
 
-      {/* Contenedor del calendario */}
-      <div className="bg-white shadow-lg rounded-lg p-6 w-full max-w-full sm:max-w-6xl">
+      <div className='bg-white shadow-lg rounded-lg p-6 w-full max-w-full sm:max-w-6xl'>
         <Calendar
           localizer={localizer}
           events={events}
@@ -61,7 +61,7 @@ const Calendario = () => {
           onView={(newView) => setCurrentView(newView)}
           onNavigate={(newDate) => setDate(newDate)}
           views={["week", "day", "month"]}
-          culture="es"
+          culture='es'
           step={60}
           timeslots={1}
           min={new Date(today.getFullYear(), today.getMonth(), 1, 13, 0)}
@@ -72,7 +72,6 @@ const Calendario = () => {
         />
       </div>
 
-      {/* Modal de evento seleccionado */}
       {selectedEvent && (
         <ModalInformacion
           event={selectedEvent}
@@ -80,7 +79,6 @@ const Calendario = () => {
         />
       )}
 
-      {/* Modal para agendar nuevo evento */}
       {isModalOpen && <ModalEntrenamiento setIsModalOpen={setIsModalOpen} />}
     </div>
   );
