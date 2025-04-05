@@ -2,7 +2,7 @@ import React from "react";
 import PlanCard from "../components/PlanCard";
 
 const Planes = () => {
-  // Datos de los planes
+  // Datos de los planes, agregando el link correspondiente
   const planesData = [
     {
       title: "Plan Básico",
@@ -20,9 +20,10 @@ const Planes = () => {
           text: "Te enviamos toda la información en un documento detallado.",
           included: true,
         },
-        { text: "Clases virtuales", included: false }, // Ejemplo de NO incluido
+        { text: "Clases virtuales", included: false },
       ],
       buttonText: "¡Unirme!",
+      link: "https://wa.link/0nemlj",
     },
     {
       title: "Plan Together",
@@ -47,6 +48,7 @@ const Planes = () => {
         { text: "Acompañamiento y seguimiento en pareja.", included: true },
       ],
       buttonText: "¡Unirme!",
+      link: "https://wa.link/ee23xz",
     },
     {
       title: "Plan Squad",
@@ -64,6 +66,7 @@ const Planes = () => {
         { text: "Entrenamiento grupal personalizado.", included: true },
       ],
       buttonText: "¡Unirme!",
+      link: "https://wa.link/zxdmr4",
     },
     {
       title: "Plan Personal",
@@ -88,24 +91,25 @@ const Planes = () => {
         },
       ],
       buttonText: "¡Unirme!",
+      link: "https://wa.link/kuf26y",
     },
   ];
 
   return (
-    <section className="w-full my-16 flex flex-col justify-center items-center px-4">
+    <section className='w-full my-16 flex flex-col justify-center items-center px-4'>
       {/* Título y descripción */}
-      <div className="w-full md:w-4/5 text-center mb-8">
-        <h2 className="text-3xl font-semibold text-gray-800">
+      <div className='w-full md:w-4/5 text-center mb-8'>
+        <h2 className='text-3xl font-semibold text-gray-800'>
           Nuestros Planes de Entrenamiento (100% Virtuales)
         </h2>
-        <p className="text-lg text-gray-600 mt-2">
+        <p className='text-lg text-gray-600 mt-2'>
           Ofrecemos 4 planes mensuales, diseñados para adaptarse a diferentes
           necesidades y objetivos.
         </p>
       </div>
 
       {/* Contenedor de los 4 planes */}
-      <div className="w-full md:w-4/5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
+      <div className='w-full  grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch'>
         {planesData.map((plan, index) => (
           <PlanCard
             key={index}
@@ -113,6 +117,7 @@ const Planes = () => {
             subtitle={plan.subtitle}
             features={plan.features}
             buttonText={plan.buttonText}
+            link={plan.link}
           />
         ))}
       </div>
