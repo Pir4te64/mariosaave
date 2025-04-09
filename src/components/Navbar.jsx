@@ -13,7 +13,17 @@ const Navbar = () => {
 
   const handleLogout = () => {
     setIsAuthenticated(false);
+
+    // Eliminamos la información de autenticación del localStorage
     localStorage.removeItem("isAuthenticated");
+    localStorage.removeItem("token");
+    localStorage.removeItem("decodedToken");
+
+    // También eliminamos la información del sessionStorage
+    sessionStorage.removeItem("isAuthenticated");
+    sessionStorage.removeItem("token");
+    sessionStorage.removeItem("decodedToken");
+
     logout();
   };
 

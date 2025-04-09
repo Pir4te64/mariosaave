@@ -1,14 +1,32 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import useStoreLogin from "../../Routes/useStore";
-// Si tienes un logo real, impórtalo:
 import logo from "../../assets/Logo.png";
 import DashboardUserActions from "../../components/DashboardUserActions";
+// Nota: La importación de jwt-decode no se usa aquí ya que asumimos que
+// el token decodificado ya fue guardado en el storage.
 
 const DashboardNavbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [decodedToken, setDecodedToken] = useState(null);
   const { isAuthenticated, logout, setIsAuthenticated } = useStoreLogin();
+
+  // Obtención del token decodificado almacenado en localStorage o sessionStorage
+  useEffect(() => {
+    let storedDecoded = localStorage.getItem("decodedToken");
+    if (!storedDecoded) {
+      storedDecoded = sessionStorage.getItem("decodedToken");
+    }
+    if (storedDecoded) {
+      try {
+        const tokenObj = JSON.parse(storedDecoded);
+        setDecodedToken(tokenObj);
+      } catch (err) {
+        console.error("Error parseando el token decodificado:", err);
+      }
+    }
+  }, []);
 
   const toggleMenu = () => setIsOpen(!isOpen);
   const toggleDropdown = () => setDropdownOpen(!dropdownOpen);
@@ -17,6 +35,9 @@ const DashboardNavbar = () => {
     setIsAuthenticated(false);
     logout();
     localStorage.removeItem("token");
+    localStorage.removeItem("decodedToken");
+    sessionStorage.removeItem("token");
+    sessionStorage.removeItem("decodedToken");
   };
 
   return (
@@ -61,6 +82,22 @@ const DashboardNavbar = () => {
               Soporte
             </Link>
           </li>
+          {/* Si role_id es 4, se muestra el botón "Horarios" */}
+          {decodedToken && decodedToken.role_id === 4 && (
+            <li>
+              <Link to='/dashboard/horarios' className='hover:text-gray-300'>
+                Horarios
+              </Link>
+            </li>
+          )}
+          {/* Si role_id es 1, se muestra el botón "Reservas" */}
+          {decodedToken && decodedToken.role_id === 1 && (
+            <li>
+              <Link to='/dashboard/reservas' className='hover:text-gray-300'>
+                Reservas
+              </Link>
+            </li>
+          )}
         </ul>
 
         {/* Sección Derecha (versión escritorio): íconos + dropdown de usuario */}
@@ -69,7 +106,8 @@ const DashboardNavbar = () => {
           toggleDropdown={toggleDropdown}
           handleLogout={handleLogout}
         />
-        {/* Botón Hamburguesa (móvil) */}
+
+        {/* Botón Hamburguesa (versión móvil) */}
         <div className='md:hidden'>
           <button onClick={toggleMenu} className='focus:outline-none'>
             <svg
@@ -126,6 +164,26 @@ const DashboardNavbar = () => {
               Soporte
             </Link>
           </li>
+          {/* Versión móvil: botón "Horarios" si role_id es 4 */}
+          {decodedToken && decodedToken.role_id === 4 && (
+            <li>
+              <Link
+                to='/dashboard/horarios'
+                className='block hover:text-gray-300'>
+                Horarios
+              </Link>
+            </li>
+          )}
+          {/* Versión móvil: botón "Reservas" si role_id es 1 */}
+          {decodedToken && decodedToken.role_id === 1 && (
+            <li>
+              <Link
+                to='/dashboard/reservas'
+                className='block hover:text-gray-300'>
+                Reservas
+              </Link>
+            </li>
+          )}
           <li className='border-t border-gray-700 pt-2'>
             <Link to='/dashboard/miplan' className='block hover:text-gray-300'>
               Mi plan

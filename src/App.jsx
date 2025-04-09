@@ -20,27 +20,29 @@ import Blog from "./pages/Dashboard/Blog";
 import Soporte from "./pages/Dashboard/Soporte";
 import BlogPost from "./pages/Dashboard/BlogPost";
 import MiPlan from "./pages/Dashboard/MiPlan";
+import HorariosPage from "./pages/Dashboard/Dash/Horarios";
+import Reservas from "./components/Reservas/Reservas";
 
 function App() {
   return (
     <Routes>
       {/* Rutas públicas envueltas en Layout público */}
-      <Route path="/" element={<Layout />}>
+      <Route path='/' element={<Layout />}>
         <Route index element={<Inicio />} />
-        <Route path="contacto" element={<Contacto />} />
-        <Route path="nosotros" element={<Nosotros />} />
-        <Route path="planes" element={<Planes />} />
-        <Route path="servicios" element={<Servicios />} />
-        <Route path="testimonios" element={<Testimonios />} />
-        <Route path="registrate" element={<Registrate />} />
-        <Route path="login" element={<Login />} />
-        <Route path="restablacerpassword" element={<RestablecerPassword />} />
-        <Route path="confirmarpassword" element={<ConfirmarPassword />} />
+        <Route path='contacto' element={<Contacto />} />
+        <Route path='nosotros' element={<Nosotros />} />
+        <Route path='planes' element={<Planes />} />
+        <Route path='servicios' element={<Servicios />} />
+        <Route path='testimonios' element={<Testimonios />} />
+        <Route path='registrate' element={<Registrate />} />
+        <Route path='login' element={<Login />} />
+        <Route path='restablacerpassword' element={<RestablecerPassword />} />
+        <Route path='confirmarpassword' element={<ConfirmarPassword />} />
       </Route>
 
       {/* Rutas privadas envueltas en PrivateRoute y DashboardLayout */}
       <Route
-        path="/dashboard"
+        path='/dashboard'
         element={
           <PrivateRoute>
             <DashboardLayout>
@@ -52,7 +54,7 @@ function App() {
         }
       />
       <Route
-        path="/dashboard/calendario"
+        path='/dashboard/calendario'
         element={
           <PrivateRoute>
             <DashboardLayout>
@@ -63,7 +65,7 @@ function App() {
         }
       />
       <Route
-        path="/dashboard/programas"
+        path='/dashboard/programas'
         element={
           <PrivateRoute>
             <DashboardLayout>
@@ -74,7 +76,7 @@ function App() {
         }
       />
       <Route
-        path="/dashboard/retos"
+        path='/dashboard/retos'
         element={
           <PrivateRoute>
             <DashboardLayout>
@@ -84,7 +86,7 @@ function App() {
         }
       />
       <Route
-        path="/dashboard/blog"
+        path='/dashboard/blog'
         element={
           <PrivateRoute>
             <DashboardLayout>
@@ -94,7 +96,7 @@ function App() {
         }
       />
       <Route
-        path="/dashboard/soporte"
+        path='/dashboard/soporte'
         element={
           <PrivateRoute>
             <DashboardLayout>
@@ -104,7 +106,7 @@ function App() {
         }
       />
       <Route
-        path="/blog/:id"
+        path='/blog/:id'
         element={
           <PrivateRoute>
             <DashboardLayout>
@@ -114,11 +116,31 @@ function App() {
         }
       />
       <Route
-        path="/dashboard/miplan"
+        path='/dashboard/miplan'
         element={
           <PrivateRoute>
             <DashboardLayout>
               <MiPlan />
+            </DashboardLayout>
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path='/dashboard/horarios'
+        element={
+          <PrivateRoute>
+            <DashboardLayout>
+              <HorariosPage />
+            </DashboardLayout>
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path='/dashboard/reservas'
+        element={
+          <PrivateRoute>
+            <DashboardLayout>
+              <Reservas />
             </DashboardLayout>
           </PrivateRoute>
         }

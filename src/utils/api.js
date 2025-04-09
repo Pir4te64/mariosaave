@@ -5,4 +5,6 @@ export const APIURL = {
   register: `${BASE_URL}usuario`,
   crearEvento: `${BASE_URL}calendar/createEvent`,
   obtenerEventos: `${BASE_URL}calendar/listEvents`,
+  horarios: `${BASE_URL}horario`,
+  reservas: `${BASE_URL}reservas`,
 };

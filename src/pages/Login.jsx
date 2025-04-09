@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import useStoreLogin from "../Routes/useStore";
-import { FaGoogle, FaFacebook, FaInstagram } from "react-icons/fa";
 import { APIURL } from "../utils/api";
 import Swal from "sweetalert2";
-
+import { jwtDecode } from "jwt-decode";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -25,13 +24,26 @@ const Login = () => {
 
       if (response.ok) {
         const data = await response.json();
+
+        // Guardamos el token recibido
+        if (remember) {
+          localStorage.setItem("token", data.token);
+        } else {
+          sessionStorage.setItem("token", data.token);
+        }
+
+        // Decodificamos el token usando jwt-decode
+        const decodedToken = jwtDecode(data.token);
+
+        // Guardamos el token deserializado en el storage correspondiente
+        localStorage.setItem("decodedToken", JSON.stringify(decodedToken));
         localStorage.setItem("token", data.token);
 
         if (remember) {
-          localStorage.setItem("token", data.token);
+          localStorage.setItem("decodedToken", JSON.stringify(decodedToken));
           localStorage.setItem("isAuthenticated", "true");
         } else {
-          sessionStorage.setItem("token", data.token);
+          sessionStorage.setItem("decodedToken", JSON.stringify(decodedToken));
           sessionStorage.setItem("isAuthenticated", "true");
         }
         setIsAuthenticated(true);
