@@ -9,7 +9,9 @@ const ModalEntrenamiento = ({ setIsModalOpen }) => {
   const { events, setEvents } = useCalendarStore();
 
   // Estados para los campos requeridos
-  const [summary, setSummary] = useState("");
+  const [nivelExperiencia, setNivelExperiencia] = useState("");
+  const [objetivoEntrenamiento, setObjetivoEntrenamiento] = useState("");
+  const [condicionesMedicas, setCondicionesMedicas] = useState("");
   const [fecha, setFecha] = useState("");
   const [hora, setHora] = useState("");
 
@@ -18,7 +20,13 @@ const ModalEntrenamiento = ({ setIsModalOpen }) => {
 
   const handleGuardar = async () => {
     // Validar campos obligatorios
-    if (!summary || !fecha || !hora) {
+    if (
+      !nivelExperiencia ||
+      !objetivoEntrenamiento ||
+      !condicionesMedicas ||
+      !fecha ||
+      !hora
+    ) {
       Swal.fire({
         icon: "error",
         title: "Campos incompletos",
@@ -44,18 +52,35 @@ const ModalEntrenamiento = ({ setIsModalOpen }) => {
       return;
     }
 
-    // Construir payload con formato ISO y offset
+    // Obtener el alumno_id del token decodificado almacenado en localStorage
+    let alumno_id = null;
+    const decodedTokenStr = localStorage.getItem("decodedToken");
+    if (decodedTokenStr) {
+      try {
+        const decodedToken = JSON.parse(decodedTokenStr);
+        alumno_id = decodedToken.id;
+      } catch (error) {
+        console.error("Error al parsear decodedToken:", error);
+      }
+    }
+
+    // Construir payload con formato requerido
     const payload = {
-      summary,
-      startDateTime: moment(startDate).format("YYYY-MM-DDTHH:mm:ssZ"),
-      endDateTime: moment(endDate).format("YYYY-MM-DDTHH:mm:ssZ"),
+      nivel_experiencia: nivelExperiencia,
+      objetivo_entrenamiento: objetivoEntrenamiento,
+      condiciones_medicas: condicionesMedicas,
+      fecha_inicio: moment(startDate).format("YYYY-MM-DDTHH:mm:ss") + ".00z",
+      fecha_fin: moment(endDate).format("YYYY-MM-DDTHH:mm:ss") + ".00z",
+      alumno_id, // Se agrega el alumno_id obtenido
     };
+
+    console.log("Payload:", payload);
 
     // Obtener el token del localStorage
     const token = localStorage.getItem("token");
 
     try {
-      const response = await axios.post(APIURL.crearEvento, payload, {
+      const response = await axios.post(APIURL.reservas, payload, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
@@ -94,14 +119,74 @@ const ModalEntrenamiento = ({ setIsModalOpen }) => {
         </h2>
         <div className='grid grid-cols-1 gap-4'>
           <div>
-            <label className='block text-sm font-medium'>Resumen *</label>
-            <input
-              type='text'
+            <label className='block text-sm font-medium'>
+              Nivel de experiencia *
+            </label>
+            <select
               className='w-full border rounded-lg p-2'
-              value={summary}
-              onChange={(e) => setSummary(e.target.value)}
-              placeholder='Ingresa el resumen del evento'
-            />
+              value={nivelExperiencia}
+              onChange={(e) => setNivelExperiencia(e.target.value)}>
+              <option value=''>Selecciona un nivel</option>
+              <option value='Principiante'>Principiante</option>
+              <option value='Intermedio'>Intermedio</option>
+              <option value='Avanzado'>Avanzado</option>
+            </select>
+          </div>
+          <div>
+            <label className='block text-sm font-medium'>
+              Objetivo del entrenamiento *
+            </label>
+            <select
+              className='w-full border rounded-lg p-2'
+              value={objetivoEntrenamiento}
+              onChange={(e) => setObjetivoEntrenamiento(e.target.value)}>
+              <option value=''>Selecciona un objetivo</option>
+              <option value='Pérdida de peso'>Pérdida de peso</option>
+              <option value='Ganancia de masa muscular'>
+                Ganancia de masa muscular
+              </option>
+              <option value='Mejorar resistencia cardiovascular'>
+                Mejorar resistencia cardiovascular
+              </option>
+              <option value='Tonificación y definición'>
+                Tonificación y definición
+              </option>
+              <option value='Mantenimiento general'>
+                Mantenimiento general
+              </option>
+              <option value='Mejorar fuerza y potencia'>
+                Mejorar fuerza y potencia
+              </option>
+              <option value='Rehabilitación o recuperación'>
+                Rehabilitación o recuperación
+              </option>
+              <option value='Preparación para competencia'>
+                Preparación para competencia
+              </option>
+            </select>
+          </div>
+          <div>
+            <label className='block text-sm font-medium'>
+              Condiciones médicas o lesiones relevantes *
+            </label>
+            <select
+              className='w-full border rounded-lg p-2'
+              value={condicionesMedicas}
+              onChange={(e) => setCondicionesMedicas(e.target.value)}>
+              <option value=''>Selecciona una condición</option>
+              <option value='Hipertensión'>Hipertensión</option>
+              <option value='Diabetes'>Diabetes</option>
+              <option value='Asma'>Asma</option>
+              <option value='Problemas cardíacos'>Problemas cardíacos</option>
+              <option value='Lesiones en rodilla'>Lesiones en rodilla</option>
+              <option value='Lesiones de espalda (lumbalgia, hernias)'>
+                Lesiones de espalda (lumbalgia, hernias)
+              </option>
+              <option value='Lesiones de hombro o codo'>
+                Lesiones de hombro o codo
+              </option>
+              <option value='Cirugías recientes'>Cirugías recientes</option>
+            </select>
           </div>
           <div>
             <label className='block text-sm font-medium'>Fecha *</label>

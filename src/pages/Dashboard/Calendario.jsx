@@ -4,7 +4,7 @@ import moment from "moment";
 import "moment/locale/es";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import ModalEntrenamiento from "../../components/ModalEntrenamiento";
-import ModalInformacion from "../../components/ModalInformacion";
+import ModalInformacion from "../../components/ModalCalendario/ModalInformacion";
 import useCalendarStore from "../../store/calendarStore";
 
 moment.locale("es");
