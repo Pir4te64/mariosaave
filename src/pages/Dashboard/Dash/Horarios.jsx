@@ -1,5 +1,5 @@
 import React from "react";
-import Horarios from "../../../components/Horarios/Horarios";
+import Horarios from "@/components/Horarios/Horarios";
 
 const HorariosPage = () => {
   return (

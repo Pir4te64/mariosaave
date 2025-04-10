@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { APIURL } from "../../utils/api";
+import { APIURL } from "@/utils/api";
 import { Edit2, Check, X } from "lucide-react";
 import { FaPlus, FaMinus } from "react-icons/fa";
 

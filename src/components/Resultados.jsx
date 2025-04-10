@@ -1,8 +1,8 @@
 import React from "react";
-import AD1 from "../assets/AD1.png";
-import AD2 from "../assets/AD2.png";
-import AD3 from "../assets/AD3.png";
-import CajaResultados from "./CajaResultados";
+import AD1 from "@/assets/AD1.png";
+import AD2 from "@/assets/AD2.png";
+import AD3 from "@/assets/AD3.png";
+import CajaResultados from "@/components/CajaResultados";
 const Resultados = () => {
   return (
     <section className="w-full my-20 flex justify-center items-center">

@@ -1,5 +1,5 @@
 import { Navigate } from "react-router-dom";
-import useStoreLogin from "./useStore";
+import useStoreLogin from "@/Routes/useStore";
 
 const PrivateRoute = ({ children }) => {
   const { isAuthenticated } = useStoreLogin(); // Obtén el estado global de la autenticación

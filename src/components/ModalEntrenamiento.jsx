@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import moment from "moment";
-import { APIURL } from "../utils/api";
+import { APIURL } from "@/utils/api";
 import Swal from "sweetalert2";
 
 const ModalEntrenamiento = ({ setIsModalOpen, users }) => {

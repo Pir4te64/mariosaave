@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { APIURL } from "../../utils/api";
+import { APIURL } from "@/utils/api";
 
 const Horarios = () => {
   // Estado para almacenar la lista de horarios

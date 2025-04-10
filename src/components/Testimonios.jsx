@@ -1,6 +1,6 @@
 import React from "react";
-import testmonio from "../assets/testimonios.png"; // Asegúrate de tener la imagen en esta ruta
-import TestimoniosCarousel from "./TestimoniosCarousel";
+import testmonio from "@/assets/testimonios.png"; // Asegúrate de tener la imagen en esta ruta
+import TestimoniosCarousel from "@/components/TestimoniosCarousel";
 const Testimonios = () => {
   return (
     <section

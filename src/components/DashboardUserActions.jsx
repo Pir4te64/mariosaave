@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Bell, Search } from "lucide-react";
-import avatar from "../assets/avatar.png"; // Ajusta la ruta según corresponda
+import avatar from "@/assets/avatar.png"; // Ajusta la ruta según corresponda
 
 const DashboardUserActions = ({
   dropdownOpen,

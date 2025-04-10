@@ -1,6 +1,6 @@
 import React from "react";
 import { GiFootprint } from "react-icons/gi";
-import useProfileStore from "../Profile/useProfileStore"; // Ajusta la ruta según tu estructura
+import useProfileStore from "@/pages/Dashboard/Profile/useProfileStore"; // Ajusta la ruta según tu estructura
 
 const BodyMeasurements = () => {
   // Obtén el perfil desde el estado global

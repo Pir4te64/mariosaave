@@ -1,6 +1,6 @@
 import React from "react";
-import laptopImg from "../../../assets/dash.png";
-import useProfileStore from "../Profile/useProfileStore";
+import laptopImg from "@/assets/dash.png";
+import useProfileStore from "@/pages/Dashboard/Profile/useProfileStore";
 
 const GreetingCard = () => {
   // Obtén el perfil del estado global

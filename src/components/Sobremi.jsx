@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
-import foto from "../assets/Sobremi.png";
-import exerciseIcon from "../assets/exercise.png"; // Asegúrate de que la ruta sea correcta.
+import foto from "@/assets/Sobremi.png";
+import exerciseIcon from "@/assets/exercise.png"; // Asegúrate de que la ruta sea correcta.
 
 const Sobremi = () => {
   return (

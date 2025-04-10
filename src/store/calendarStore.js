@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import axios from "axios";
-import { APIURL } from "../utils/api";
+import { APIURL } from "@/utils/api";
 
 const today = new Date();
 

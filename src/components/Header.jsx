@@ -1,7 +1,7 @@
 import React from "react";
-import SocialLinks from "./CajaRedesSociales";
-import HeaderFooter from "./HeaderFooter";
-import img1 from "../assets/img1.png"; // Asegúrate de que la ruta sea correcta
+import SocialLinks from "@/components/CajaRedesSociales";
+import HeaderFooter from "@/components/HeaderFooter";
+import img1 from "@/assets/img1.png"; // Asegúrate de que la ruta sea correcta
 import { Link } from "react-router-dom";
 
 const Header = () => {

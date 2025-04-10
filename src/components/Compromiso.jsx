@@ -1,5 +1,5 @@
-import SubCaja from "./CompromisoItem";
-import Man from "../assets/img5.png";
+import SubCaja from "@/components/CompromisoItem";
+import Man from "@/assets/img5.png";
 
 const Compromiso = () => {
   return (

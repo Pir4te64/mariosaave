@@ -1,9 +1,9 @@
 import React from "react";
-import Header from "../components/Header"; // Asegúrate de importar el Header
-import Sobremi from "../components/Sobremi";
-import Compromiso from "../components/Compromiso";
-import Testimonios from "../components/Testimonios";
-import Potencia from "../components/Potencia";
+import Header from "@/components/Header"; // Asegúrate de importar el Header
+import Sobremi from "@/components/Sobremi";
+import Compromiso from "@/components/Compromiso";
+import Testimonios from "@/components/Testimonios";
+import Potencia from "@/components/Potencia";
 
 const Inicio = () => {
   return (

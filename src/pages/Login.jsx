@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import useStoreLogin from "../Routes/useStore";
-import { APIURL } from "../utils/api";
+import useStoreLogin from "@/Routes/useStore";
+import { APIURL } from "@/utils/api";
 import Swal from "sweetalert2";
 import { jwtDecode } from "jwt-decode";
 const Login = () => {

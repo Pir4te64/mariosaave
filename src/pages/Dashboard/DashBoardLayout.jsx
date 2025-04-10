@@ -1,6 +1,6 @@
 import React from "react";
-import Footer from "../../components/Footer";
-import DashboardNavbar from "./Navbardashboard";
+import Footer from "@/components/Footer";
+import DashboardNavbar from "@/pages/Dashboard/Navbardashboard";
 
 const DashboardLayout = ({ children }) => {
   return (

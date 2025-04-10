@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import useStoreLogin from "../../Routes/useStore";
-import logo from "../../assets/Logo.png";
-import DashboardUserActions from "../../components/DashboardUserActions";
+import useStoreLogin from "@/Routes/useStore";
+import logo from "@/assets/Logo.png";
+import DashboardUserActions from "@/components/DashboardUserActions";
 // Nota: La importación de jwt-decode no se usa aquí ya que asumimos que
 // el token decodificado ya fue guardado en el storage.
 

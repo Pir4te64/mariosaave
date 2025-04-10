@@ -1,27 +1,27 @@
 import { Routes, Route } from "react-router-dom";
-import Layout from "./components/Layout"; // Layout público
-import Inicio from "./pages/Inicio";
-import Contacto from "./pages/Contacto";
-import Nosotros from "./pages/Nosotros";
-import Planes from "./pages/Planes";
-import Servicios from "./pages/Servicios";
-import Testimonios from "./pages/Testimonios";
-import Registrate from "./pages/Registrate";
-import Login from "./pages/Login";
-import RestablecerPassword from "./pages/RestablecerPassword";
-import ConfirmarPassword from "./pages/ConfirmarPassword";
-import PrivateRoute from "./Routes/PrivateRoute";
-import Dashboard from "./pages/Dashboard/Dashboard";
-import DashboardLayout from "./pages/Dashboard/DashBoardLayout";
-import Calendario from "./pages/Dashboard/Calendario";
-import Programas from "./pages/Dashboard/Programas";
-import Retos from "./pages/Dashboard/Retos";
-import Blog from "./pages/Dashboard/Blog";
-import Soporte from "./pages/Dashboard/Soporte";
-import BlogPost from "./pages/Dashboard/BlogPost";
-import MiPlan from "./pages/Dashboard/MiPlan";
-import HorariosPage from "./pages/Dashboard/Dash/Horarios";
-import Reservas from "./components/Reservas/Reservas";
+import Layout from "@/components/Layout"; // Layout público
+import Inicio from "@/pages/Inicio";
+import Contacto from "@/pages/Contacto";
+import Nosotros from "@/pages/Nosotros";
+import Planes from "@/pages/Planes";
+import Servicios from "@/pages/Servicios";
+import Testimonios from "@/pages/Testimonios";
+import Registrate from "@/pages/Registrate";
+import Login from "@/pages/Login";
+import RestablecerPassword from "@/pages/RestablecerPassword";
+import ConfirmarPassword from "@/pages/ConfirmarPassword";
+import PrivateRoute from "@/Routes/PrivateRoute";
+import Dashboard from "@/pages/Dashboard/Dashboard";
+import DashboardLayout from "@/pages/Dashboard/DashBoardLayout";
+import Calendario from "@/pages/Dashboard/Calendario";
+import Programas from "@/pages/Dashboard/Programas";
+import Retos from "@/pages/Dashboard/Retos";
+import Blog from "@/pages/Dashboard/Blog";
+import Soporte from "@/pages/Dashboard/Soporte";
+import BlogPost from "@/pages/Dashboard/BlogPost";
+import MiPlan from "@/pages/Dashboard/MiPlan";
+import HorariosPage from "@/pages/Dashboard/Dash/Horarios";
+import Reservas from "@/components/Reservas/Reservas";
 
 function App() {
   return (

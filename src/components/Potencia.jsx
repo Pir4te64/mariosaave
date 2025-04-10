@@ -1,6 +1,6 @@
 import React from "react";
-import apuntando from "../assets/Apuntando.png";
-import fondo from "../assets/back.png";
+import apuntando from "@/assets/Apuntando.png";
+import fondo from "@/assets/back.png";
 import { Link } from "react-router-dom";
 
 const Potencia = () => {

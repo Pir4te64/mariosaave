@@ -1,5 +1,5 @@
 import React from "react";
-import logo from "../assets/Logo.png"; // Asegúrate de tener el logo en la ruta correcta
+import logo from "@/assets/Logo.png"; // Asegúrate de tener el logo en la ruta correcta
 import { FaFacebookF, FaInstagram, FaYoutube } from "react-icons/fa";
 import { FaTiktok } from "react-icons/fa";
 

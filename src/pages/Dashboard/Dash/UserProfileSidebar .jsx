@@ -3,9 +3,9 @@ import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css"; // Importa los estilos predeterminados
 import { FaBell } from "react-icons/fa";
 
-import avatar from "../../../assets/avatar.png";
-import file from "../../../assets/file.png";
-import useProfileStore from "../Profile/useProfileStore";
+import avatar from "@/assets/avatar.png";
+import file from "@/assets/file.png";
+import useProfileStore from "@/pages/Dashboard/Profile/useProfileStore";
 
 const UserProfileSidebar = () => {
   // Estado para controlar la fecha seleccionada en el calendario

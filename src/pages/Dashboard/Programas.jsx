@@ -1,12 +1,12 @@
 // Programas.jsx
 import React, { useRef } from "react";
-import ProximaLeccionCard from "../../components/TarjetasCurso";
-import CursoCard from "../../components/CursoCard"; // Importar el nuevo componente
+import ProximaLeccionCard from "@/components/TarjetasCurso";
+import CursoCard from "@/components/CursoCard"; // Importar el nuevo componente
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import {
   cursosDisponibles,
   leccionesProximas,
-} from "../../utils/ProgramasLecciones";
+} from "@/utils/ProgramasLecciones";
 
 const Programas = () => {
   const scrollRef = useRef(null);

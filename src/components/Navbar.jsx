@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { HashLink } from "react-router-hash-link";
-import useStoreLogin from "../Routes/useStore";
-import logo from "../assets/Logo.png"; // Asegúrate de que la ruta sea correcta
+import useStoreLogin from "@/Routes/useStore";
+import logo from "@/assets/Logo.png"; // Asegúrate de que la ruta sea correcta
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);

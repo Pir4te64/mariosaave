@@ -1,6 +1,6 @@
 import React from "react";
-import FormularioRegistro from "../components/FormularioRegistro";
-import socios from "../assets/socios.png";
+import FormularioRegistro from "@/components/FormularioRegistro";
+import socios from "@/assets/socios.png";
 
 const Registrate = () => {
   return (

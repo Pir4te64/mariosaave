@@ -1,7 +1,7 @@
 import { ChevronDown } from "lucide-react";
 import React, { useState } from "react";
-import CursoCard from "../../components/CursoCard";
-import { cursosDisponibles } from "../../utils/ProgramasLecciones";
+import CursoCard from "@/components/CursoCard";
+import { cursosDisponibles } from "@/utils/ProgramasLecciones";
 
 const Retos = () => {
   const [searchTerm, setSearchTerm] = useState("");

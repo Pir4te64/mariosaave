@@ -1,7 +1,7 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
-import { blogPosts } from "../../utils/ProgramasLecciones";
-import BlogCard from "../../components/BlogCard";
+import { blogPosts } from "@/utils/ProgramasLecciones";
+import BlogCard from "@/components/BlogCard";
 
 const BlogDetail = () => {
   const location = useLocation();

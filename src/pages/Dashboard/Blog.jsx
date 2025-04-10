@@ -1,6 +1,6 @@
 import React from "react";
-import { blogPosts } from "../../utils/ProgramasLecciones";
-import BlogCard from "../../components/BlogCard";
+import { blogPosts } from "@/utils/ProgramasLecciones";
+import BlogCard from "@/components/BlogCard";
 
 const Blog = () => {
   const noticias = [

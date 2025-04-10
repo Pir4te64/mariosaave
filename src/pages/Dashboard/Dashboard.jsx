@@ -1,15 +1,15 @@
 import React, { useEffect } from "react";
 import axios from "axios";
-import GreetingCard from "./Dash/GreetingCard";
-import UserProfileSidebar from "./Dash/UserProfileSidebar ";
-import PesoCard from "./Dash/PesoCard";
-import Grasa from "./Dash/GrasaCorporal";
-import BodyMeasurements from "./Dash/BodyMeasurements";
-import ActivityChart from "./Dash/ActivityChart";
-import ScheduledClasses from "./Dash/ScheduledClasses";
-import ProcessPhotos from "./Dash/ProcessPhotos";
-import useProfileStore from "./Profile/useProfileStore";
-import { APIURL } from "../../utils/api";
+import GreetingCard from "@/pages/Dashboard/Dash/GreetingCard";
+import UserProfileSidebar from "@/pages/Dashboard/Dash/UserProfileSidebar ";
+import PesoCard from "@/pages/Dashboard/Dash/PesoCard";
+import Grasa from "@/pages/Dashboard/Dash/GrasaCorporal";
+import BodyMeasurements from "@/pages/Dashboard/Dash/BodyMeasurements";
+import ActivityChart from "@/pages/Dashboard/Dash/ActivityChart";
+import ScheduledClasses from "@/pages/Dashboard/Dash/ScheduledClasses";
+import ProcessPhotos from "@/pages/Dashboard/Dash/ProcessPhotos";
+import useProfileStore from "@/pages/Dashboard/Profile/useProfileStore";
+import { APIURL } from "@/utils/api";
 
 const Dashboard = () => {
   // Obtén la función para actualizar el perfil desde el store

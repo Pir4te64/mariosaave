@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { APIURL } from "../utils/api";
+import { APIURL } from "@/utils/api";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 

@@ -1,5 +1,5 @@
 import React from "react";
-import PlanCard from "../components/PlanCard";
+import PlanCard from "@/components/PlanCard";
 
 const Planes = () => {
   // Datos de los planes, agregando el link correspondiente
