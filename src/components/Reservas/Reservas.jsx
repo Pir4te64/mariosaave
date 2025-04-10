@@ -40,6 +40,7 @@ const Reservas = () => {
   // Función para formatear la fecha a una cadena local legible
   const formatDateDisplay = (isoDate) => {
     const date = new Date(isoDate);
+    date.setHours(date.getHours() + 3); // Add 3 hours
     return date.toLocaleString();
   };
 
