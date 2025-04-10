@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react";
+import axios from "axios";
 import GreetingCard from "./Dash/GreetingCard";
 import UserProfileSidebar from "./Dash/UserProfileSidebar ";
 import PesoCard from "./Dash/PesoCard";
@@ -7,38 +8,66 @@ import BodyMeasurements from "./Dash/BodyMeasurements";
 import ActivityChart from "./Dash/ActivityChart";
 import ScheduledClasses from "./Dash/ScheduledClasses";
 import ProcessPhotos from "./Dash/ProcessPhotos";
+import useProfileStore from "./Profile/useProfileStore";
+import { APIURL } from "../../utils/api";
 
 const Dashboard = () => {
+  // Obtén la función para actualizar el perfil desde el store
+  const setProfile = useProfileStore((state) => state.setProfile);
+
+  useEffect(() => {
+    // Obtén el token del localStorage
+    const token = localStorage.getItem("token");
+
+    // Realiza la petición GET al endpoint, enviando el token en los headers
+    axios
+      .get(APIURL.perfil_me, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        // Guarda los datos del perfil en el estado global usando zustand
+        setProfile(response.data);
+        console.log("Datos del perfil almacenados:", response.data);
+      })
+      .catch((error) => {
+        console.error("Error al obtener el perfil:", error);
+      });
+  }, [setProfile]);
+
   return (
-    <div className="min-h-screen bg-gray-100 p-6 flex flex-col md:flex-row gap-4">
+    <div className='min-h-screen bg-gray-100 p-6 flex flex-col md:flex-row gap-4'>
       {/* Main Content */}
-      <div className="flex-1 grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div className='flex-1 grid grid-cols-1 md:grid-cols-3 gap-4'>
         {/* Caja 1: Componente de bienvenida */}
-        <div className="col-span-1 md:col-span-3">
+        <div className='col-span-1 md:col-span-3'>
           <GreetingCard />
         </div>
 
         {/* Caja 2 */}
-        <div className="col-span-1 bg-white rounded-md shadow-lg flex-row flex justify-around items-center">
+        <div className='col-span-1 bg-white rounded-md shadow-lg flex-row flex justify-around items-center'>
           <PesoCard />
           <Grasa />
         </div>
 
         {/* Caja 3 */}
-        <div className="col-span-1 md:col-span-2  bg-blue-200 rounded-lg">
+        <div className='col-span-1 md:col-span-2 bg-blue-200 rounded-lg'>
           <BodyMeasurements />
         </div>
 
-        <div className="col-span-1 md:col-span-3">
+        {/* Caja 4 */}
+        <div className='col-span-1 md:col-span-3'>
           <ActivityChart />
         </div>
+
         {/* Caja 5 */}
-        <div className="col-span-1 md:col-span-2">
+        <div className='col-span-1 md:col-span-2'>
           <ScheduledClasses />
         </div>
 
         {/* Caja 6 */}
-        <div className="col-span-1 h-full bg-white shadow-sm  rounded-lg">
+        <div className='col-span-1 h-full bg-white shadow-sm rounded-lg'>
           <ProcessPhotos />
         </div>
       </div>

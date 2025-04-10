@@ -7,4 +7,5 @@ export const APIURL = {
   obtenerEventos: `${BASE_URL}calendar/listEvents`,
   horarios: `${BASE_URL}horario`,
   reservas: `${BASE_URL}reservas`,
+  perfil_me: `${BASE_URL}perfil/me`,
 };

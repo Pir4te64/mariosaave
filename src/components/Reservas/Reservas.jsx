@@ -2,13 +2,16 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { APIURL } from "../../utils/api";
 import { Edit2, Check, X } from "lucide-react";
+import { FaPlus, FaMinus } from "react-icons/fa";
 
 const Reservas = () => {
   // Estado para almacenar la lista de reservas
   const [reservas, setReservas] = useState([]);
-  // Estado para controlar la edición y almacenar el nuevo estado
+  // Estado para controlar la edición inline de la reserva
   const [editReservaId, setEditReservaId] = useState(null);
   const [editEstado, setEditEstado] = useState("");
+  // Estado para almacenar si un details está abierto o cerrado
+  const [openStates, setOpenStates] = useState({});
 
   // Se obtiene el token de localStorage o sessionStorage
   const token =
@@ -73,39 +76,41 @@ const Reservas = () => {
         console.error("Error actualizando reserva:", error);
       });
   };
+  // Controla el estado open/collapsed de cada details
+  const handleToggle = (e, id) => {
+    setOpenStates((prev) => ({
+      ...prev,
+      [id]: e.target.open,
+    }));
+  };
 
   return (
     <div className='container mx-auto px-4 py-6'>
       <h2 className='text-2xl font-bold text-gray-800 mb-4'>Reservas</h2>
       {reservas.length > 0 ? (
-        <div className='overflow-x-auto'>
-          <table className='min-w-full bg-white shadow-md rounded-lg'>
-            <thead className='bg-gray-100'>
-              <tr>
-                <th className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>
-                  Fecha Inicio
-                </th>
-                <th className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>
-                  Fecha Fin
-                </th>
-                <th className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>
-                  Estado
-                </th>
-                <th className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>
-                  Acciones
-                </th>
-              </tr>
-            </thead>
-            <tbody className='divide-y divide-gray-200'>
-              {reservas.map((reserva) => (
-                <tr key={reserva.id} className='hover:bg-gray-50'>
-                  <td className='px-6 py-4 whitespace-nowrap'>
+        <div className='flex flex-col gap-4'>
+          {reservas.map((reserva) => (
+            <details
+              key={reserva.id}
+              className='bg-white shadow-md rounded-lg'
+              onToggle={(e) => handleToggle(e, reserva.id)}>
+              <summary className='cursor-pointer px-6 py-4 flex flex-col md:flex-row md:justify-between md:items-center'>
+                <div className='flex flex-col md:flex-row md:space-x-4 items-center'>
+                  {/* Icono según el estado del details */}
+                  {openStates[reserva.id] ? (
+                    <FaMinus className='mr-2' />
+                  ) : (
+                    <FaPlus className='mr-2' />
+                  )}
+                  <span>
+                    <strong>Inicio:</strong>{" "}
                     {formatDateDisplay(reserva.fecha_inicio)}
-                  </td>
-                  <td className='px-6 py-4 whitespace-nowrap'>
-                    {formatDateDisplay(reserva.fecha_fin)}
-                  </td>
-                  <td className='px-6 py-4 whitespace-nowrap capitalize'>
+                  </span>
+                  <span>
+                    <strong>Fin:</strong> {formatDateDisplay(reserva.fecha_fin)}
+                  </span>
+                  <span className='capitalize'>
+                    <strong>Estado:</strong>{" "}
                     {editReservaId === reserva.id ? (
                       <select
                         value={editEstado}
@@ -118,36 +123,61 @@ const Reservas = () => {
                     ) : (
                       reserva.estado
                     )}
-                  </td>
-                  <td className='px-6 py-4 whitespace-nowrap flex space-x-2'>
-                    {editReservaId === reserva.id ? (
-                      <>
-                        <button
-                          onClick={() => handleUpdate(reserva.id)}
-                          title='Guardar'
-                          className='p-1 bg-green-600 text-white rounded-md hover:bg-green-700'>
-                          <Check size={18} />
-                        </button>
-                        <button
-                          onClick={handleCancelEdit}
-                          title='Cancelar'
-                          className='p-1 bg-gray-600 text-white rounded-md hover:bg-gray-700'>
-                          <X size={18} />
-                        </button>
-                      </>
-                    ) : (
+                  </span>
+                </div>
+                <div className='flex space-x-2 mt-2 md:mt-0'>
+                  {editReservaId === reserva.id ? (
+                    <>
                       <button
-                        onClick={() => handleEditClick(reserva)}
-                        title='Editar'
-                        className='p-1 bg-blue-600 text-white rounded-md hover:bg-blue-700'>
-                        <Edit2 size={18} />
+                        onClick={() => handleUpdate(reserva.id)}
+                        title='Guardar'
+                        className='p-1 bg-green-600 text-white rounded-md hover:bg-green-700'>
+                        <Check size={18} />
                       </button>
-                    )}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+                      <button
+                        onClick={handleCancelEdit}
+                        title='Cancelar'
+                        className='p-1 bg-gray-600 text-white rounded-md hover:bg-gray-700'>
+                        <X size={18} />
+                      </button>
+                    </>
+                  ) : (
+                    <button
+                      onClick={() => handleEditClick(reserva)}
+                      title='Editar'
+                      className='p-1 bg-blue-600 text-white rounded-md hover:bg-blue-700'>
+                      <Edit2 size={18} />
+                    </button>
+                  )}
+                </div>
+              </summary>
+              <div className='px-6 py-4 border-t'>
+                <p>
+                  <strong>Summary:</strong> {reserva.summary}
+                </p>
+                <p>
+                  <strong>Nivel de experiencia:</strong>{" "}
+                  {reserva.nivel_experiencia}
+                </p>
+                <p>
+                  <strong>Objetivo entrenamiento:</strong>{" "}
+                  {reserva.objetivo_entrenamiento}
+                </p>
+                <p>
+                  <strong>Condiciones médicas:</strong>{" "}
+                  {reserva.condiciones_medicas}
+                </p>
+                <p>
+                  <strong>Profesor:</strong> {reserva.profesor?.perfil?.nombre}{" "}
+                  {reserva.profesor?.perfil?.apellido}
+                </p>
+                <p>
+                  <strong>Alumno:</strong> {reserva.alumno?.perfil?.nombre}{" "}
+                  {reserva.alumno?.perfil?.apellido}
+                </p>
+              </div>
+            </details>
+          ))}
         </div>
       ) : (
         <p className='text-gray-500'>No hay reservas registradas</p>
