@@ -1,4 +1,3 @@
-// store/calendarStore.js
 import { create } from "zustand";
 import axios from "axios";
 import { APIURL } from "../utils/api";
@@ -23,42 +22,30 @@ const useCalendarStore = create((set) => ({
   fetchEvents: async () => {
     const token = localStorage.getItem("token");
     try {
-      const response = await axios.get(APIURL.obtenerEventos, {
+      const response = await axios.get(APIURL.reservas, {
         headers: { Authorization: `Bearer ${token}` },
       });
-      if (response.data && response.data.events) {
-        const transformedEvents = response.data.events.map((event) => ({
+      if (response.data) {
+        const eventsArray = response.data.events || response.data;
+        const transformedEvents = eventsArray.map((event) => ({
           title: event.summary,
-          start: new Date(event.start.dateTime || event.start.date),
-          end: new Date(event.end.dateTime || event.end.date),
+          start: new Date(event.fecha_inicio),
+          end: new Date(event.fecha_fin),
           id: event.id,
-          type: event.eventType || "default",
-          description: event.description || "",
-          htmlLink: event.htmlLink || "",
-          hangoutLink: event.hangoutLink || "",
-          conferenceData: event.conferenceData || {},
-          // Puedes agregar otros campos que necesites
+          estado: event.estado,
+          nivel_experiencia: event.nivel_experiencia,
+          objetivo_entrenamiento: event.objetivo_entrenamiento,
+          condiciones_medicas: event.condiciones_medicas,
+          isActive: event.isActive,
+          calendarEventId: event.google_meet_url,
+          profesor: event.profesor,
+          alumno: event.alumno,
         }));
 
         set({ events: transformedEvents });
       }
     } catch (error) {
       console.error("Error al obtener eventos:", error);
-    }
-  },
-
-  // Nueva acción: obtener datos de usuario/rol/4
-  fetchUserRol4: async () => {
-    const token = localStorage.getItem("token");
-    try {
-      const response = await axios.get(`${APIURL}/usuario/rol/4`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      if (response.data) {
-        set({ userRolData: response.data });
-      }
-    } catch (error) {
-      console.error("Error al obtener datos de usuario/rol/4:", error);
     }
   },
 }));
