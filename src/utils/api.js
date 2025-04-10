@@ -8,4 +8,5 @@ export const APIURL = {
   horarios: `${BASE_URL}horario`,
   reservas: `${BASE_URL}reservas`,
   perfil_me: `${BASE_URL}perfil/me`,
+  profesor: `${BASE_URL}usuario/rol/4`,
 };

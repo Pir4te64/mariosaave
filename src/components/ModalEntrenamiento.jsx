@@ -1,13 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
-import useCalendarStore from "../store/calendarStore";
 import moment from "moment";
 import { APIURL } from "../utils/api";
 import Swal from "sweetalert2";
 
-const ModalEntrenamiento = ({ setIsModalOpen }) => {
-  const { events, setEvents } = useCalendarStore();
-
+const ModalEntrenamiento = ({ setIsModalOpen, users }) => {
   // Estados para los campos requeridos
   const [nivelExperiencia, setNivelExperiencia] = useState("");
   const [objetivoEntrenamiento, setObjetivoEntrenamiento] = useState("");
@@ -15,17 +12,45 @@ const ModalEntrenamiento = ({ setIsModalOpen }) => {
   const [fecha, setFecha] = useState("");
   const [hora, setHora] = useState("");
 
+  // Estados para profesores y profesor seleccionado
+  const [profesores, setProfesores] = useState([]);
+  const [selectedProfesorId, setSelectedProfesorId] = useState(null);
+
   // Fecha de hoy en formato YYYY-MM-DD para el atributo min
   const todayDate = moment().format("YYYY-MM-DD");
 
+  // useEffect para obtener la lista de profesores
+  useEffect(() => {
+    const fetchProfesores = async () => {
+      const token = localStorage.getItem("token");
+      try {
+        const response = await axios.get(`${APIURL.profesor}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+        });
+        if (response.data) {
+          setProfesores(response.data);
+        }
+      } catch (error) {
+        console.error("Error al obtener profesores:", error);
+      }
+    };
+
+    fetchProfesores();
+  }, []);
+
   const handleGuardar = async () => {
-    // Validar campos obligatorios
+    // Validar campos obligatorios, incluyendo profesor
     if (
       !nivelExperiencia ||
       !objetivoEntrenamiento ||
       !condicionesMedicas ||
       !fecha ||
-      !hora
+      !hora ||
+      selectedProfesorId === null
     ) {
       Swal.fire({
         icon: "error",
@@ -63,20 +88,25 @@ const ModalEntrenamiento = ({ setIsModalOpen }) => {
         console.error("Error al parsear decodedToken:", error);
       }
     }
+    const profesoruno = profesores.find(
+      (prof) => prof.id === selectedProfesorId
+    );
+    const profe = `${profesoruno.perfil.nombre} `;
 
-    // Construir payload con formato requerido
+    // Construir payload con formato requerido y agregar profesor_id como número
     const payload = {
       nivel_experiencia: nivelExperiencia,
       objetivo_entrenamiento: objetivoEntrenamiento,
       condiciones_medicas: condicionesMedicas,
       fecha_inicio: moment(startDate).format("YYYY-MM-DDTHH:mm:ss") + ".00z",
       fecha_fin: moment(endDate).format("YYYY-MM-DDTHH:mm:ss") + ".00z",
-      alumno_id, // Se agrega el alumno_id obtenido
+      alumno_id,
+      profesor_id: selectedProfesorId,
+      summary: objetivoEntrenamiento + profe,
     };
-
     console.log("Payload:", payload);
 
-    // Obtener el token del localStorage
+    // Obtener el token del localStorage para la petición
     const token = localStorage.getItem("token");
 
     try {
@@ -88,7 +118,7 @@ const ModalEntrenamiento = ({ setIsModalOpen }) => {
       });
 
       // Se asume que el endpoint devuelve un objeto con message y event
-      if (response.data && response.data.event) {
+      if (response.data) {
         Swal.fire({
           icon: "success",
           title: "Evento creado",
@@ -103,10 +133,11 @@ const ModalEntrenamiento = ({ setIsModalOpen }) => {
       }
     } catch (error) {
       console.error("Error al crear el evento:", error);
+
       Swal.fire({
         icon: "error",
         title: "Error",
-        text: "Error al crear el evento",
+        text: "Error al crear el evento.",
       });
     }
   };
@@ -118,6 +149,7 @@ const ModalEntrenamiento = ({ setIsModalOpen }) => {
           Agendar Evento
         </h2>
         <div className='grid grid-cols-1 gap-4'>
+          {/* Campo: Nivel de experiencia */}
           <div>
             <label className='block text-sm font-medium'>
               Nivel de experiencia *
@@ -132,6 +164,8 @@ const ModalEntrenamiento = ({ setIsModalOpen }) => {
               <option value='Avanzado'>Avanzado</option>
             </select>
           </div>
+
+          {/* Campo: Objetivo del entrenamiento */}
           <div>
             <label className='block text-sm font-medium'>
               Objetivo del entrenamiento *
@@ -165,6 +199,8 @@ const ModalEntrenamiento = ({ setIsModalOpen }) => {
               </option>
             </select>
           </div>
+
+          {/* Campo: Condiciones médicas o lesiones relevantes */}
           <div>
             <label className='block text-sm font-medium'>
               Condiciones médicas o lesiones relevantes *
@@ -188,6 +224,24 @@ const ModalEntrenamiento = ({ setIsModalOpen }) => {
               <option value='Cirugías recientes'>Cirugías recientes</option>
             </select>
           </div>
+
+          {/* Campo: Profesores */}
+          <div>
+            <label className='block text-sm font-medium'>Profesores *</label>
+            <select
+              className='w-full border rounded-lg p-2'
+              value={selectedProfesorId || ""}
+              onChange={(e) => setSelectedProfesorId(Number(e.target.value))}>
+              <option value=''>Selecciona un profesor</option>
+              {profesores.map((prof) => (
+                <option key={prof.id} value={prof.id}>
+                  {prof.perfil.nombre} {prof.perfil.apellido}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          {/* Campo: Fecha */}
           <div>
             <label className='block text-sm font-medium'>Fecha *</label>
             <input
@@ -195,9 +249,11 @@ const ModalEntrenamiento = ({ setIsModalOpen }) => {
               className='w-full border rounded-lg p-2'
               value={fecha}
               onChange={(e) => setFecha(e.target.value)}
-              min={todayDate} // Impide seleccionar fechas anteriores
+              min={todayDate}
             />
           </div>
+
+          {/* Campo: Hora */}
           <div>
             <label className='block text-sm font-medium'>Hora *</label>
             <input
@@ -208,6 +264,8 @@ const ModalEntrenamiento = ({ setIsModalOpen }) => {
             />
           </div>
         </div>
+
+        {/* Botones de acción */}
         <div className='flex flex-col sm:flex-row justify-end gap-2 mt-4'>
           <button
             onClick={() => setIsModalOpen(false)}

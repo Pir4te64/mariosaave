@@ -29,7 +29,6 @@ const Dashboard = () => {
       .then((response) => {
         // Guarda los datos del perfil en el estado global usando zustand
         setProfile(response.data);
-        console.log("Datos del perfil almacenados:", response.data);
       })
       .catch((error) => {
         console.error("Error al obtener el perfil:", error);

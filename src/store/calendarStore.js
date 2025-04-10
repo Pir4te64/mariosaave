@@ -11,11 +11,14 @@ const useCalendarStore = create((set) => ({
   date: today,
   isModalOpen: false,
   selectedEvent: null,
+  userRolData: null, // Nueva propiedad para los datos de "usuario/rol/4"
+
   setCurrentView: (view) => set({ currentView: view }),
   setEvents: (events) => set({ events }),
   setDate: (date) => set({ date }),
   setIsModalOpen: (isOpen) => set({ isModalOpen: isOpen }),
   setSelectedEvent: (event) => set({ selectedEvent: event }),
+
   // Acción para obtener y transformar los eventos
   fetchEvents: async () => {
     const token = localStorage.getItem("token");
@@ -41,6 +44,21 @@ const useCalendarStore = create((set) => ({
       }
     } catch (error) {
       console.error("Error al obtener eventos:", error);
+    }
+  },
+
+  // Nueva acción: obtener datos de usuario/rol/4
+  fetchUserRol4: async () => {
+    const token = localStorage.getItem("token");
+    try {
+      const response = await axios.get(`${APIURL}/usuario/rol/4`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      if (response.data) {
+        set({ userRolData: response.data });
+      }
+    } catch (error) {
+      console.error("Error al obtener datos de usuario/rol/4:", error);
     }
   },
 }));
