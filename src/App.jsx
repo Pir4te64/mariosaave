@@ -22,6 +22,7 @@ import BlogPost from "@/pages/Dashboard/BlogPost";
 import MiPlan from "@/pages/Dashboard/MiPlan";
 import HorariosPage from "@/pages/Dashboard/Dash/Horarios";
 import Reservas from "@/components/Reservas/Reservas";
+import UsuariosPage from "@/pages/Dashboard/Usuarios";
 
 function App() {
   return (
@@ -141,6 +142,16 @@ function App() {
           <PrivateRoute>
             <DashboardLayout>
               <Reservas />
+            </DashboardLayout>
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path='/dashboard/usuarios'
+        element={
+          <PrivateRoute>
+            <DashboardLayout>
+              <UsuariosPage />
             </DashboardLayout>
           </PrivateRoute>
         }

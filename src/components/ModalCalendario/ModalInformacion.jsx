@@ -5,7 +5,6 @@ import { SiGooglemeet } from "react-icons/si";
 
 const ModalInformacion = ({ event, onClose }) => {
   if (!event) return null;
-  console.log("Evento en ModalInformacion:", event.calendarEventId);
 
   return (
     <div className='fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 p-4 backdrop-blur-sm transition-opacity duration-300'>
@@ -41,32 +40,41 @@ const ModalInformacion = ({ event, onClose }) => {
             <span className='ml-3 text-gray-700'>{event.estado}</span>
           </div>
           {/* Nivel de experiencia */}
-          <div className='flex items-center'>
-            <span className='font-medium text-gray-600'>
-              Nivel de experiencia:
-            </span>
-            <span className='ml-3 text-gray-700'>
-              {event.nivel_experiencia}
-            </span>
-          </div>
+          {event.nivel_experiencia && (
+            <div className='flex items-center'>
+              <span className='font-medium text-gray-600'>
+                Nivel de experiencia:
+              </span>
+              <span className='ml-3 text-gray-700'>
+                {event.nivel_experiencia}
+              </span>
+            </div>
+          )}
+
           {/* Objetivo del entrenamiento */}
-          <div className='flex items-center'>
-            <span className='font-medium text-gray-600'>
-              Objetivo del entrenamiento:
-            </span>
-            <span className='ml-3 text-gray-700'>
-              {event.objetivo_entrenamiento}
-            </span>
-          </div>
+          {event.objetivo_entrenamiento && (
+            <div className='flex items-center'>
+              <span className='font-medium text-gray-600'>
+                Objetivo del entrenamiento:
+              </span>
+              <span className='ml-3 text-gray-700'>
+                {event.objetivo_entrenamiento}
+              </span>
+            </div>
+          )}
+
           {/* Condiciones médicas */}
-          <div className='flex items-center'>
-            <span className='font-medium text-gray-600'>
-              Condiciones médicas:
-            </span>
-            <span className='ml-3 text-gray-700'>
-              {event.condiciones_medicas}
-            </span>
-          </div>
+          {event.condiciones_medicas && (
+            <div className='flex items-center'>
+              <span className='font-medium text-gray-600'>
+                Condiciones médicas:
+              </span>
+              <span className='ml-3 text-gray-700'>
+                {event.condiciones_medicas}
+              </span>
+            </div>
+          )}
+
           {/* Enlace de evento */}
           <div className='flex items-center space-x-2'>
             <span className='font-medium text-gray-600'>Enlace de evento:</span>

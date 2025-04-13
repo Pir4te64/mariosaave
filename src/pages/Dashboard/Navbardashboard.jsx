@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import useStoreLogin from "@/Routes/useStore";
 import logo from "@/assets/Logo.png";
@@ -90,7 +90,15 @@ const DashboardNavbar = () => {
               </Link>
             </li>
           )}
-          {/* Si role_id es 1, se muestra el botón "Reservas" */}
+          {/* Si role_id es 1, se muestra la pestaña "Usuarios" */}
+          {decodedToken && decodedToken.role_id === 1 && (
+            <li>
+              <Link to='/dashboard/usuarios' className='hover:text-gray-300'>
+                Usuarios
+              </Link>
+            </li>
+          )}
+          {/* También, si role_id es 1, se puede mostrar otra pestaña, por ejemplo "Reservas" */}
           {decodedToken && decodedToken.role_id === 1 && (
             <li>
               <Link to='/dashboard/reservas' className='hover:text-gray-300'>
@@ -171,6 +179,16 @@ const DashboardNavbar = () => {
                 to='/dashboard/horarios'
                 className='block hover:text-gray-300'>
                 Horarios
+              </Link>
+            </li>
+          )}
+          {/* Versión móvil: pestaña "Usuarios" si role_id es 1 */}
+          {decodedToken && decodedToken.role_id === 1 && (
+            <li>
+              <Link
+                to='/dashboard/usuarios'
+                className='block hover:text-gray-300'>
+                Usuarios
               </Link>
             </li>
           )}

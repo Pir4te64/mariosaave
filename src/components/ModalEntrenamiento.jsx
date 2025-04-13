@@ -44,14 +44,7 @@ const ModalEntrenamiento = ({ setIsModalOpen, users }) => {
 
   const handleGuardar = async () => {
     // Validar campos obligatorios, incluyendo profesor
-    if (
-      !nivelExperiencia ||
-      !objetivoEntrenamiento ||
-      !condicionesMedicas ||
-      !fecha ||
-      !hora ||
-      selectedProfesorId === null
-    ) {
+    if (!fecha || !hora || selectedProfesorId === null) {
       Swal.fire({
         icon: "error",
         title: "Campos incompletos",
@@ -152,7 +145,7 @@ const ModalEntrenamiento = ({ setIsModalOpen, users }) => {
           {/* Campo: Nivel de experiencia */}
           <div>
             <label className='block text-sm font-medium'>
-              Nivel de experiencia *
+              Nivel de experiencia (opcional)
             </label>
             <select
               className='w-full border rounded-lg p-2'
@@ -168,7 +161,7 @@ const ModalEntrenamiento = ({ setIsModalOpen, users }) => {
           {/* Campo: Objetivo del entrenamiento */}
           <div>
             <label className='block text-sm font-medium'>
-              Objetivo del entrenamiento *
+              Objetivo del entrenamiento (opcional)
             </label>
             <select
               className='w-full border rounded-lg p-2'
@@ -203,7 +196,7 @@ const ModalEntrenamiento = ({ setIsModalOpen, users }) => {
           {/* Campo: Condiciones médicas o lesiones relevantes */}
           <div>
             <label className='block text-sm font-medium'>
-              Condiciones médicas o lesiones relevantes *
+              Condiciones médicas o lesiones relevantes (opcional)
             </label>
             <select
               className='w-full border rounded-lg p-2'

@@ -1,0 +1,18 @@
+export const defaultUserData = {
+  id: null,
+  usuario_id: null,
+  nombre: "",
+  apellido: "",
+  telefono: "",
+  edad: "",
+  altura: "",
+  peso: "",
+  cintura: "",
+  pecho: "",
+  brazos: "",
+  piernas: "",
+  muslo: "",
+  cadera: "",
+  cuello: "",
+  isActive: false,
+};

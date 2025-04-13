@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
 import "moment/locale/es";
@@ -29,13 +29,34 @@ const Calendario = () => {
   }, [fetchEvents]);
 
   const eventPropGetter = (event) => {
-    const backgroundColor = event.type === "private" ? "#F8D7DA" : "#D4EDDA";
-    const textColor = event.type === "private" ? "#721c24" : "#155724";
-
+    if (event.estado === "pendiente") {
+      return {
+        style: {
+          backgroundColor: "#fff3cd",
+          color: "#856404",
+          border: "1px solid #ccc",
+          borderRadius: "4px",
+          padding: "4px",
+          cursor: "pointer",
+        },
+      };
+    }
+    if (event.estado === "cancelado") {
+      return {
+        style: {
+          backgroundColor: "#f8d7da",
+          color: "#721c24",
+          border: "1px solid #ccc",
+          borderRadius: "4px",
+          padding: "4px",
+          cursor: "pointer",
+        },
+      };
+    }
     return {
       style: {
-        backgroundColor,
-        color: textColor,
+        backgroundColor: "#d4edda",
+        color: "#155724",
         border: "1px solid #ccc",
         borderRadius: "4px",
         padding: "4px",
@@ -52,7 +73,7 @@ const Calendario = () => {
         Agendar Entrenamiento
       </button>
 
-      <div className='bg-white shadow-lg rounded-lg p-6 w-full max-w-full sm:max-w-6xl'>
+      <div className='w-full h-[80vh]'>
         <Calendar
           localizer={localizer}
           events={events}
@@ -64,11 +85,27 @@ const Calendario = () => {
           culture='es'
           step={60}
           timeslots={1}
-          min={new Date(today.getFullYear(), today.getMonth(), 1, 13, 0)}
-          max={new Date(today.getFullYear(), today.getMonth(), 1, 20, 0)}
+          // Ajustamos las horas mínimas y máximas para el día actual:
+          min={
+            new Date(
+              today.getFullYear(),
+              today.getMonth(),
+              today.getDate(),
+              5,
+              0
+            )
+          }
+          max={
+            new Date(
+              today.getFullYear(),
+              today.getMonth(),
+              today.getDate(),
+              23,
+              0
+            )
+          }
           eventPropGetter={eventPropGetter}
           onSelectEvent={(event) => setSelectedEvent(event)}
-          style={{ height: "calc(100vh - 200px)" }}
         />
       </div>
 
