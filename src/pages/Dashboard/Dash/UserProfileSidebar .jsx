@@ -39,8 +39,11 @@ const UserProfileSidebar = () => {
         />
         <h3 className='text-lg font-semibold'>{fullName}</h3>
         <p className='text-sm text-gray-500'>
-          {profile ? `${edad} años` : "Edad no disponible"}
+          {profile && profile.edad != null
+            ? `${profile.edad} años`
+            : "Edad no disponible"}
         </p>
+
         {/* Info básica: IMC, Altura, Peso */}
         <div className='flex-1 justify-center items-center flex flex-col gap-4 w-full'>
           <div className='flex gap-8 mt-2 text-sm justify-around items-center w-full'>

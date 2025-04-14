@@ -1,32 +1,33 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { APIURL } from "@/utils/api";
+import { Trash, Edit } from "lucide-react";
+import Swal from "sweetalert2";
+import HorarioForm from "@/components/Horarios/HorarioForm"; // Formulario para agregar horarios
+import EditHorarioForm from "@/components/Horarios/EditHorarioForm"; // Formulario para editar horarios
 
 const Horarios = () => {
   // Estado para almacenar la lista de horarios
   const [horarios, setHorarios] = useState([]);
-  // Estado para el formulario de creación de horario (oculto)
+  // Estado para el formulario de creación de horario
   const [newHorario, setNewHorario] = useState({
-    dia_semana: "",
-    hora_inicio: "",
-    hora_fin: "",
+    fecha: "",
+    hora_inicio: "00:00",
+    hora_fin: "00:00",
     isActive: false,
   });
+  // Estado para el horario en edición
+  const [editingHorario, setEditingHorario] = useState(null);
 
-  // Obtención del token desde localStorage o sessionStorage
   const token =
     localStorage.getItem("token") || sessionStorage.getItem("token");
 
-  // Función para obtener la lista de horarios desde el endpoint
   const fetchHorarios = () => {
     axios
       .get(APIURL.horarios, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+        headers: { Authorization: `Bearer ${token}` },
       })
       .then((response) => {
-        console.log("Datos recibidos de /horarios:", response.data);
         setHorarios(response.data);
       })
       .catch((error) => {
@@ -34,12 +35,11 @@ const Horarios = () => {
       });
   };
 
-  // Se consulta la lista de horarios al montar el componente
   useEffect(() => {
     fetchHorarios();
   }, []);
 
-  // Maneja cambios en los inputs del formulario
+  // Funciones para el formulario de creación
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     setNewHorario((prevState) => ({
@@ -48,25 +48,49 @@ const Horarios = () => {
     }));
   };
 
-  // Envía la solicitud POST para crear un nuevo horario
+  const handleTimeChange = (field, part, value) => {
+    const [currentHour, currentMinute] = newHorario[field].split(":");
+    let newHour = currentHour;
+    let newMinute = currentMinute;
+    if (part === "hour") {
+      newHour = value;
+    } else if (part === "minute") {
+      newMinute = value;
+    }
+    newHour = newHour.toString().padStart(2, "0");
+    newMinute = newMinute.toString().padStart(2, "0");
+    const timeString = `${newHour}:${newMinute}`;
+    setNewHorario((prevState) => ({
+      ...prevState,
+      [field]: timeString,
+    }));
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
+    const decodedTokenStr = localStorage.getItem("decodedToken");
+    const decodedToken = decodedTokenStr ? JSON.parse(decodedTokenStr) : null;
+
+    const payload = {
+      ...newHorario,
+      profesor_id: decodedToken?.id,
+    };
+
+    console.log("Payload a enviar:", payload);
+
     axios
-      .post(APIURL.horarios, newHorario, {
+      .post(APIURL.horarios, payload, {
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
         },
       })
       .then((response) => {
-        console.log("Horario creado:", response.data);
-        // Actualizamos la lista agregando el nuevo horario
         setHorarios((prevHorarios) => [...prevHorarios, response.data]);
-        // Reiniciamos el formulario
         setNewHorario({
-          dia_semana: "",
-          hora_inicio: "",
-          hora_fin: "",
+          fecha: "",
+          hora_inicio: "00:00",
+          hora_fin: "00:00",
           isActive: false,
         });
       })
@@ -75,71 +99,114 @@ const Horarios = () => {
       });
   };
 
+  // Función para eliminar un horario
+  const handleDelete = (id) => {
+    Swal.fire({
+      title: "¿Estás seguro?",
+      text: "Esta acción no se puede revertir.",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Sí, eliminar",
+      cancelButtonText: "Cancelar",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios
+          .delete(`${APIURL.horarios}/${id}`, {
+            headers: { Authorization: `Bearer ${token}` },
+          })
+          .then(() => {
+            setHorarios((prevHorarios) =>
+              prevHorarios.filter((horario) => horario.id !== id)
+            );
+            Swal.fire("Eliminado!", "El horario ha sido eliminado.", "success");
+          })
+          .catch((error) => {
+            Swal.fire(
+              "Error!",
+              "Hubo un error al eliminar el horario.",
+              "error"
+            );
+            console.error("Error al eliminar horario:", error);
+          });
+      }
+    });
+  };
+
+  // Funciones para el formulario de edición
+  const handleEditClick = (horario) => {
+    // Cargar el horario seleccionado en el estado de edición
+    setEditingHorario({ ...horario });
+  };
+
+  const handleEditChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    setEditingHorario((prevState) => ({
+      ...prevState,
+      [name]: type === "checkbox" ? checked : value,
+    }));
+  };
+
+  const handleEditTimeChange = (field, part, value) => {
+    const [currentHour, currentMinute] = editingHorario[field].split(":");
+    let newHour = currentHour;
+    let newMinute = currentMinute;
+    if (part === "hour") {
+      newHour = value;
+    } else if (part === "minute") {
+      newMinute = value;
+    }
+    newHour = newHour.toString().padStart(2, "0");
+    newMinute = newMinute.toString().padStart(2, "0");
+    const timeString = `${newHour}:${newMinute}`;
+    setEditingHorario((prevState) => ({
+      ...prevState,
+      [field]: timeString,
+    }));
+  };
+
+  const handleUpdateSubmit = (e) => {
+    e.preventDefault();
+    axios
+      .put(`${APIURL.horarios}/${editingHorario.id}`, editingHorario, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      })
+      .then((response) => {
+        setHorarios((prevHorarios) =>
+          prevHorarios.map((horario) =>
+            horario.id === editingHorario.id ? response.data : horario
+          )
+        );
+        setEditingHorario(null);
+      })
+      .catch((error) => {
+        console.error("Error al actualizar horario:", error);
+      });
+  };
+
+  const cancelEdit = () => {
+    setEditingHorario(null);
+  };
+
+  // Arreglos para horas y minutos
+  const hours = Array.from({ length: 24 }, (_, i) =>
+    i.toString().padStart(2, "0")
+  );
+  const minutes = ["00", "30"];
+  const formatDate = (dateStr) => {
+    const date = new Date(dateStr);
+    const day = String(date.getDate()).padStart(2, "0");
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const year = date.getFullYear();
+    return `${day}/${month}/${year}`; // Para "17/04/2025" podrías usar: `${day}/${month}/${year}`
+  };
+
   return (
     <div className='container mx-auto px-4 py-6'>
-      {/* Formulario de creación de horario oculto */}
-      <div className='hidden'>
-        <h2 className='text-xl font-bold mb-4'>Crear Horario</h2>
-        <form onSubmit={handleSubmit} className='space-y-4'>
-          <div>
-            <label className='block text-gray-700'>Día de la Semana:</label>
-            <select
-              name='dia_semana'
-              value={newHorario.dia_semana}
-              onChange={handleChange}
-              className='mt-1 block w-full border-gray-300 rounded-md shadow-sm'
-              required>
-              <option value=''>Seleccione un día</option>
-              <option value='0'>Domingo</option>
-              <option value='1'>Lunes</option>
-              <option value='2'>Martes</option>
-              <option value='3'>Miércoles</option>
-              <option value='4'>Jueves</option>
-              <option value='5'>Viernes</option>
-              <option value='6'>Sábado</option>
-            </select>
-          </div>
-          <div>
-            <label className='block text-gray-700'>Hora Inicio:</label>
-            <input
-              type='time'
-              name='hora_inicio'
-              value={newHorario.hora_inicio}
-              onChange={handleChange}
-              className='mt-1 block w-full border-gray-300 rounded-md shadow-sm'
-              required
-            />
-          </div>
-          <div>
-            <label className='block text-gray-700'>Hora Fin:</label>
-            <input
-              type='time'
-              name='hora_fin'
-              value={newHorario.hora_fin}
-              onChange={handleChange}
-              className='mt-1 block w-full border-gray-300 rounded-md shadow-sm'
-              required
-            />
-          </div>
-          <div className='flex items-center'>
-            <input
-              type='checkbox'
-              name='isActive'
-              checked={newHorario.isActive}
-              onChange={handleChange}
-              className='mr-2'
-            />
-            <label className='text-gray-700'>Activo</label>
-          </div>
-          <button
-            type='submit'
-            className='px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700'>
-            Crear Horario
-          </button>
-        </form>
-      </div>
-
-      {/* Lista de Horarios */}
       <h2 className='text-2xl font-bold text-gray-800 mb-4'>
         Lista de Horarios
       </h2>
@@ -149,7 +216,7 @@ const Horarios = () => {
             <thead className='bg-gray-100'>
               <tr>
                 <th className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>
-                  Día Semana
+                  Fecha
                 </th>
                 <th className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>
                   Hora Inicio
@@ -160,13 +227,16 @@ const Horarios = () => {
                 <th className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>
                   Activo
                 </th>
+                <th className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>
+                  Acciones
+                </th>
               </tr>
             </thead>
             <tbody className='divide-y divide-gray-200'>
               {horarios.map((horario) => (
                 <tr key={horario.id}>
                   <td className='px-6 py-4 whitespace-nowrap'>
-                    {horario.dia_semana}
+                    {formatDate(horario.fecha)}
                   </td>
                   <td className='px-6 py-4 whitespace-nowrap'>
                     {horario.hora_inicio}
@@ -177,6 +247,20 @@ const Horarios = () => {
                   <td className='px-6 py-4 whitespace-nowrap'>
                     {horario.isActive ? "Sí" : "No"}
                   </td>
+                  <td className='px-6 py-4 whitespace-nowrap flex gap-2'>
+                    <button
+                      onClick={() => handleEditClick(horario)}
+                      className='text-blue-500 hover:text-blue-700'
+                      title='Editar horario'>
+                      <Edit size={18} />
+                    </button>
+                    <button
+                      onClick={() => handleDelete(horario.id)}
+                      className='text-red-500 hover:text-red-700'
+                      title='Eliminar horario'>
+                      <Trash size={18} />
+                    </button>
+                  </td>
                 </tr>
               ))}
             </tbody>
@@ -184,6 +268,31 @@ const Horarios = () => {
         </div>
       ) : (
         <p className='text-gray-500'>No hay horarios registrados</p>
+      )}
+
+      {/* Se muestra HorarioForm (creación) solo cuando no se está editando */}
+      {!editingHorario && (
+        <HorarioForm
+          newHorario={newHorario}
+          handleChange={handleChange}
+          handleTimeChange={handleTimeChange}
+          handleSubmit={handleSubmit}
+          hours={hours}
+          minutes={minutes}
+        />
+      )}
+
+      {/* Formulario de edición (se muestra si editingHorario tiene datos) */}
+      {editingHorario && (
+        <EditHorarioForm
+          horarioData={editingHorario}
+          handleChange={handleEditChange}
+          handleTimeChange={handleEditTimeChange}
+          handleSubmit={handleUpdateSubmit}
+          hours={hours}
+          minutes={minutes}
+          cancelEdit={cancelEdit}
+        />
       )}
     </div>
   );
