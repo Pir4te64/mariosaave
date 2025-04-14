@@ -66,8 +66,29 @@ const Horarios = () => {
     }));
   };
 
+  // Función para comparar horas
+  const isValidTimeRange = (horaInicio, horaFin) => {
+    const [inicioH, inicioM] = horaInicio.split(":").map(Number);
+    const [finH, finM] = horaFin.split(":").map(Number);
+    // Convertir a minutos
+    const totalInicio = inicioH * 60 + inicioM;
+    const totalFin = finH * 60 + finM;
+    return totalInicio < totalFin;
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    // Validamos que la hora de inicio sea menor a la de fin
+    if (!isValidTimeRange(newHorario.hora_inicio, newHorario.hora_fin)) {
+      Swal.fire({
+        icon: "error",
+        title: "Error en la hora",
+        text: "La hora de inicio debe ser menor a la hora de fin.",
+      });
+      return;
+    }
+
     const decodedTokenStr = localStorage.getItem("decodedToken");
     const decodedToken = decodedTokenStr ? JSON.parse(decodedTokenStr) : null;
 
@@ -87,6 +108,11 @@ const Horarios = () => {
       })
       .then((response) => {
         setHorarios((prevHorarios) => [...prevHorarios, response.data]);
+        Swal.fire({
+          icon: "success",
+          title: "Horario creado",
+          text: "El horario se ha creado correctamente.",
+        });
         setNewHorario({
           fecha: "",
           hora_inicio: "00:00",
@@ -168,6 +194,19 @@ const Horarios = () => {
 
   const handleUpdateSubmit = (e) => {
     e.preventDefault();
+
+    // Validamos en edición que la hora de inicio sea menor a la de fin
+    if (
+      !isValidTimeRange(editingHorario.hora_inicio, editingHorario.hora_fin)
+    ) {
+      Swal.fire({
+        icon: "error",
+        title: "Error en la hora",
+        text: "La hora de inicio debe ser menor a la hora de fin.",
+      });
+      return;
+    }
+
     axios
       .put(`${APIURL.horarios}/${editingHorario.id}`, editingHorario, {
         headers: {
@@ -197,12 +236,13 @@ const Horarios = () => {
     i.toString().padStart(2, "0")
   );
   const minutes = ["00", "30"];
+
   const formatDate = (dateStr) => {
     const date = new Date(dateStr);
     const day = String(date.getDate()).padStart(2, "0");
     const month = String(date.getMonth() + 1).padStart(2, "0");
     const year = date.getFullYear();
-    return `${day}/${month}/${year}`; // Para "17/04/2025" podrías usar: `${day}/${month}/${year}`
+    return `${day}/${month}/${year}`;
   };
 
   return (
