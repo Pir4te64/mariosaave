@@ -63,23 +63,8 @@ const DashboardNavbar = () => {
             </Link>
           </li>
           <li>
-            <Link to='/dashboard/programas' className='hover:text-gray-300'>
-              Programas
-            </Link>
-          </li>
-          <li>
-            <Link to='/dashboard/retos' className='hover:text-gray-300'>
-              Retos
-            </Link>
-          </li>
-          <li>
-            <Link to='/dashboard/blog' className='hover:text-gray-300'>
-              Blog
-            </Link>
-          </li>
-          <li>
-            <Link to='/dashboard/soporte' className='hover:text-gray-300'>
-              Soporte
+            <Link to='/planes' className='hover:text-gray-300'>
+              Planes
             </Link>
           </li>
           {/* Si role_id es 4, se muestra el botón "Horarios" */}
@@ -99,7 +84,7 @@ const DashboardNavbar = () => {
             </li>
           )}
           {/* También, si role_id es 1, se puede mostrar otra pestaña, por ejemplo "Reservas" */}
-          {decodedToken && decodedToken.role_id === 1 && (
+          {decodedToken && decodedToken?.role_id === 1 ||  decodedToken?.role_id === 4 &&  (
             <li>
               <Link to='/dashboard/reservas' className='hover:text-gray-300'>
                 Reservas
@@ -157,19 +142,10 @@ const DashboardNavbar = () => {
               Programas
             </Link>
           </li>
+         
           <li>
-            <Link to='/dashboard/retos' className='block hover:text-gray-300'>
-              Retos
-            </Link>
-          </li>
-          <li>
-            <Link to='/dashboard/blog' className='block hover:text-gray-300'>
-              Blog
-            </Link>
-          </li>
-          <li>
-            <Link to='/dashboard/soporte' className='block hover:text-gray-300'>
-              Soporte
+            <Link to='/planes' className='block hover:text-gray-300'>
+              Planes
             </Link>
           </li>
           {/* Versión móvil: botón "Horarios" si role_id es 4 */}
@@ -193,7 +169,7 @@ const DashboardNavbar = () => {
             </li>
           )}
           {/* Versión móvil: botón "Reservas" si role_id es 1 */}
-          {decodedToken && decodedToken.role_id === 1 && (
+          {decodedToken && decodedToken.role_id === 1 ||  decodedToken?.role_id === 4 &&  (
             <li>
               <Link
                 to='/dashboard/reservas'
@@ -202,11 +178,7 @@ const DashboardNavbar = () => {
               </Link>
             </li>
           )}
-          <li className='border-t border-gray-700 pt-2'>
-            <Link to='/dashboard/miplan' className='block hover:text-gray-300'>
-              Mi plan
-            </Link>
-          </li>
+        
           <li>
             <button
               onClick={handleLogout}

@@ -6,7 +6,7 @@ const ReservasHeader = ({ monthFilter, setMonthFilter }) => {
       <h2 className='text-2xl font-bold text-gray-800'>Reservas</h2>
       <div className='flex items-center'>
         <label htmlFor='monthFilter' className='mr-2 text-gray-700'>
-          Filtrar por mes:
+          Filtrar:
         </label>
         <input
           id='monthFilter'

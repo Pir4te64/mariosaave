@@ -1,13 +1,32 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { APIURL } from "@/utils/api";
-import UserTable from "@/components/Usuarios/UserTable"; // Asegúrate de que la ruta sea correcta
+import UserTable from "@/components/Usuarios/UserTable"; // Asegúrate de la ruta correcta
 
 const Usuarios = () => {
   const [roles, setRoles] = useState([]);
-  const [selectedRole, setSelectedRole] = useState("");
-  const [users, setUsers] = useState([]); // Estado para los usuarios obtenidos por rol
+  // Por defecto se setea el rol "3"
+  const [selectedRole, setSelectedRole] = useState("3");
+  const [users, setUsers] = useState([]);
   const token = localStorage.getItem("token");
+
+  // Función para volver a obtener el listado de usuarios por rol
+  const refreshUsers = () => {
+    if (selectedRole) {
+      axios
+        .get(`${APIURL.listar_por_rol}${selectedRole}`, {
+          headers: { Authorization: `Bearer ${token}` },
+        })
+        .then((response) => {
+          setUsers(response.data);
+        })
+        .catch((error) => {
+          console.error("Error al obtener listado por rol:", error);
+        });
+    } else {
+      setUsers([]);
+    }
+  };
 
   // Obtención de los roles
   useEffect(() => {
@@ -23,25 +42,14 @@ const Usuarios = () => {
       });
   }, [token]);
 
-  // Maneja el cambio en el select para obtener usuarios por rol
+  // Llama a refreshUsers cuando cambia el rol seleccionado
+  useEffect(() => {
+    refreshUsers();
+  }, [selectedRole, token]);
+
   const handleRoleChange = (e) => {
     const roleId = e.target.value;
     setSelectedRole(roleId);
-
-    if (roleId) {
-      axios
-        .get(`${APIURL.listar_por_rol}/${roleId}`, {
-          headers: { Authorization: `Bearer ${token}` },
-        })
-        .then((response) => {
-          setUsers(response.data);
-        })
-        .catch((error) => {
-          console.error("Error al obtener listado por rol:", error);
-        });
-    } else {
-      setUsers([]);
-    }
   };
 
   return (
@@ -55,20 +63,25 @@ const Usuarios = () => {
           <select
             className='w-full sm:w-64 p-2 border border-gray-300 rounded shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500'
             value={selectedRole}
-            onChange={handleRoleChange}>
+            onChange={handleRoleChange}
+          >
             <option value=''>Seleccione un Rol</option>
-            {roles.map((rol) => (
-              <option key={rol.RolID} value={rol.RolID}>
-                {rol.nombre}
-              </option>
-            ))}
+            {/* Solo se muestran roles con id 3 y 4 */}
+            {roles
+              .filter((rol) => rol.RolID === 3 || rol.RolID === 4)
+              .map((rol) => (
+                <option key={rol.RolID} value={rol.RolID}>
+                  {rol.nombre}
+                </option>
+              ))}
           </select>
         </div>
       </div>
       {/* Tabla de usuarios */}
       <div>
         {users.length > 0 ? (
-          <UserTable users={users} />
+          // Se pasa refreshUsers a UserTable
+          <UserTable users={users} refreshUsers={refreshUsers} />
         ) : (
           <p className='text-gray-600'>
             {selectedRole

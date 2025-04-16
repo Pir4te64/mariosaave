@@ -1,12 +1,12 @@
-// FormUsuario.jsx
 import React, { useEffect } from "react";
 import axios from "axios";
 import useTablaInformacion from "@/components/Usuarios/useTablaInformacion";
 import { APIURL } from "@/utils/api";
 import { defaultUserData } from "@/components/Usuarios/initialValues";
 import useFetchProfile from "@/components/Usuarios/useFetchProfile";
+import Swal from "sweetalert2"; // Importa SweetAlert2
 
-const FormUsuario = ({ userIndex, initialData, onSubmit }) => {
+const FormUsuario = ({ userIndex, initialData, onSubmit, onRefresh }) => {
   const { tabla, updateUserField, setUserData } = useTablaInformacion();
   const userData = tabla[userIndex] || {};
 
@@ -22,46 +22,64 @@ const FormUsuario = ({ userIndex, initialData, onSubmit }) => {
   // Usa el hook personalizado para hacer el GET a la API cuando userData.id esté presente.
   useFetchProfile(userData.id, userIndex, setUserData);
 
-  // Manejador genérico para los inputs (incluye manejo para checkboxes)
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
     updateUserField(userIndex, name, type === "checkbox" ? checked : value);
   };
 
-  // Función para enviar los datos modificados (si existe id se hace PUT, si no, POST)
   const handleSubmit = (e) => {
     e.preventDefault();
     const token = localStorage.getItem("token");
 
     if (userData.id) {
-      // Actualiza el perfil existente con PUT
       axios
         .put(`${APIURL.perfil}/${userData.id}`, userData, {
           headers: { Authorization: `Bearer ${token}` },
         })
         .then((response) => {
-          console.log("Perfil actualizado:", response.data);
-          // Actualiza el store con la data retornada de la API
           setUserData(userIndex, { ...defaultUserData, ...response.data });
           if (onSubmit) onSubmit(e, userIndex);
+          if (onRefresh) onRefresh();
+          Swal.fire({
+            title: "¡Actualizado!",
+            text: "Perfil actualizado correctamente",
+            icon: "success",
+            confirmButtonText: "Aceptar",
+          });
         })
         .catch((error) => {
           console.error("Error actualizando el perfil:", error);
+          Swal.fire({
+            title: "Error",
+            text: "Hubo un problema al actualizar el perfil",
+            icon: "error",
+            confirmButtonText: "Aceptar",
+          });
         });
     } else {
-      // No existe id, se trata de nuevo perfil: se hace POST
       axios
         .post(`${APIURL.perfil}`, userData, {
           headers: { Authorization: `Bearer ${token}` },
         })
         .then((response) => {
-          console.log("Nuevo perfil creado:", response.data);
-          // Actualiza el store con la data nueva, que incluirá el id generado
           setUserData(userIndex, { ...defaultUserData, ...response.data });
           if (onSubmit) onSubmit(e, userIndex);
+          if (onRefresh) onRefresh();
+          Swal.fire({
+            title: "¡Creado!",
+            text: "Perfil creado correctamente",
+            icon: "success",
+            confirmButtonText: "Aceptar",
+          });
         })
         .catch((error) => {
           console.error("Error al crear el perfil:", error);
+          Swal.fire({
+            title: "Error",
+            text: "Hubo un problema al crear el perfil",
+            icon: "error",
+            confirmButtonText: "Aceptar",
+          });
         });
     }
   };
@@ -69,7 +87,7 @@ const FormUsuario = ({ userIndex, initialData, onSubmit }) => {
   return (
     <div className='max-w-4xl mx-auto p-4 md:p-6 bg-white shadow rounded-lg'>
       <form onSubmit={handleSubmit}>
-        {/* Sección de Información Personal */}
+        {/* Información Personal */}
         <fieldset className='mb-8 border-t border-gray-200 pt-4'>
           <legend className='text-xl font-bold text-gray-800 mb-4'>
             Información Personal
@@ -129,6 +147,25 @@ const FormUsuario = ({ userIndex, initialData, onSubmit }) => {
             </div>
           </div>
         </fieldset>
+
+        {/* Select de Planes */}
+        <div className='mb-8'>
+          <label className='block text-sm font-medium text-gray-700'>
+            Plan Contratado
+          </label>
+          <select
+            name='plan_contratado'
+            value={userData.plan_contratado || ""}
+            onChange={handleInputChange}
+            className='mt-1 block w-full rounded-md border border-gray-300 p-2 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition duration-150'
+          >
+            <option value=''>Seleccione un plan</option>
+            <option value='Plan Básico'>Plan Básico</option>
+            <option value='Plan Estándar'>Plan Estándar</option>
+            <option value='Plan Premium'>Plan Premium</option>
+            <option value='Plan Plus'>Plan Plus</option>
+          </select>
+        </div>
 
         {/* Sección de Medidas Corporales */}
         <fieldset className='mb-8 border-t border-gray-200 pt-4'>
@@ -273,7 +310,8 @@ const FormUsuario = ({ userIndex, initialData, onSubmit }) => {
         <div className='flex justify-end'>
           <button
             type='submit'
-            className='px-6 py-2 bg-indigo-600 text-white font-semibold rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition duration-150'>
+            className='px-6 py-2 bg-indigo-600 text-white font-semibold rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition duration-150'
+          >
             Guardar
           </button>
         </div>

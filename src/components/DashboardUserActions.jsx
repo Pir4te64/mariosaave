@@ -105,13 +105,7 @@ const DashboardUserActions = ({
         {dropdownOpen && (
           <div className='absolute right-0 mt-2 w-48 bg-white text-gray-800 shadow-lg rounded-md z-10'>
             <ul className='py-1'>
-              <li>
-                <Link
-                  to='/dashboard/miplan'
-                  className='block px-4 py-2 hover:bg-greenmusgo hover:text-white'>
-                  Mi plan
-                </Link>
-              </li>
+            
               <li>
                 <button
                   onClick={handleLogout}
