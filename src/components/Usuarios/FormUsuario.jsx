@@ -161,9 +161,9 @@ const FormUsuario = ({ userIndex, initialData, onSubmit, onRefresh }) => {
           >
             <option value=''>Seleccione un plan</option>
             <option value='Plan Básico'>Plan Básico</option>
-            <option value='Plan Estándar'>Plan Estándar</option>
-            <option value='Plan Premium'>Plan Premium</option>
-            <option value='Plan Plus'>Plan Plus</option>
+            <option value='Plan Estándar'>Plan Together</option>
+            <option value='Plan Premium'>Plan Squad</option>
+            <option value='Plan Plus'>Plan Personal</option>
           </select>
         </div>
 
