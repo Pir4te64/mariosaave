@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import FormUsuario from "@/components/Usuarios/FormUsuario"; // Asegúrate de la ruta correcta
 
-const UserTable = ({ users, refreshUsers }) => {
+const UserTable = ({ users, refreshUsers, roles, rol }) => {
   const [expandedRowIndex, setExpandedRowIndex] = useState(null);
-  
+
   const handleRowClick = (index) => {
     setExpandedRowIndex(expandedRowIndex === index ? null : index);
   };
@@ -71,9 +71,11 @@ const UserTable = ({ users, refreshUsers }) => {
                         <FormUsuario
                           userIndex={index}
                           initialData={user.perfil}
+                          isActive={user.isActive}
                           onSubmit={handleFormSubmit}
-                          // Se pasa la función refreshUsers para actualizar la lista
                           onRefresh={refreshUsers}
+                          rol={user.rol}
+                          roles={roles} // Pasa los roles al formulario
                         />
                       </td>
                     </tr>

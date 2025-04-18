@@ -14,5 +14,4 @@ export const defaultUserData = {
   muslo: "",
   cadera: "",
   cuello: "",
-  isActive: false,
 };

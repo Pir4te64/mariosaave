@@ -81,7 +81,7 @@ const Usuarios = () => {
       <div>
         {users.length > 0 ? (
           // Se pasa refreshUsers a UserTable
-          <UserTable users={users} refreshUsers={refreshUsers} />
+          <UserTable users={users} refreshUsers={refreshUsers} roles={roles} />
         ) : (
           <p className='text-gray-600'>
             {selectedRole
