@@ -4,11 +4,19 @@ import { ChevronLeft, ChevronRight, Quote } from "lucide-react";
 const testimonios = [
   {
     texto:
-      "I've been training with Marito for over 5 years, and wow… he’s truly changed my life. With my job, I travel a lot, and being able to connect from anywhere in the world, train with whatever I have available, and still see results is amazing. More than just a trainer, our sessions feel like therapy sometimes—haha! We talk, we train, and it’s become something I genuinely need in my routine. Highly recommended, not just for his energy and dedication, but for the wealth of knowledge he brings. - Andrea Dominguez, Miami.",
+      "Training with Mario Saavedra has been a unique experience. His dedication, patience, and constant motivation have helped me improve every day. He tailors workouts to my goals and fitness level, keeping me on track. After almost two years of training with him, I can confidently say he is an excellent trainer, and I would highly recommend him to anyone looking for real results.  -  Maria Jose, Canadá",
   },
   {
     texto:
-      "Marito is an exceptional coach. When I first started, I struggled with motivation and consistency. His personalized approach helped me develop a routine that actually fits my lifestyle. The workouts are always challenging yet adaptable, and his guidance on nutrition and recovery has been invaluable. What truly sets him apart is his ability to push you beyond what you think you're capable of while keeping the experience enjoyable. I’ve never felt stronger, both physically and mentally. - David R., New York.",
+      "Entrenar con Mario durante estos tres meses ha sido una experiencia transformadora tanto física como mentalmente. Desde el primer día, me he sentido cómodo y motivado para mejorar mis hábitos. Su conocimiento y compromiso me brindan seguridad en mi rutina y en mis decisiones alimenticias, lo que me ha permitido ser más constante y disciplinado. Además, sus entrenamientos son dinámicos y efectivos, reflejándose no solo en mi físico, sino también en mi mentalidad.  -  David Ortiz, Colombia",
+  },
+  {
+    texto:
+      "I've been training with Marito for over 5 years, and wow… he’s truly changed my life. With my job, I travel a lot, and being able to connect from anywhere in the world, train with whatever I have available, and still see results is amazing. More than just a trainer, our sessions feel like therapy sometimes—haha! We talk, we train, and it’s become something I genuinely need in my routine. Highly recommended, not just for his energy and dedication, but for the wealth of knowledge he brings.  -  Andrea Dominguez, Miami.",
+  },
+  {
+    texto:
+      "Entreno con Mario desde los 14 años, y gracias a él, he desarrollado un gusto genuino por el gimnasio. Su actitud y forma de trabajo me motivan a entrenar con disciplina y esfuerzo, incluso en los días más difíciles. Su compromiso no solo me impulsa a cuidar mi cuerpo, sino también a ser más consciente de mis hábitos, como la alimentación. Además, su experiencia y conocimiento me han ayudado a mejorar mi técnica y a entender mejor mi cuerpo. Más allá de ser un gran entrenador, Mario es una persona cercana, respetuosa y paciente, siempre apoyando los procesos individuales y guiando de manera didáctica y cómoda hacia los objetivos.  -  Mariana Gaviria , Colombia.",
   },
 ];
 
