@@ -238,11 +238,14 @@ const Horarios = () => {
   const minutes = ["00", "30"];
 
   const formatDate = (dateStr) => {
-    const date = new Date(dateStr);
-    const day = String(date.getDate()).padStart(2, "0");
-    const month = String(date.getMonth() + 1).padStart(2, "0");
-    const year = date.getFullYear();
-    return `${day}/${month}/${year}`;
+    // dateStr viene en formato "YYYY-MM-DD"
+    const [year, month, day] = dateStr.split("-").map(Number);
+    // Creamos la fecha en local: new Date(año, mesIndice, día)
+    const date = new Date(year, month - 1, day);
+    const dd = String(date.getDate()).padStart(2, "0");
+    const mm = String(date.getMonth() + 1).padStart(2, "0");
+    const yyyy = date.getFullYear();
+    return `${dd}/${mm}/${yyyy}`;
   };
 
   return (
