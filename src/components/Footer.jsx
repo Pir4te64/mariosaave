@@ -23,41 +23,9 @@ const Footer = () => {
           </a>
         </div>
 
-        {/* Caja 1 */}
-        <div className='flex items-start md:justify-center md:items-center'>
-          <div className='text-left'>
-            <ul className='text-sm space-y-2'>
-              <li>
-                <a href='/legal' className='hover:text-green-500'>
-                  Legal
-                </a>
-              </li>
-              <li>
-                <a href='/politicas-cookies' className='hover:text-green-500'>
-                  Políticas de cookies
-                </a>
-              </li>
-              <li>
-                <a
-                  href='/politicas-privacidad'
-                  className='hover:text-green-500'>
-                  Políticas de privacidad
-                </a>
-              </li>
-              <li>
-                <a
-                  href='/terminos-condiciones'
-                  className='hover:text-green-500'>
-                  Términos y condiciones
-                </a>
-              </li>
-            </ul>
-          </div>
-        </div>
-
         {/* Caja 2 - Redes sociales */}
-        <div className='flex items-start md:justify-center md:items-center'>
-          <div className='text-left md:text-center'>
+        <div className='flex flex-col items-start md:justify-center md:items-center'>
+          <div className='text-left md:text-center flex-col'>
             <h3 className='text-lg font-semibold mb-4'>Redes Sociales</h3>
             <div className='flex gap-4 text-2xl'>
               <a

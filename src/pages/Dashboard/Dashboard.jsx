@@ -51,14 +51,11 @@ const Dashboard = () => {
         </div>
 
         {/* Caja 3 */}
-        <div className='col-span-1 md:col-span-2 bg-blue-200 rounded-lg'>
+        <div className='col-span-1 md:col-span-2 rounded-lg'>
           <BodyMeasurements />
         </div>
 
         {/* Caja 4 */}
-        <div className='col-span-1 md:col-span-3'>
-          <ActivityChart />
-        </div>
 
         {/* Caja 5 */}
         <div className='col-span-1 md:col-span-2'>

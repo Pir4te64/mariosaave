@@ -14,8 +14,8 @@ const GreetingCard = () => {
     <div className='w-full h-full bg-[#99A98F] rounded-lg p-6 flex flex-col md:flex-row items-center justify-between shadow-md'>
       {/* Texto de saludo */}
       <div className='text-left mb-4 md:mb-0 md:mr-4'>
-        <h2 className='text-2xl font-bold text-gray-800'>Hola {fullName},</h2>
-        <p className='text-gray-700 mt-1'>
+        <h2 className='text-2xl font-bold text-white'>Hola {fullName},</h2>
+        <p className='text-white mt-1'>
           ¡Que tengas un excelente día y no olvides cuidar tu salud!
         </p>
       </div>

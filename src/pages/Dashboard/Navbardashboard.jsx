@@ -83,14 +83,22 @@ const DashboardNavbar = () => {
               </Link>
             </li>
           )}
-          {/* También, si role_id es 1, se puede mostrar otra pestaña, por ejemplo "Reservas" */}
-          {decodedToken && decodedToken?.role_id === 1 ||  decodedToken?.role_id === 4 &&  (
+          {decodedToken && decodedToken.role_id === 1 && (
             <li>
               <Link to='/dashboard/reservas' className='hover:text-gray-300'>
                 Reservas
               </Link>
             </li>
           )}
+          {/* También, si role_id es 1, se puede mostrar otra pestaña, por ejemplo "Reservas" */}
+          {(decodedToken && decodedToken?.role_id === 1) ||
+            (decodedToken?.role_id === 4 && (
+              <li>
+                <Link to='/dashboard/reservas' className='hover:text-gray-300'>
+                  Reservas
+                </Link>
+              </li>
+            ))}
         </ul>
 
         {/* Sección Derecha (versión escritorio): íconos + dropdown de usuario */}
@@ -142,7 +150,7 @@ const DashboardNavbar = () => {
               Programas
             </Link>
           </li>
-         
+
           <li>
             <Link to='/planes' className='block hover:text-gray-300'>
               Planes
@@ -168,17 +176,25 @@ const DashboardNavbar = () => {
               </Link>
             </li>
           )}
-          {/* Versión móvil: botón "Reservas" si role_id es 1 */}
-          {decodedToken && decodedToken.role_id === 1 ||  decodedToken?.role_id === 4 &&  (
+          {decodedToken && decodedToken.role_id === 1 && (
             <li>
-              <Link
-                to='/dashboard/reservas'
-                className='block hover:text-gray-300'>
+              <Link to='/dashboard/reservas' className='hover:text-gray-300'>
                 Reservas
               </Link>
             </li>
           )}
-        
+          {/* Versión móvil: botón "Reservas" si role_id es 1 */}
+          {(decodedToken && decodedToken?.role_id === 1) ||
+            (decodedToken?.role_id === 4 && (
+              <li>
+                <Link
+                  to='/dashboard/reservas'
+                  className='block hover:text-gray-300'>
+                  Reservas
+                </Link>
+              </li>
+            ))}
+
           <li>
             <button
               onClick={handleLogout}

@@ -23,6 +23,7 @@ const Calendario = () => {
   const selectedEvent = useCalendarStore((state) => state.selectedEvent);
   const setSelectedEvent = useCalendarStore((state) => state.setSelectedEvent);
   const fetchEvents = useCalendarStore((state) => state.fetchEvents);
+  console.log(events);
 
   useEffect(() => {
     fetchEvents();
