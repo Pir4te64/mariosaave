@@ -8,7 +8,7 @@ const RestablecerPassword = () => {
   const navigate = useNavigate();
   // Obtenemos el token directamente de la URL (/reset-password/:token)
   const { token: urlToken } = useParams();
-
+  console.log(urlToken);
   const [nuevaClave, setNuevaClave] = useState("");
   const [confirmarClave, setConfirmarClave] = useState("");
   const [mensaje, setMensaje] = useState("");
