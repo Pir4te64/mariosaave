@@ -1,20 +1,34 @@
 // src/components/RestablecerPassword.jsx
-import React, { useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { APIURL } from "../utils/api";
 
 const RestablecerPassword = () => {
   const navigate = useNavigate();
-  // Obtenemos el token directamente de la URL (/reset-password/:token)
-  const { token: urlToken } = useParams();
-  console.log(urlToken);
   const [nuevaClave, setNuevaClave] = useState("");
   const [confirmarClave, setConfirmarClave] = useState("");
   const [mensaje, setMensaje] = useState("");
+  const [token, setToken] = useState("");
+
+  useEffect(() => {
+    // Obtener el token de la URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const tokenFromUrl = urlParams.get("token");
+    if (tokenFromUrl) {
+      setToken(tokenFromUrl);
+    } else {
+      setMensaje("Token no encontrado en la URL");
+    }
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!token) {
+      setMensaje("Token no válido");
+      return;
+    }
 
     if (nuevaClave !== confirmarClave) {
       setMensaje("Las contraseñas no coinciden");
@@ -23,7 +37,7 @@ const RestablecerPassword = () => {
 
     try {
       await axios.post(APIURL.resetear_clave, {
-        token: urlToken,
+        token,
         nuevaClave,
         confirmarClave,
       });
@@ -51,7 +65,9 @@ const RestablecerPassword = () => {
         {mensaje && (
           <p
             className={`mb-4 ${
-              mensaje.includes("Error") ? "text-red-500" : "text-green-500"
+              mensaje.includes("Error") || mensaje.includes("no")
+                ? "text-red-500"
+                : "text-green-500"
             }`}
           >
             {mensaje}
