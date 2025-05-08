@@ -14,4 +14,5 @@ export const APIURL = {
   listar_roles: `${BASE_URL}rol`,
   listar_por_rol: `${BASE_URL}usuario/rol/`,
   perfil: `${BASE_URL}perfil`,
+  restablecer_password: `${BASE_URL}usuario/`,
 };

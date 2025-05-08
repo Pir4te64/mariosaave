@@ -7,9 +7,7 @@ const RecuperarContrasena = () => {
       {/* Contenedor principal */}
       <div className="w-full max-w-md bg-neutral-900 p-8 rounded-lg shadow-md">
         {/* Título */}
-        <h2 className="text-2xl font-semibold text-white mb-2">
-          Recuperar contraseña
-        </h2>
+        <h2 className="text-2xl font-semibold text-white mb-2">Enviar Email</h2>
 
         {/* Texto descriptivo */}
         <p className="text-gray-400 mb-6">

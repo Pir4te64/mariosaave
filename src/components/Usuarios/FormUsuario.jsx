@@ -6,10 +6,10 @@ import { defaultUserData } from "@/components/Usuarios/initialValues";
 import useFetchProfile from "@/components/Usuarios/useFetchProfile";
 import Swal from "sweetalert2";
 
-import PersonalInfoSection from "./PersonalInfoSection";
-import PlanSelectSection from "./PlanSelectSection";
-import BodyMeasurementsSection from "./BodyMeasurementsSection";
-import RoleSelectSection from "./RoleSelectSection";
+import PersonalInfoSection from "@/components/Usuarios/PersonalInfoSection";
+import PlanSelectSection from "@/components/Usuarios/PlanSelectSection";
+import BodyMeasurementsSection from "@/components/Usuarios/BodyMeasurementsSection";
+import RoleSelectSection from "@/components/Usuarios/RoleSelectSection";
 
 const FormUsuario = ({
   userIndex,

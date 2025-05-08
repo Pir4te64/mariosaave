@@ -9,7 +9,6 @@ import Testimonios from "@/pages/Testimonios";
 import Registrate from "@/pages/Registrate";
 import Login from "@/pages/Login";
 import RestablecerPassword from "@/pages/RestablecerPassword";
-import ConfirmarPassword from "@/pages/ConfirmarPassword";
 import PrivateRoute from "@/Routes/PrivateRoute";
 import Dashboard from "@/pages/Dashboard/Dashboard";
 import DashboardLayout from "@/pages/Dashboard/DashBoardLayout";
@@ -23,27 +22,28 @@ import MiPlan from "@/pages/Dashboard/MiPlan";
 import HorariosPage from "@/pages/Dashboard/Dash/Horarios";
 import Reservas from "@/components/Reservas/Reservas";
 import UsuariosPage from "@/pages/Dashboard/Usuarios";
+import RecuperarContrasena from "@/pages/RecuperarContrasena";
 
 function App() {
   return (
     <Routes>
       {/* Rutas públicas envueltas en Layout público */}
-      <Route path='/' element={<Layout />}>
+      <Route path="/" element={<Layout />}>
         <Route index element={<Inicio />} />
-        <Route path='contacto' element={<Contacto />} />
-        <Route path='nosotros' element={<Nosotros />} />
-        <Route path='planes' element={<Planes />} />
-        <Route path='servicios' element={<Servicios />} />
-        <Route path='testimonios' element={<Testimonios />} />
-        <Route path='registrate' element={<Registrate />} />
-        <Route path='login' element={<Login />} />
-        <Route path='restablacerpassword' element={<RestablecerPassword />} />
-        <Route path='confirmarpassword' element={<ConfirmarPassword />} />
+        <Route path="contacto" element={<Contacto />} />
+        <Route path="nosotros" element={<Nosotros />} />
+        <Route path="planes" element={<Planes />} />
+        <Route path="servicios" element={<Servicios />} />
+        <Route path="testimonios" element={<Testimonios />} />
+        <Route path="registrate" element={<Registrate />} />
+        <Route path="login" element={<Login />} />
+        <Route path="restablacerpassword" element={<RestablecerPassword />} />
+        <Route path="confirmarpassword" element={<RecuperarContrasena />} />
       </Route>
 
       {/* Rutas privadas envueltas en PrivateRoute y DashboardLayout */}
       <Route
-        path='/dashboard'
+        path="/dashboard"
         element={
           <PrivateRoute>
             <DashboardLayout>
@@ -55,7 +55,7 @@ function App() {
         }
       />
       <Route
-        path='/dashboard/calendario'
+        path="/dashboard/calendario"
         element={
           <PrivateRoute>
             <DashboardLayout>
@@ -66,7 +66,7 @@ function App() {
         }
       />
       <Route
-        path='/dashboard/programas'
+        path="/dashboard/programas"
         element={
           <PrivateRoute>
             <DashboardLayout>
@@ -77,7 +77,7 @@ function App() {
         }
       />
       <Route
-        path='/dashboard/retos'
+        path="/dashboard/retos"
         element={
           <PrivateRoute>
             <DashboardLayout>
@@ -87,7 +87,7 @@ function App() {
         }
       />
       <Route
-        path='/dashboard/blog'
+        path="/dashboard/blog"
         element={
           <PrivateRoute>
             <DashboardLayout>
@@ -97,7 +97,7 @@ function App() {
         }
       />
       <Route
-        path='/dashboard/soporte'
+        path="/dashboard/soporte"
         element={
           <PrivateRoute>
             <DashboardLayout>
@@ -107,7 +107,7 @@ function App() {
         }
       />
       <Route
-        path='/blog/:id'
+        path="/blog/:id"
         element={
           <PrivateRoute>
             <DashboardLayout>
@@ -117,7 +117,7 @@ function App() {
         }
       />
       <Route
-        path='/dashboard/miplan'
+        path="/dashboard/miplan"
         element={
           <PrivateRoute>
             <DashboardLayout>
@@ -127,7 +127,7 @@ function App() {
         }
       />
       <Route
-        path='/dashboard/horarios'
+        path="/dashboard/horarios"
         element={
           <PrivateRoute>
             <DashboardLayout>
@@ -137,7 +137,7 @@ function App() {
         }
       />
       <Route
-        path='/dashboard/reservas'
+        path="/dashboard/reservas"
         element={
           <PrivateRoute>
             <DashboardLayout>
@@ -147,7 +147,7 @@ function App() {
         }
       />
       <Route
-        path='/dashboard/usuarios'
+        path="/dashboard/usuarios"
         element={
           <PrivateRoute>
             <DashboardLayout>

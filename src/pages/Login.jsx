@@ -75,63 +75,65 @@ const Login = () => {
   };
 
   return (
-    <div className='flex items-center justify-center min-h-screen bg-black'>
-      <div className='w-full max-w-md bg-neutral-900 p-8 rounded-lg shadow-md'>
-        <h2 className='text-3xl text-white mb-6 text-left'>¡Bienvenido!</h2>
+    <div className="flex items-center justify-center min-h-screen bg-black">
+      <div className="w-full max-w-md bg-neutral-900 p-8 rounded-lg shadow-md">
+        <h2 className="text-3xl text-white mb-6 text-left">¡Bienvenido!</h2>
 
-        <form onSubmit={handleSubmit} className='space-y-6'>
+        <form onSubmit={handleSubmit} className="space-y-6">
           <div>
-            <label className='block text-gray-300 mb-1'>Correo</label>
+            <label className="block text-gray-300 mb-1">Correo</label>
             <input
-              type='email'
+              type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className='w-full p-2 bg-neutral-800 text-white border border-neutral-700 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500'
-              placeholder='Ingresa tu correo'
+              className="w-full p-2 bg-neutral-800 text-white border border-neutral-700 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              placeholder="Ingresa tu correo"
               required
             />
           </div>
 
           <div>
-            <label className='block text-gray-300 mb-1'>Contraseña</label>
+            <label className="block text-gray-300 mb-1">Contraseña</label>
             <input
-              type='password'
+              type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className='w-full p-2 bg-neutral-800 text-white border border-neutral-700 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500'
-              placeholder='Ingresa tu contraseña'
+              className="w-full p-2 bg-neutral-800 text-white border border-neutral-700 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              placeholder="Ingresa tu contraseña"
               required
             />
           </div>
 
-          <div className='flex items-center justify-between'>
-            <label className='flex items-center text-gray-400'>
+          <div className="flex items-center justify-between">
+            <label className="flex items-center text-gray-400">
               <input
-                type='checkbox'
-                className='mr-2'
+                type="checkbox"
+                className="mr-2"
                 checked={remember}
                 onChange={(e) => setRemember(e.target.checked)}
               />
               Recordar contraseña
             </label>
             <Link
-              to='/restablacerpassword'
-              className='text-greenmusgo hover:underline text-sm'>
+              to="/confirmarpassword"
+              className="text-greenmusgo hover:underline text-sm"
+            >
               ¿Olvidaste tu contraseña?
             </Link>
           </div>
 
           <button
-            type='submit'
-            className='w-full bg-greenmusgo text-white py-2 rounded-md hover:bg-softYellow hover:text-black transition duration-300'>
+            type="submit"
+            className="w-full bg-greenmusgo text-white py-2 rounded-md hover:bg-softYellow hover:text-black transition duration-300"
+          >
             Enviar información
           </button>
         </form>
 
-        <div className='text-center mt-4'>
-          <p className='text-greenmusgo'>
+        <div className="text-center mt-4">
+          <p className="text-greenmusgo">
             ¿No tienes una cuenta?{" "}
-            <Link to='/registrate' className='hover:underline'>
+            <Link to="/registrate" className="hover:underline">
               Regístrate Ahora
             </Link>
           </p>
