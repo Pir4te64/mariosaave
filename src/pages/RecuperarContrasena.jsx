@@ -1,7 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import { APIURL } from "../utils/api";
 
 const RecuperarContrasena = () => {
+  const [email, setEmail] = useState("");
+  const [mensaje, setMensaje] = useState("");
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post(APIURL.solicitar_recuperacion, {
+        email,
+      });
+      setMensaje("Se han enviado las instrucciones a tu correo electrónico");
+    } catch (error) {
+      setMensaje("Error al enviar el correo. Por favor, intenta nuevamente.");
+    }
+  };
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-black p-4">
       {/* Contenedor principal */}
@@ -15,16 +32,30 @@ const RecuperarContrasena = () => {
           enviaremos las instrucciones para restablecer tu contraseña.
         </p>
 
+        {/* Mensaje de estado */}
+        {mensaje && (
+          <p
+            className={`mb-4 ${
+              mensaje.includes("Error") ? "text-red-500" : "text-green-500"
+            }`}
+          >
+            {mensaje}
+          </p>
+        )}
+
         {/* Formulario */}
-        <form className="space-y-4">
+        <form className="space-y-4" onSubmit={handleSubmit}>
           {/* Campo de correo */}
           <div>
             <label className="block text-gray-300 mb-1">Correo</label>
             <input
               type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               className="w-full p-2 bg-neutral-800 text-white border border-neutral-700 
                          rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder="Ingresa tu usuario"
+              placeholder="Ingresa tu correo electrónico"
+              required
             />
           </div>
 
@@ -34,7 +65,7 @@ const RecuperarContrasena = () => {
             className="w-full bg-greenmusgo text-white py-2 rounded-md 
                        hover:bg-softYellow hover:text-black transition duration-300"
           >
-            Enviar instrucciones
+            Enviar recuperación
           </button>
         </form>
 

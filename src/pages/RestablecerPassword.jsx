@@ -1,63 +1,98 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
+// src/components/RestablecerPassword.jsx
+import React, { useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import axios from "axios";
+import { APIURL } from "../utils/api";
 
 const RestablecerPassword = () => {
   const navigate = useNavigate();
+  // Obtenemos el token directamente de la URL (/reset-password/:token)
+  const { token: urlToken } = useParams();
 
-  const handleSubmit = (e) => {
+  const [nuevaClave, setNuevaClave] = useState("");
+  const [confirmarClave, setConfirmarClave] = useState("");
+  const [mensaje, setMensaje] = useState("");
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Lógica para enviar nueva contraseña
-    alert("Tu contraseña ha sido restablecida.");
+
+    if (nuevaClave !== confirmarClave) {
+      setMensaje("Las contraseñas no coinciden");
+      return;
+    }
+
+    try {
+      await axios.post(APIURL.resetear_clave, {
+        token: urlToken,
+        nuevaClave,
+        confirmarClave,
+      });
+      setMensaje("Contraseña actualizada exitosamente");
+      setTimeout(() => {
+        navigate("/login");
+      }, 2000);
+    } catch (error) {
+      console.error("Error al actualizar la contraseña:", error);
+      setMensaje("Error al actualizar la contraseña");
+    }
   };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-black p-4">
       <div className="w-full max-w-md bg-neutral-900 p-8 rounded-lg shadow-md">
-        {/* Título */}
         <h2 className="text-3xl font-semibold text-white mb-2">
           Restablecer contraseña
         </h2>
-
-        {/* Descripción */}
         <p className="text-gray-400 mb-6 leading-relaxed">
-          Cambia tu contraseña. <br /> Gracias por confirmar tu cuenta. Ingresa
-          una nueva contraseña.
+          Cambia tu contraseña. Gracias por confirmar tu cuenta. Ingresa una
+          nueva contraseña.
         </p>
 
-        {/* Formulario */}
+        {mensaje && (
+          <p
+            className={`mb-4 ${
+              mensaje.includes("Error") ? "text-red-500" : "text-green-500"
+            }`}
+          >
+            {mensaje}
+          </p>
+        )}
+
         <form onSubmit={handleSubmit} className="space-y-4">
-          {/* Contraseña */}
           <div>
             <label className="block text-gray-300 mb-1">Contraseña</label>
             <input
               type="password"
+              value={nuevaClave}
+              onChange={(e) => setNuevaClave(e.target.value)}
               className="w-full p-2 bg-neutral-800 text-white border border-neutral-700 
                          rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="Ingresa tu nueva contraseña"
+              required
             />
           </div>
 
-          {/* Confirmar Contraseña */}
           <div>
             <label className="block text-gray-300 mb-1">
               Confirmar Contraseña
             </label>
             <input
               type="password"
+              value={confirmarClave}
+              onChange={(e) => setConfirmarClave(e.target.value)}
               className="w-full p-2 bg-neutral-800 text-white border border-neutral-700 
                          rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="Confirma tu nueva contraseña"
+              required
             />
           </div>
 
-          {/* Requisitos de contraseña (opcional) */}
           <ul className="text-gray-500 text-sm list-disc list-inside space-y-1 mt-2">
             <li>Contiene mínimo 8 caracteres</li>
             <li>Incluye al menos una mayúscula</li>
             <li>Incluye caracteres alfanuméricos</li>
           </ul>
 
-          {/* Botón de cambiar contraseña */}
           <button
             type="submit"
             className="w-full bg-greenmusgo text-white py-2 rounded-md
