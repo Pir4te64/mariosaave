@@ -11,8 +11,8 @@ const Horarios = () => {
   const [horarios, setHorarios] = useState([]);
   const [newHorario, setNewHorario] = useState({
     fecha: "",
-    hora_inicio: "00:00",
-    hora_fin: "00:00",
+    fecha_inicio: "00:00",
+    fecha_fin: "00:00",
     isActive: false,
   });
   const [editingHorario, setEditingHorario] = useState(null);
@@ -86,7 +86,7 @@ const Horarios = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!isValidTimeRange(newHorario.hora_inicio, newHorario.hora_fin)) {
+    if (!isValidTimeRange(newHorario.fecha_inicio, newHorario.fecha_fin)) {
       Swal.fire({
         icon: "error",
         title: "Error en la hora",
@@ -94,11 +94,28 @@ const Horarios = () => {
       });
       return;
     }
+
     const decoded = JSON.parse(localStorage.getItem("decodedToken") || "null");
+
+    // Crear fechas con zona horaria
+    const fecha = new Date(newHorario.fecha);
+    const [horaInicio, minutoInicio] = newHorario.fecha_inicio.split(":");
+    const [horaFin, minutoFin] = newHorario.fecha_fin.split(":");
+
+    // Ajustar las horas a la fecha
+    fecha.setHours(parseInt(horaInicio), parseInt(minutoInicio));
+    const fechaInicio = fecha.toISOString();
+
+    fecha.setHours(parseInt(horaFin), parseInt(minutoFin));
+    const fechaFin = fecha.toISOString();
+
     const payload = {
-      ...newHorario,
       profesor_id: decoded?.id,
+      fecha_inicio: fechaInicio,
+      fecha_fin: fechaFin,
+      isActive: newHorario.isActive,
     };
+
     axios
       .post(APIURL.horarios, payload, {
         headers: {
@@ -115,12 +132,19 @@ const Horarios = () => {
         });
         setNewHorario({
           fecha: "",
-          hora_inicio: "00:00",
-          hora_fin: "00:00",
+          fecha_inicio: "00:00",
+          fecha_fin: "00:00",
           isActive: false,
         });
       })
-      .catch((err) => console.error("Error al crear horario:", err));
+      .catch((err) => {
+        console.error("Error al crear horario:", err);
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: "Hubo un error al crear el horario.",
+        });
+      });
   };
 
   // Manejadores de eliminación
@@ -178,7 +202,7 @@ const Horarios = () => {
   const handleUpdateSubmit = (e) => {
     e.preventDefault();
     if (
-      !isValidTimeRange(editingHorario.hora_inicio, editingHorario.hora_fin)
+      !isValidTimeRange(editingHorario.fecha_inicio, editingHorario.fecha_fin)
     ) {
       Swal.fire({
         icon: "error",

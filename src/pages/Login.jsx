@@ -4,6 +4,7 @@ import useStoreLogin from "@/Routes/useStore";
 import { APIURL } from "@/utils/api";
 import Swal from "sweetalert2";
 import { jwtDecode } from "jwt-decode";
+
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -22,9 +23,9 @@ const Login = () => {
         body: JSON.stringify({ email, password }),
       });
 
-      if (response.ok) {
-        const data = await response.json();
+      const data = await response.json();
 
+      if (response.ok) {
         // Guardamos el token recibido
         if (remember) {
           localStorage.setItem("token", data.token);
@@ -36,9 +37,6 @@ const Login = () => {
         const decodedToken = jwtDecode(data.token);
 
         // Guardamos el token deserializado en el storage correspondiente
-        localStorage.setItem("decodedToken", JSON.stringify(decodedToken));
-        localStorage.setItem("token", data.token);
-
         if (remember) {
           localStorage.setItem("decodedToken", JSON.stringify(decodedToken));
           localStorage.setItem("isAuthenticated", "true");
@@ -51,25 +49,36 @@ const Login = () => {
         Swal.fire({
           icon: "success",
           title: "Éxito",
-          text: "Inicio de sesión exitoso",
+          text: data.message || "Inicio de sesión exitoso",
           timer: 1500,
           showConfirmButton: false,
         }).then(() => {
           navigate("/dashboard");
         });
       } else {
-        Swal.fire({
-          icon: "error",
-          title: "Error",
-          text: "Correo o contraseña incorrectos.",
-        });
+        // Manejar el caso de cuenta desactivada
+        if (data.error === "Cuenta desactivada. Contacte al administrador.") {
+          Swal.fire({
+            icon: "warning",
+            title: "Cuenta Desactivada",
+            text: data.error,
+            confirmButtonText: "Entendido",
+            confirmButtonColor: "#3085d6",
+          });
+        } else {
+          Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: data.message || "Correo o contraseña incorrectos.",
+          });
+        }
       }
     } catch (error) {
       console.error("Error al enviar datos:", error);
       Swal.fire({
         icon: "error",
         title: "Error",
-        text: "Error al enviar datos.",
+        text: "Error al conectar con el servidor.",
       });
     }
   };

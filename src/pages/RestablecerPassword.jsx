@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { APIURL } from "../utils/api";
+import Swal from "sweetalert2";
 
 const RestablecerPassword = () => {
   const navigate = useNavigate();
@@ -42,9 +43,18 @@ const RestablecerPassword = () => {
         confirmarClave,
       });
       setMensaje("Contraseña actualizada exitosamente");
-      setTimeout(() => {
-        navigate("/login");
-      }, 2000);
+
+      // Mostrar SweetAlert2 antes de redirigir
+      await Swal.fire({
+        icon: "success",
+        title: "¡Contraseña actualizada!",
+        text: "Tu contraseña ha sido actualizada exitosamente. Serás redirigido al login.",
+        timer: 2000,
+        timerProgressBar: true,
+        showConfirmButton: false,
+      });
+
+      navigate("/login");
     } catch (error) {
       console.error("Error al actualizar la contraseña:", error);
       setMensaje("Error al actualizar la contraseña");

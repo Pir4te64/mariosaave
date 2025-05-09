@@ -13,9 +13,15 @@ const RecuperarContrasena = () => {
       const response = await axios.post(APIURL.solicitar_recuperacion, {
         email,
       });
-      setMensaje("Se han enviado las instrucciones a tu correo electrónico");
+      setMensaje(
+        response.data.message ||
+          "Se han enviado las instrucciones a tu correo electrónico"
+      );
     } catch (error) {
-      setMensaje("Error al enviar el correo. Por favor, intenta nuevamente.");
+      setMensaje(
+        error.response?.data?.message ||
+          "Error al enviar el correo. Por favor, intenta nuevamente."
+      );
     }
   };
 
@@ -36,7 +42,9 @@ const RecuperarContrasena = () => {
         {mensaje && (
           <p
             className={`mb-4 ${
-              mensaje.includes("Error") ? "text-red-500" : "text-green-500"
+              mensaje.toLowerCase().includes("error")
+                ? "text-red-500"
+                : "text-green-500"
             }`}
           >
             {mensaje}
