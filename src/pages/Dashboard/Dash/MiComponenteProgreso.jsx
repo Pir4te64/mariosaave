@@ -35,7 +35,7 @@ const MiComponenteProgreso = ({ onClick }) => {
         <img
           src={apuntandoImg}
           alt="Apuntando"
-          className="h-full w-auto object-contain transition-transform group-hover:scale-105"
+          className="h-full w-auto object-contain transition-transform"
         />
         {/* Gradiente inferior: blanco → transparente */}
         <div
