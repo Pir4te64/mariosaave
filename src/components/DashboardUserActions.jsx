@@ -30,7 +30,7 @@ const DashboardUserActions = ({
 
   // Obtiene las notificaciones de reservas pendientes
   useEffect(() => {
-    const token = localStorage.getItem("token");
+    const token = sessionStorage.getItem("token");
 
     if (token) {
       axios
@@ -52,20 +52,20 @@ const DashboardUserActions = ({
   }, []);
 
   return (
-    <div className='hidden md:flex items-center space-x-4'>
+    <div className='hidden items-center space-x-4 md:flex'>
       {/* Ícono de campana con submenu de notificaciones */}
       <div className='relative'>
         <button
           onClick={toggleNotifications}
-          className='hover:text-gray-300 relative'>
-          <Bell className='w-6 h-6' />
+          className='relative hover:text-gray-300'>
+          <Bell className='h-6 w-6' />
           {/* Muestra un punto si hay notificaciones pendientes y el menú está cerrado */}
           {notifications.length > 0 && !showNotifications && (
-            <span className='absolute top-0 right-0 block w-2 h-2 bg-red-500 rounded-full'></span>
+            <span className='absolute right-0 top-0 block h-2 w-2 rounded-full bg-red-500'></span>
           )}
         </button>
         {showNotifications && (
-          <div className='absolute right-0 mt-2 w-64 bg-white text-gray-800 shadow-lg rounded-md z-10'>
+          <div className='absolute right-0 z-10 mt-2 w-64 rounded-md bg-white text-gray-800 shadow-lg'>
             {notifications.length > 0 ? (
               <ul className='py-1'>
                 {notifications.map((notification, index) => {
@@ -79,7 +79,7 @@ const DashboardUserActions = ({
                       key={index}
                       onClick={handleNotificationClick}
                       className='cursor-pointer px-4 py-2 hover:bg-greenmusgo hover:text-white'>
-                      <span className='text-yellow-600 font-semibold'>
+                      <span className='font-semibold text-yellow-600'>
                         {displayName}
                       </span>{" "}
                       - {notification.estado}
@@ -99,17 +99,17 @@ const DashboardUserActions = ({
         <img
           src={avatar}
           alt='Foto del usuario'
-          className='h-8 w-8 rounded-full cursor-pointer'
+          className='h-8 w-8 cursor-pointer rounded-full'
           onClick={toggleDropdown}
         />
         {dropdownOpen && (
-          <div className='absolute right-0 mt-2 w-48 bg-white text-gray-800 shadow-lg rounded-md z-10'>
+          <div className='absolute right-0 z-10 mt-2 w-48 rounded-md bg-white text-gray-800 shadow-lg'>
             <ul className='py-1'>
             
               <li>
                 <button
                   onClick={handleLogout}
-                  className='block w-full text-left px-4 py-2 hover:bg-greenmusgo hover:text-white'>
+                  className='block w-full px-4 py-2 text-left hover:bg-greenmusgo hover:text-white'>
                   Salir
                 </button>
               </li>

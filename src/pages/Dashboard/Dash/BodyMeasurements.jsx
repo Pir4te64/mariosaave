@@ -16,11 +16,11 @@ const BodyMeasurements = () => {
   const cuello = profile ? profile.cuello : "N/A";
 
   return (
-    <div className='bg-white rounded-md shadow-lg p-4'>
+    <div className='rounded-md p-4'>
       {/* Encabezado con ícono y título */}
-      <div className='flex items-center mb-4'>
-        <div className='w-10 h-10 rounded-full bg-[#99A98F] flex items-center justify-center mr-3'>
-          <GiFootprint className='text-white w-5 h-5' />
+      <div className='mb-4 flex items-center'>
+        <div className='mr-3 flex h-10 w-10 items-center justify-center rounded-full bg-[#99A98F]'>
+          <GiFootprint className='h-5 w-5 text-white' />
         </div>
         <h2 className='text-lg font-bold'>Medidas corporales</h2>
       </div>

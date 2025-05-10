@@ -95,7 +95,7 @@ const Horarios = () => {
       return;
     }
 
-    const decoded = JSON.parse(localStorage.getItem("decodedToken") || "null");
+    const decoded = JSON.parse(sessionStorage.getItem("decodedToken") || "null");
 
     // Crear fechas con zona horaria
     const fecha = new Date(newHorario.fecha);
@@ -104,10 +104,15 @@ const Horarios = () => {
 
     // Ajustar las horas a la fecha
     fecha.setHours(parseInt(horaInicio), parseInt(minutoInicio));
-    const fechaInicio = fecha.toISOString();
+    const timezoneOffset = -fecha.getTimezoneOffset();
+    const timezoneHours = Math.floor(Math.abs(timezoneOffset) / 60);
+    const timezoneMinutes = Math.abs(timezoneOffset) % 60;
+    const timezoneSign = timezoneOffset >= 0 ? '+' : '-';
+    const timezoneString = `${timezoneSign}${String(timezoneHours).padStart(2, '0')}:${String(timezoneMinutes).padStart(2, '0')}`;
+    const fechaInicio = fecha.toISOString().slice(0, -1) + timezoneString;
 
     fecha.setHours(parseInt(horaFin), parseInt(minutoFin));
-    const fechaFin = fecha.toISOString();
+    const fechaFin = fecha.toISOString().slice(0, -1) + timezoneString;
 
     const payload = {
       profesor_id: decoded?.id,
@@ -236,28 +241,28 @@ const Horarios = () => {
 
   return (
     <div className="container mx-auto px-4 py-6">
-      <h2 className="text-2xl font-bold text-gray-800 mb-4">
+      <h2 className="mb-4 text-2xl font-bold text-gray-800">
         Lista de Horarios
       </h2>
 
       {horarios.length > 0 ? (
         <div className="overflow-x-auto">
-          <table className="min-w-full bg-white shadow-md rounded-lg">
+          <table className="min-w-full rounded-lg bg-white shadow-md">
             <thead className="bg-gray-100">
               <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">
                   Fecha
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">
                   Hora Inicio
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">
                   Hora Fin
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">
                   Activo
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">
                   Acciones
                 </th>
               </tr>
@@ -265,19 +270,19 @@ const Horarios = () => {
             <tbody className="divide-y divide-gray-200">
               {horarios.map((horario) => (
                 <tr key={horario.id}>
-                  <td className="px-6 py-4 whitespace-nowrap">
+                  <td className="whitespace-nowrap px-6 py-4">
                     {formatLocalDate(horario.fecha_inicio)}
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
+                  <td className="whitespace-nowrap px-6 py-4">
                     {formatLocalTime(horario.fecha_inicio)}
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
+                  <td className="whitespace-nowrap px-6 py-4">
                     {formatLocalTime(horario.fecha_fin)}
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
+                  <td className="whitespace-nowrap px-6 py-4">
                     {horario.isActive ? "Sí" : "No"}
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap flex gap-2">
+                  <td className="flex gap-2 whitespace-nowrap px-6 py-4">
                     <button
                       onClick={() => handleEditClick(horario)}
                       className="text-blue-500 hover:text-blue-700"

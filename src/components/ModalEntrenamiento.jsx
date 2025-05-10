@@ -22,7 +22,7 @@ const ModalEntrenamiento = ({ setIsModalOpen, users }) => {
   // useEffect para obtener la lista de profesores
   useEffect(() => {
     const fetchProfesores = async () => {
-      const token = localStorage.getItem("token");
+      const token = sessionStorage.getItem("token");
       try {
         const response = await axios.get(`${APIURL.profesor}`, {
           headers: {
@@ -59,6 +59,13 @@ const ModalEntrenamiento = ({ setIsModalOpen, users }) => {
     const startDate = new Date(year, month - 1, day, hourVal, minute);
     const endDate = new Date(startDate.getTime() + 60 * 60 * 1000); // Duración de 1 hora
 
+    // Obtener la zona horaria del navegador
+    const timezoneOffset = -startDate.getTimezoneOffset();
+    const timezoneHours = Math.floor(Math.abs(timezoneOffset) / 60);
+    const timezoneMinutes = Math.abs(timezoneOffset) % 60;
+    const timezoneSign = timezoneOffset >= 0 ? '+' : '-';
+    const timezoneString = `${timezoneSign}${String(timezoneHours).padStart(2, '0')}:${String(timezoneMinutes).padStart(2, '0')}`;
+
     // Validar que la fecha seleccionada no sea anterior a hoy (se ignora la hora para la validación)
     const todayStart = moment().startOf("day");
     if (moment(startDate).isBefore(todayStart)) {
@@ -72,7 +79,7 @@ const ModalEntrenamiento = ({ setIsModalOpen, users }) => {
 
     // Obtener el alumno_id del token decodificado almacenado en localStorage
     let alumno_id = null;
-    const decodedTokenStr = localStorage.getItem("decodedToken");
+    const decodedTokenStr = sessionStorage.getItem("decodedToken");
     if (decodedTokenStr) {
       try {
         const decodedToken = JSON.parse(decodedTokenStr);
@@ -91,8 +98,8 @@ const ModalEntrenamiento = ({ setIsModalOpen, users }) => {
       nivel_experiencia: nivelExperiencia,
       objetivo_entrenamiento: objetivoEntrenamiento,
       condiciones_medicas: condicionesMedicas,
-      fecha_inicio: moment(startDate).format("YYYY-MM-DDTHH:mm:ss") + ".00z",
-      fecha_fin: moment(endDate).format("YYYY-MM-DDTHH:mm:ss") + ".00z",
+      fecha_inicio: moment(startDate).format("YYYY-MM-DDTHH:mm:ss") + timezoneString,
+      fecha_fin: moment(endDate).format("YYYY-MM-DDTHH:mm:ss") + timezoneString,
       alumno_id,
       profesor_id: selectedProfesorId,
       summary: objetivoEntrenamiento + profe,
@@ -100,7 +107,7 @@ const ModalEntrenamiento = ({ setIsModalOpen, users }) => {
     console.log("Payload:", payload);
 
     // Obtener el token del localStorage para la petición
-    const token = localStorage.getItem("token");
+    const token = sessionStorage.getItem("token");
 
     try {
       const response = await axios.post(APIURL.reservas, payload, {
@@ -120,6 +127,7 @@ const ModalEntrenamiento = ({ setIsModalOpen, users }) => {
           showConfirmButton: false,
         }).then(() => {
           setIsModalOpen(false);
+          window.location.reload();
         });
       } else {
         throw new Error("Respuesta no válida");
@@ -129,16 +137,15 @@ const ModalEntrenamiento = ({ setIsModalOpen, users }) => {
 
       Swal.fire({
         icon: "error",
-        title: "Error",
-        text: "Error al crear el evento.",
+        title: error.response.data.error,
       });
     }
   };
 
   return (
-    <div className='fixed inset-0 bg-black bg-opacity-50 flex z-50 justify-center items-center p-4'>
-      <div className='bg-white rounded-lg shadow-lg p-6 w-full max-w-md sm:max-w-lg md:max-w-xl max-h-[90vh] overflow-y-auto'>
-        <h2 className='text-lg sm:text-xl font-semibold mb-4'>
+    <div className='fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 p-4'>
+      <div className='max-h-[90vh] w-full max-w-md overflow-y-auto rounded-lg bg-white p-6 shadow-lg sm:max-w-lg md:max-w-xl'>
+        <h2 className='mb-4 text-lg font-semibold sm:text-xl'>
           Agendar Evento
         </h2>
         <div className='grid grid-cols-1 gap-4'>
@@ -148,7 +155,7 @@ const ModalEntrenamiento = ({ setIsModalOpen, users }) => {
               Nivel de experiencia (opcional)
             </label>
             <select
-              className='w-full border rounded-lg p-2'
+              className='w-full rounded-lg border p-2'
               value={nivelExperiencia}
               onChange={(e) => setNivelExperiencia(e.target.value)}>
               <option value=''>Selecciona un nivel</option>
@@ -164,7 +171,7 @@ const ModalEntrenamiento = ({ setIsModalOpen, users }) => {
               Objetivo del entrenamiento (opcional)
             </label>
             <select
-              className='w-full border rounded-lg p-2'
+              className='w-full rounded-lg border p-2'
               value={objetivoEntrenamiento}
               onChange={(e) => setObjetivoEntrenamiento(e.target.value)}>
               <option value=''>Selecciona un objetivo</option>
@@ -199,7 +206,7 @@ const ModalEntrenamiento = ({ setIsModalOpen, users }) => {
               Condiciones médicas o lesiones relevantes (opcional)
             </label>
             <select
-              className='w-full border rounded-lg p-2'
+              className='w-full rounded-lg border p-2'
               value={condicionesMedicas}
               onChange={(e) => setCondicionesMedicas(e.target.value)}>
               <option value=''>Selecciona una condición</option>
@@ -222,7 +229,7 @@ const ModalEntrenamiento = ({ setIsModalOpen, users }) => {
           <div>
             <label className='block text-sm font-medium'>Profesores *</label>
             <select
-              className='w-full border rounded-lg p-2'
+              className='w-full rounded-lg border p-2'
               value={selectedProfesorId || ""}
               onChange={(e) => setSelectedProfesorId(Number(e.target.value))}>
               <option value=''>Selecciona un profesor</option>
@@ -239,7 +246,7 @@ const ModalEntrenamiento = ({ setIsModalOpen, users }) => {
             <label className='block text-sm font-medium'>Fecha *</label>
             <input
               type='date'
-              className='w-full border rounded-lg p-2'
+              className='w-full rounded-lg border p-2'
               value={fecha}
               onChange={(e) => setFecha(e.target.value)}
               min={todayDate}
@@ -249,25 +256,46 @@ const ModalEntrenamiento = ({ setIsModalOpen, users }) => {
           {/* Campo: Hora */}
           <div>
             <label className='block text-sm font-medium'>Hora *</label>
-            <input
-              type='time'
-              className='w-full border rounded-lg p-2'
-              value={hora}
-              onChange={(e) => setHora(e.target.value)}
-            />
+            <div className="flex gap-2">
+              <select
+                className='w-1/2 rounded-lg border p-2'
+                value={hora.split(':')[0] || '00'}
+                onChange={(e) => {
+                  const minutes = hora.split(':')[1] || '00';
+                  setHora(`${e.target.value}:${minutes}`);
+                }}
+              >
+                {Array.from({ length: 24 }, (_, i) => 
+                  String(i).padStart(2, '0')
+                ).map(hour => (
+                  <option key={hour} value={hour}>{hour}</option>
+                ))}
+              </select>
+              <select
+                className='w-1/2 rounded-lg border p-2'
+                value={hora.split(':')[1] || '00'}
+                onChange={(e) => {
+                  const hours = hora.split(':')[0] || '00';
+                  setHora(`${hours}:${e.target.value}`);
+                }}
+              >
+                <option value="00">00</option>
+                <option value="30">30</option>
+              </select>
+            </div>
           </div>
         </div>
 
         {/* Botones de acción */}
-        <div className='flex flex-col sm:flex-row justify-end gap-2 mt-4'>
+        <div className='mt-4 flex flex-col justify-end gap-2 sm:flex-row'>
           <button
             onClick={() => setIsModalOpen(false)}
-            className='px-4 py-2 border rounded-lg text-gray-700 hover:bg-gray-200'>
+            className='rounded-lg border px-4 py-2 text-gray-700 hover:bg-gray-200'>
             Cancelar
           </button>
           <button
             onClick={handleGuardar}
-            className='px-4 py-2 bg-greenmusgo text-white rounded-lg hover:bg-softYellow hover:text-black'>
+            className='rounded-lg bg-greenmusgo px-4 py-2 text-white hover:bg-softYellow hover:text-black'>
             Guardar
           </button>
         </div>

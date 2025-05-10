@@ -7,7 +7,7 @@ import { defaultUserData } from "@/components/Usuarios/initialValues";
 const useFetchProfile = (userId, userIndex, setUserData) => {
   useEffect(() => {
     if (userId) {
-      const token = localStorage.getItem("token");
+      const token = sessionStorage.getItem("token");
       axios
         .get(`${APIURL.perfil}/${userId}`, {
           headers: { Authorization: `Bearer ${token}` },

@@ -7,10 +7,10 @@ const useReservas = () => {
 
   // Obtención del token desde localStorage o sessionStorage
   const token =
-    localStorage.getItem("token") || sessionStorage.getItem("token");
+    sessionStorage.getItem("token");
 
   // Obtiene el token decodificado (almacenado como string) y lo parsea
-  const userString = localStorage.getItem("decodedToken");
+  const userString = sessionStorage.getItem("decodedToken");
   const user = userString ? JSON.parse(userString) : null;
 
   // Selecciona el endpoint en función del role_id (o perfil_id)

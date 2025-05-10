@@ -14,7 +14,7 @@ const DashboardNavbar = () => {
 
   // Obtención del token decodificado almacenado en localStorage o sessionStorage
   useEffect(() => {
-    let storedDecoded = localStorage.getItem("decodedToken");
+    let storedDecoded = sessionStorage.getItem("decodedToken");
     if (!storedDecoded) {
       storedDecoded = sessionStorage.getItem("decodedToken");
     }
@@ -34,15 +34,13 @@ const DashboardNavbar = () => {
   const handleLogout = () => {
     setIsAuthenticated(false);
     logout();
-    localStorage.removeItem("token");
-    localStorage.removeItem("decodedToken");
     sessionStorage.removeItem("token");
     sessionStorage.removeItem("decodedToken");
   };
 
   return (
-    <nav className='bg-black text-white p-4'>
-      <div className='max-w-7xl mx-auto px-4 py-2 flex items-center justify-between'>
+    <nav className='bg-black p-4 text-white'>
+      <div className='mx-auto flex max-w-7xl items-center justify-between px-4 py-2'>
         {/* Sección Izquierda: Logo / Marca */}
         <div className='flex items-center space-x-2'>
           <Link to='/dashboard'>
@@ -51,7 +49,7 @@ const DashboardNavbar = () => {
         </div>
 
         {/* Menú de navegación (versión escritorio) */}
-        <ul className='hidden md:flex space-x-6'>
+        <ul className='hidden space-x-6 md:flex'>
           <li>
             <Link to='/dashboard' className='hover:text-gray-300'>
               Inicio
@@ -112,7 +110,7 @@ const DashboardNavbar = () => {
         <div className='md:hidden'>
           <button onClick={toggleMenu} className='focus:outline-none'>
             <svg
-              className='w-6 h-6'
+              className='h-6 w-6'
               fill='none'
               stroke='currentColor'
               strokeWidth={2}
@@ -130,7 +128,7 @@ const DashboardNavbar = () => {
         className={`md:hidden bg-black px-4 transition-all duration-300 overflow-hidden ${
           isOpen ? "max-h-[500px] opacity-100" : "max-h-0 opacity-0"
         }`}>
-        <ul className='space-y-2 mt-2'>
+        <ul className='mt-2 space-y-2'>
           <li>
             <Link to='/dashboard' className='block hover:text-gray-300'>
               Inicio

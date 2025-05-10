@@ -1,19 +1,36 @@
 import React from "react";
 import { GiFootprint } from "react-icons/gi";
 
-const Grasa = () => {
+const Grasa = ({ porcentaje = 45 }) => {
   return (
-    <div className="bg-white rounded-lg p-4 flex flex-col items-center justify-center gap-2 h-full">
-      {/* Fila con icono y label "Peso" */}
-      <div className="flex items-center gap-2">
-        <div className="w-10 h-10 rounded-full bg-[#99A98F] flex items-center justify-center">
-          <GiFootprint className="text-white w-5 h-5" />
+    <div className="t ransition-transform flex h-full flex-col items-center gap-4 rounded-2xl p-6 hover:scale-[1.02]">
+      {/* Encabezado con icono */}
+      <div className="flex items-center gap-3">
+        <div className="rounded-full bg-gradient-to-br from-[#99A98F] to-[#99A98F] p-3">
+          <GiFootprint className="h-6 w-6 text-white" />
         </div>
-        <h3 className="font-semibold text-lg">Grasa corporal</h3>
+        <h3 className="text-xl font-semibold text-gray-800">
+          Grasa corporal
+        </h3>
       </div>
 
-      {/* Texto debajo */}
-      <p className="text-gray-600 text-sm">Grasa Corporal: 45%</p>
+      {/* Valor grande */}
+      <span className="text-4xl font-bold text-[#99A98F]">
+        {porcentaje}%
+      </span>
+
+      {/* Mini progress bar */}
+      <div className="w-full max-w-[120px]">
+        <div className="h-2 w-full rounded-full bg-gray-200">
+          <div
+            className="h-2 rounded-full bg-[#99A98F]"
+            style={{ width: `${porcentaje}%` }}
+          />
+        </div>
+      </div>
+
+      {/* Leyenda */}
+      <p className="text-sm text-gray-500">Porcentaje de grasa corporal</p>
     </div>
   );
 };

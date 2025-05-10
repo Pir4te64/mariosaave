@@ -1,24 +1,30 @@
 import React from "react";
 import { GiFootprint } from "react-icons/gi";
-import useProfileStore from "@/pages/Dashboard/Profile/useProfileStore"; // Ajusta la ruta según tu estructura
+import useProfileStore from "@/pages/Dashboard/Profile/useProfileStore";
 
 const PesoCard = () => {
-  // Obtén el perfil desde el estado global
   const profile = useProfileStore((state) => state.profile);
-  // Extrae el peso en kg, o usa un valor por defecto si no está disponible
-  const pesoKg = profile && profile.peso ? profile.peso : "N/A";
+  const pesoKg = profile?.peso ?? null;
 
   return (
-    <div className='bg-white rounded-lg p-4 flex flex-col items-center justify-center gap-2 h-full'>
-      {/* Fila con icono y label "Peso" */}
-      <div className='flex items-center gap-2'>
-        <div className='w-10 h-10 rounded-full bg-[#99A98F] flex items-center justify-center'>
-          <GiFootprint className='text-white w-5 h-5' />
+    <div className="flex h-full flex-col items-center gap-4 rounded-2xl p-6 transition-transform hover:scale-[1.02]">
+      {/* Cabecera con icono y título */}
+      <div className="flex items-center gap-3">
+        <div className="rounded-full bg-gradient-to-br from-[#99A98F] to-[#99A98F] p-3">
+          <GiFootprint className="h-6 w-6 text-white" />
         </div>
-        <h3 className='font-semibold text-lg'>Peso</h3>
+        <h3 className="text-xl font-semibold text-gray-800">Peso</h3>
       </div>
-      {/* Texto debajo con el peso en kg */}
-      <p className='text-gray-600 text-sm'>{`Peso en kg: ${pesoKg}`}</p>
+
+      {/* Valor principal */}
+      <span className="text-4xl font-bold text-gray-800">
+        {pesoKg !== null ? pesoKg : "N/A"}
+      </span>
+
+      {/* Unidad o fallback */}
+      <p className="text-sm text-gray-500">
+        {pesoKg !== null ? "kg" : "Peso no disponible"}
+      </p>
     </div>
   );
 };

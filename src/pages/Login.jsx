@@ -28,7 +28,7 @@ const Login = () => {
       if (response.ok) {
         // Guardamos el token recibido
         if (remember) {
-          localStorage.setItem("token", data.token);
+          sessionStorage.setItem("token", data.token);
         } else {
           sessionStorage.setItem("token", data.token);
         }
@@ -84,30 +84,30 @@ const Login = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-black">
-      <div className="w-full max-w-md bg-neutral-900 p-8 rounded-lg shadow-md">
-        <h2 className="text-3xl text-white mb-6 text-left">¡Bienvenido!</h2>
+    <div className="flex min-h-screen items-center justify-center bg-black">
+      <div className="w-full max-w-md rounded-lg bg-neutral-900 p-8 shadow-md">
+        <h2 className="mb-6 text-left text-3xl text-white">¡Bienvenido!</h2>
 
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
-            <label className="block text-gray-300 mb-1">Correo</label>
+            <label className="mb-1 block text-gray-300">Correo</label>
             <input
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full p-2 bg-neutral-800 text-white border border-neutral-700 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full rounded-md border border-neutral-700 bg-neutral-800 p-2 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="Ingresa tu correo"
               required
             />
           </div>
 
           <div>
-            <label className="block text-gray-300 mb-1">Contraseña</label>
+            <label className="mb-1 block text-gray-300">Contraseña</label>
             <input
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full p-2 bg-neutral-800 text-white border border-neutral-700 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full rounded-md border border-neutral-700 bg-neutral-800 p-2 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="Ingresa tu contraseña"
               required
             />
@@ -125,7 +125,7 @@ const Login = () => {
             </label>
             <Link
               to="/confirmarpassword"
-              className="text-greenmusgo hover:underline text-sm"
+              className="text-sm text-greenmusgo hover:underline"
             >
               ¿Olvidaste tu contraseña?
             </Link>
@@ -133,13 +133,13 @@ const Login = () => {
 
           <button
             type="submit"
-            className="w-full bg-greenmusgo text-white py-2 rounded-md hover:bg-softYellow hover:text-black transition duration-300"
+            className="w-full rounded-md bg-greenmusgo py-2 text-white transition duration-300 hover:bg-softYellow hover:text-black"
           >
             Enviar información
           </button>
         </form>
 
-        <div className="text-center mt-4">
+        <div className="mt-4 text-center">
           <p className="text-greenmusgo">
             ¿No tienes una cuenta?{" "}
             <Link to="/registrate" className="hover:underline">

@@ -20,7 +20,7 @@ const useCalendarStore = create((set) => ({
 
   // Acción para obtener y transformar los eventos
   fetchEvents: async () => {
-    const token = localStorage.getItem("token");
+    const token = sessionStorage.getItem("token");
     try {
       const response = await axios.get(APIURL.reservas, {
         headers: { Authorization: `Bearer ${token}` },

@@ -1,75 +1,52 @@
-import React, { useEffect } from "react";
-import axios from "axios";
-import GreetingCard from "@/pages/Dashboard/Dash/GreetingCard";
-import UserProfileSidebar from "@/pages/Dashboard/Dash/UserProfileSidebar ";
-import PesoCard from "@/pages/Dashboard/Dash/PesoCard";
-import Grasa from "@/pages/Dashboard/Dash/GrasaCorporal";
-import BodyMeasurements from "@/pages/Dashboard/Dash/BodyMeasurements";
-import ActivityChart from "@/pages/Dashboard/Dash/ActivityChart";
-import ScheduledClasses from "@/pages/Dashboard/Dash/ScheduledClasses";
-import ProcessPhotos from "@/pages/Dashboard/Dash/ProcessPhotos";
-import useProfileStore from "@/pages/Dashboard/Profile/useProfileStore";
-import { APIURL } from "@/utils/api";
+import React, { useMemo } from 'react';
+import GreetingCard from '@/pages/Dashboard/Dash/GreetingCard';
+import PesoCard from '@/pages/Dashboard/Dash/PesoCard';
+import Grasa from '@/pages/Dashboard/Dash/GrasaCorporal';
+import BodyMeasurements from '@/pages/Dashboard/Dash/BodyMeasurements';
+import MiComponenteProgreso from '@/pages/Dashboard/Dash/MiComponenteProgreso';
+import UserProfileSidebar from './Dash/UserProfileSidebar ';
 
 const Dashboard = () => {
-  // Obtén la función para actualizar el perfil desde el store
-  const setProfile = useProfileStore((state) => state.setProfile);
-
-  useEffect(() => {
-    // Obtén el token del localStorage
-    const token = localStorage.getItem("token");
-
-    // Realiza la petición GET al endpoint, enviando el token en los headers
-    axios
-      .get(APIURL.perfil_me, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((response) => {
-        // Guarda los datos del perfil en el estado global usando zustand
-        setProfile(response.data);
-      })
-      .catch((error) => {
-        console.error("Error al obtener el perfil:", error);
-      });
-  }, [setProfile]);
+  // orden de las tarjetas: Peso, Grasa, Medidas, Progreso
+  const cards = useMemo(
+    () => [
+      { key: 'peso', Comp: PesoCard },
+      { key: 'grasa', Comp: Grasa },
+      { key: 'medidas', Comp: BodyMeasurements },
+      { key: 'progreso', Comp: MiComponenteProgreso },
+    ],
+    []
+  );
 
   return (
-    <div className='min-h-screen bg-gray-100 p-6 flex flex-col md:flex-row gap-4'>
-      {/* Main Content */}
-      <div className='flex-1 grid grid-cols-1 md:grid-cols-3 gap-4'>
-        {/* Caja 1: Componente de bienvenida */}
-        <div className='col-span-1 md:col-span-3'>
+    <div className="flex min-h-screen flex-col gap-6 bg-gray-100 p-6 lg:flex-row">
+      {/* MAIN: 2 columnas en sm+ */}
+      <main className="grid w-full auto-rows-min grid-cols-1 items-start gap-6 sm:grid-cols-2 lg:flex-1">
+        {/* Greeting: ocupa ambas columnas */}
+        <div className="col-span-full">
           <GreetingCard />
         </div>
 
-        {/* Caja 2 */}
-        <div className='col-span-1 bg-white rounded-md shadow-lg flex-row flex justify-around items-center'>
-          <PesoCard />
-          <Grasa />
-        </div>
+        {/* Mapeo de las 4 tarjetas */}
+        {cards.map(({ key, Comp }, idx) => (
+          <div
+            key={key}
+            className="h-full rounded-2xl bg-white p-6 shadow-md transition-shadow hover:shadow-lg"
+          >
+            {/* Para Progreso pasamos el onClick si lo necesitas */}
+            {key === 'progreso' ? (
+              <Comp onClick={() => {/* tu handler */}} />
+            ) : (
+              <Comp />
+            )}
+          </div>
+        ))}
+      </main>
 
-        {/* Caja 3 */}
-        <div className='col-span-1 md:col-span-2 rounded-lg'>
-          <BodyMeasurements />
-        </div>
-
-        {/* Caja 4 */}
-
-        {/* Caja 5 */}
-        <div className='col-span-1 md:col-span-2'>
-          <ScheduledClasses />
-        </div>
-
-        {/* Caja 6 */}
-        <div className='col-span-1 h-full bg-white shadow-sm rounded-lg'>
-          <ProcessPhotos />
-        </div>
-      </div>
-
-      {/* Sidebar */}
-      <UserProfileSidebar />
+      {/* SIDEBAR: full width en móvil, ancho fijo en lg */}
+      <aside className="w-full lg:w-80">
+        <UserProfileSidebar />
+      </aside>
     </div>
   );
 };

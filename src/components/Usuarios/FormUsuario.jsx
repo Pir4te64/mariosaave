@@ -69,7 +69,7 @@ const FormUsuario = ({
     e.preventDefault();
 
     /* 1 ▸ Header con token */
-    const token = localStorage.getItem("token");
+    const token = sessionStorage.getItem("token");
     const headers = { Authorization: `Bearer ${token}` };
 
     /* 2 ▸ Armar el payload del endpoint /register         */
@@ -126,7 +126,7 @@ const FormUsuario = ({
 
   /* 5 ▸ Render */
   return (
-    <div className="max-w-4xl mx-auto p-4 md:p-6 bg-white shadow rounded-lg">
+    <div className="mx-auto max-w-4xl rounded-lg bg-white p-4 shadow md:p-6">
       <form onSubmit={handleSubmit}>
         <PersonalInfoSection
           userData={userData}
@@ -151,13 +151,13 @@ const FormUsuario = ({
         />
 
         {/* Activo */}
-        <div className="flex items-center mb-8">
+        <div className="mb-8 flex items-center">
           <input
             type="checkbox"
             name="isActive"
             checked={userData.isActive === true}  // ← SOLO true literal marca
             onChange={handleInputChange}
-            className="mr-2 h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
+            className="mr-2 h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
           />
 
 
@@ -168,7 +168,7 @@ const FormUsuario = ({
         <div className="flex justify-end">
           <button
             type="submit"
-            className="px-6 py-2 bg-indigo-600 text-white font-semibold rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition duration-150"
+            className="rounded-md bg-indigo-600 px-6 py-2 font-semibold text-white transition duration-150 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
           >
             Guardar
           </button>
