@@ -11,7 +11,7 @@ const MiComponenteProgreso = ({ onClick }) => {
     >
       {/* Degradado de hover */}
       <div
-        className="absolute -inset-px rounded-2xl bg-gradient-to-r from-green-400 to-green-600 opacity-0 transition-opacity group-hover:opacity-20"
+        className="absolute -inset-px rounded-2xl bg-gradient-to-r opacity-0 transition-opacity group-hover:opacity-20"
       />
 
       {/* Columna de texto */}
@@ -30,12 +30,16 @@ const MiComponenteProgreso = ({ onClick }) => {
         </a>
       </div>
 
-      {/* Columna de imagen */}
-      <div className="z-10 flex flex-1 items-center justify-center">
+      {/* Columna de imagen con overlay de degradado */}
+      <div className="relative z-10 flex flex-1 items-center justify-center overflow-hidden">
         <img
           src={apuntandoImg}
           alt="Apuntando"
           className="h-full w-auto object-contain transition-transform group-hover:scale-105"
+        />
+        {/* Gradiente inferior: blanco → transparente */}
+        <div
+          className="pointer-events-none absolute bottom-0 left-0 h-1/3 w-full bg-gradient-to-t from-white to-transparent"
         />
       </div>
     </button>
