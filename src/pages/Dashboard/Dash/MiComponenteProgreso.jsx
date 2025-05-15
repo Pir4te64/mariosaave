@@ -1,6 +1,6 @@
 import React from 'react';
 import { FaWhatsapp } from "react-icons/fa";
-import apuntandoImg from '@/assets/apuntando.png';
+import apuntandoImg from '@/assets/Apuntando.png';
 
 const MiComponenteProgreso = ({ onClick }) => {
   return (
