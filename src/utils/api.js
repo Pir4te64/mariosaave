@@ -16,4 +16,5 @@ export const APIURL = {
   perfil: `${BASE_URL}perfil`,
   solicitar_recuperacion: `${BASE_URL}usuario/solicitar-recuperacion`,
   resetear_clave: `${BASE_URL}usuario/resetear-clave`,
+  eliminar_usuario: `${BASE_URL}usuario/`,
 };

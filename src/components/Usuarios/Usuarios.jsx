@@ -8,8 +8,7 @@ const Usuarios = () => {
   // Por defecto se setea el rol "3"
   const [selectedRole, setSelectedRole] = useState("3");
   const [users, setUsers] = useState([]);
-  const token = localStorage.getItem("token");
-
+  const token = sessionStorage.getItem("token");
   // Función para volver a obtener el listado de usuarios por rol
   const refreshUsers = () => {
     if (selectedRole) {
@@ -55,13 +54,13 @@ const Usuarios = () => {
   return (
     <div className='container mx-auto px-4 py-6'>
       {/* Encabezado: título y selector de roles */}
-      <div className='mb-6 flex flex-col sm:flex-row items-center justify-between'>
-        <h1 className='text-3xl font-bold text-gray-800 mb-4 sm:mb-0'>
+      <div className='mb-6 flex flex-col items-center justify-between sm:flex-row'>
+        <h1 className='mb-4 text-3xl font-bold text-gray-800 sm:mb-0'>
           Usuarios
         </h1>
         <div className='w-full sm:w-auto'>
           <select
-            className='w-full sm:w-64 p-2 border border-gray-300 rounded shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500'
+            className='w-full rounded border border-gray-300 p-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 sm:w-64'
             value={selectedRole}
             onChange={handleRoleChange}
           >
