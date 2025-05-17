@@ -17,4 +17,5 @@ export const APIURL = {
   solicitar_recuperacion: `${BASE_URL}usuario/solicitar-recuperacion`,
   resetear_clave: `${BASE_URL}usuario/resetear-clave`,
   eliminar_usuario: `${BASE_URL}usuario/`,
+  eliminar_reserva: `${BASE_URL}reservas/`,
 };
