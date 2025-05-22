@@ -15,9 +15,9 @@ const PlanSelectSection = ({ userData, handleInputChange }) => (
         >
             <option value="">Seleccione un plan</option>
             <option value="Plan Básico">Plan Básico</option>
-            <option value="Plan Estándar">Plan Together</option>
-            <option value="Plan Premium">Plan Squad</option>
-            <option value="Plan Plus">Plan Personal</option>
+            <option value="Plan Together">Plan Together</option>
+            <option value="Plan Squad">Plan Squad</option>
+            <option value="Plan Personal">Plan Personal</option>
         </select>
     </div>
 );
